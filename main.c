@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:16:21 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/02 18:06:09 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/10/02 20:21:54 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ int	main(int ac, char **av)
 {	
 	t_cube	cube;
 
-	if (1) return(parse_map(&cube, ac, av), free_gb(&cube.collector), 0); //parsing in working..
+	if (1) return(ft_putnbr(parse_map(&cube, ac, av)), free_gb(&cube.collector), 0); //parsing in working..
 	// printf("image is on screen\n");
 	if (cube_init(&cube))
 		return (1);
