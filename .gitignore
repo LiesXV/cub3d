@@ -2,5 +2,3 @@ cube3D
 *.o
 libft/*.o
 libft/*.a
-maps
-maps/*
