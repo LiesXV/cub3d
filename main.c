@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:16:21 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/02 20:21:54 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/10/02 22:54:35 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	cube_init(t_cube *cube)
 			       1, 0, 4, 0, 1,
 			       1, 0, 0, 0, 1, 
 			       1, 1, 1, 1, 1};
+	cube->map = malloc(sizeof(t_map) * 1);
 	cube->map->map = map;
 	cube->map->height = 5;
 	cube->map->len = 5;
@@ -124,11 +125,11 @@ int	renderer(t_cube *cube)
 }
 
 
-int	main(int ac, char **av)
+int	main(void)
 {	
 	t_cube	cube;
 
-	if (1) return(ft_putnbr(parse_map(&cube, ac, av)), free_gb(&cube.collector), 0); //parsing in working..
+	// if (1) return(ft_putnbr(parse_map(&cube, ac, av)), free_gb(&cube.collector), 0); //parsing in working..
 	// printf("image is on screen\n");
 	if (cube_init(&cube))
 		return (1);
