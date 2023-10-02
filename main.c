@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:16:21 by lmorel            #+#    #+#             */
-/*   Updated: 2023/09/29 23:10:35 by lmorel           ###   ########.fr       */
+/*   Updated: 2023/10/02 14:53:15 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -127,9 +127,8 @@ int	main(int ac, char **av)
 {	
 	t_cube	cube;
 
-	(void)ac;
-	(void)av;
-	
+	if (1) return (parse_map(ac, av));
+	printf("image is on screen\n");
 	if (cube_init(&cube))
 		return (1);
 	renderer(&cube);
