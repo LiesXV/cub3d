@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:02:38 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/07/26 23:30:00 by lmorel           ###   ########.fr       */
+/*   Updated: 2023/10/02 19:36:20 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int				ft_isalnum(int c);
 int				ft_isascii(int c);
 int				ft_isprint(int c);
 size_t			ft_strlen(const char *s);
-char			*ft_strchr(const char *s, int c);
+char			*ft_strchr(char *s, int c);
 char			*ft_strrchr(const char *s, int c);
 size_t			ft_strlcat(char *dst, const char *src, size_t dstsize);
 size_t			ft_strlcpy(char *dst, const char *src, size_t size);

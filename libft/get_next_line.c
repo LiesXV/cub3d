@@ -6,105 +6,89 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 11:29:35 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/03/10 11:47:27 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/10/02 19:39:29 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*ft_free(char *stach, char *buf)
+static char	*get_stash(char *stash)
 {
-	char	*temp;
+	int		i;
+	int		j;
+	char	*new_stash;
 
-	temp = ft_strjoin(stach, buf);
-	return (free(stach), temp);
-}
-
-char	*read_file(int fd, char *buf, char *stach)
-{
-	int		bytes_read;
-
-	if (!stach)
-		stach = ft_calloc(1, 1);
-	buf = ft_calloc(BUFFER_SIZE + 1, sizeof(char));
-	bytes_read = 1;
-	while (!ft_strchr(buf, '\n') && bytes_read > 0)
+	i = 0;
+	if (!stash)
+		return (NULL);
+	while (stash[i] && stash[i] != '\n')
+		i++;
+	if (stash[i] == '\0')
 	{
-		bytes_read = read(fd, buf, BUFFER_SIZE);
-		if (bytes_read == -1)
-			return (free(stach), free(buf), NULL);
-		buf[bytes_read] = 0;
-		stach = ft_free(stach, buf);
+		free(stash);
+		return (NULL);
 	}
-	return (free(buf), stach);
+	new_stash = ft_calloc((ft_strlen(stash) - i) + 1, sizeof(char));
+	if (!new_stash)
+		return (NULL);
+	i++;
+	j = 0;
+	while (stash[i])
+		new_stash[j++] = stash[i++];
+	free(stash);
+	return (new_stash);
 }
 
-char	*got_line(char	*stach)
+static char	*get_line(char *stash)
 {
 	int		i;
 	char	*line;
 
 	i = 0;
-	if (!stach[i])
+	if (!stash || !stash[0])
 		return (NULL);
-	while (stach[i] != '\n' && stach[i])
+	while (stash[i] && stash[i] != '\n')
 		i++;
-	line = ft_calloc(i + 2, sizeof(char));
+	if (stash[i] == '\n')
+		i++;
+	line = ft_calloc(i + 1, sizeof(char));
+	if (!line)
+		return (NULL);
 	i = 0;
-	while (stach[i] && stach[i] != '\n')
+	while (stash[i] && stash[i] != '\n')
 	{
-		line[i] = stach[i];
+		line[i] = stash[i];
 		i++;
 	}
-	if (stach[i] && stach[i] == '\n')
-		line[i++] = '\n';
+	if (stash[i] == '\n')
+		line[i] = '\n';
 	return (line);
-}
-
-char	*clean_stach(char	*stach)
-{
-	int		slen;
-	int		npos;
-	char	*line;
-
-	npos = 0;
-	while (stach[npos] != '\n' && stach[npos])
-		npos++;
-	if (!stach[npos])
-	{
-		free(stach);
-		return (NULL);
-	}
-	if (stach[npos] == '\n')
-		line = ft_calloc(ft_strlen(stach) - npos, sizeof(char));
-	else if (stach[npos] == 0)
-	{
-		line = ft_calloc(ft_strlen(stach) - npos + 2, sizeof(char));
-		npos++;
-	}
-	npos++;
-	slen = 0;
-	while (stach[npos])
-		line[slen++] = stach[npos++];
-	return (free(stach), line);
 }
 
 char	*get_next_line(int fd)
 {
-	static char	*stach = NULL;
-	char		buf[BUFFER_SIZE + 1];
+	int			i;
 	char		*line;
+	static char	*stash = NULL;
+	char		buffer[BUFFER_SIZE + 1];
 
+	line = NULL;
 	if (fd < 0 || read(fd, 0, 0) || BUFFER_SIZE <= 0)
+		return (NULL);
+	i = 1;
+	while (i > 0 && ft_strchr(stash, '\n') == 0)
 	{
-		free(stach);
-		stach = NULL;
-		return (NULL);
+		i = read(fd, buffer, BUFFER_SIZE);
+		if (i == -1)
+		{
+			free(stash);
+			stash = NULL;
+			return (NULL);
+		}
+		buffer[i] = '\0';
+		stash = ft_strfjoin(stash, buffer);
 	}
-	stach = read_file(fd, buf, stach);
-	if (stach == NULL)
-		return (NULL);
-	line = got_line(stach);
-	stach = clean_stach(stach);
+	line = get_line(stash);
+	stash = get_stash(stash);
 	return (line);
 }

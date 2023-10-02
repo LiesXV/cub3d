@@ -6,7 +6,7 @@
 #    By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/11/23 11:52:55 by ibenhaim          #+#    #+#              #
-#    Updated: 2023/09/09 17:29:25 by ibenhaim         ###   ########.fr        #
+#    Updated: 2023/10/02 16:25:36 by ibenhaim         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,7 @@ SRCS			= ft_isalpha.c ft_atoi.c ft_bzero.c ft_calloc.c ft_isdigit.c ft_isalnum.c
 				ft_strtrim.c ft_strncat.c ft_strmapi.c ft_striteri.c  ft_putchar_fd.c  ft_putstr_fd.c ft_putendl_fd.c \
 				ft_putnbr_fd.c ft_itoa.c ft_split.c ft_lstclear.c \
 				ft_lstsize.c ft_lstlast.c ft_lstadd_front.c ft_lstadd_back.c get_next_line.c ft_printf.c \
-				ft_putunsigned.c ft_utils.c ft_atoll.c ft_split_pipex.c ft_substr_pipex.c 
+				ft_putunsigned.c ft_utils.c ft_atoll.c ft_split_pipex.c ft_substr_pipex.c
 				
 				
 

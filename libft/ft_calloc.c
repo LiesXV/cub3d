@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/10 13:59:32 by ibenhaim          #+#    #+#             */
-/*   Updated: 2022/11/23 13:08:51 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/10/02 19:36:56 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,13 +14,19 @@
 
 void	*ft_calloc(size_t count, size_t size)
 {
-	unsigned char	*str;
+	char	*array;
+	size_t	i;
 
-	if (size == SIZE_MAX)
+	i = 0;
+	if (size > 0 && count > (SIZE_MAX / size))
 		return (NULL);
-	str = malloc(count * size);
-	if (str == NULL)
+	array = (char *)malloc(count * size);
+	if (!array)
 		return (NULL);
-	ft_bzero(str, count * size);
-	return (str);
+	while (i < count)
+	{
+		array[i] = '\0';
+		i++;
+	}
+	return (array);
 }

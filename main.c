@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:16:21 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/02 16:06:38 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/10/02 18:06:09 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,9 +30,9 @@ int	cube_init(t_cube *cube)
 			       1, 0, 4, 0, 1,
 			       1, 0, 0, 0, 1, 
 			       1, 1, 1, 1, 1};
-	cube->map = map;
-	cube->map_height = 5;
-	cube->map_len = 5;
+	cube->map->map = map;
+	cube->map->height = 5;
+	cube->map->len = 5;
 
 	// mlx initialisation
     cube->mlx = mlx_init();
@@ -41,17 +41,17 @@ int	cube_init(t_cube *cube)
 	cube->win = mlx_new_window(cube->mlx, WIN_WIDTH,  WIN_HEIGHT, NAME);
 	if (cube->win == NULL)
 		return (free(cube->mlx), 1);
-	
+
 	// image creation
 	t_img_data img;
 	img.img = NULL;
 	img.img = mlx_new_image(cube->mlx, WIN_WIDTH, WIN_HEIGHT);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
-	
+
 	cube->img_data = &img;
 	// values
-	cube->py = WIN_HEIGHT / 2;
-	cube->px = WIN_WIDTH / 2;
+	cube->player->y = WIN_HEIGHT / 2;
+	cube->player->x = WIN_WIDTH / 2;
 
 	printf("init done\n");
 	return (0);
@@ -69,7 +69,7 @@ void	img_square_put(t_img_data *img_data, int x, int y, int size, int color)
 {
 	int	y2;
 	int	x2;
-	
+
 	y2 = y;
 	while (y2 < y + size)
 	{
@@ -97,13 +97,13 @@ void	render_minmap(t_cube *cube)
 	
 
 	y = 0;
-	while (y < cube->map_height)
+	while (y < cube->map->height)
 	{
 		x = 0;
-		while (x < cube->map_len)
+		while (x < cube->map->len)
 		{
-			printf("map %d = %d\n", (y * cube->map_len) + x, map[(y * cube->map_len) + x]);
-			if (map[(y * cube->map_len) + x] == 1)
+			printf("map %d = %d\n", (y * cube->map->len) + x, map[(y * cube->map->len) + x]);
+			if (map[(y * cube->map->len) + x] == 1)
 			{
 				printf("asking square at : %d %d\n", x * size, y * size);
 				img_square_put(cube->img_data, x * size, y * size, size, 255);
@@ -123,11 +123,12 @@ int	renderer(t_cube *cube)
 	return (0);
 }
 
+
 int	main(int ac, char **av)
 {	
 	t_cube	cube;
 
-	if (1) return (parse_map(ac, av));
+	if (1) return(parse_map(&cube, ac, av), free_gb(&cube.collector), 0); //parsing in working..
 	// printf("image is on screen\n");
 	if (cube_init(&cube))
 		return (1);

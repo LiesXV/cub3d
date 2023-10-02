@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:22:59 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/02 16:00:47 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/10/02 19:02:08 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define CUBE_H
 
 // INCLUDES
+# include "mlx_linux/mlx.h"
 # include "../libft/libft.h"
 # include <fcntl.h>		//func : open
 # include <unistd.h>	//func : close, read, write
@@ -21,7 +22,6 @@
 # include <string.h>	//func : strerror
 # include <stdlib.h>	//func : malloc, free, exit
 # include <math.h>
-# include "mlx_linux/mlx.h"
 
 // PARAMS
 # define NAME "Cube3D"
@@ -29,6 +29,36 @@
 # define WIN_WIDTH 1000
 
 // STRUCTS
+typedef struct s_player
+{
+	float		x;		//player x pos
+	float		y;		//player y pos
+}	t_player;
+
+typedef struct s_textures
+{
+	char	*no;
+	char	*so;
+	char	*we;
+	char	*ea;
+}	t_textures;
+
+typedef struct s_map
+{
+	char		*pathname;
+	int			*map;
+	int			height;
+	int			len;
+
+	t_textures	*textures;
+}	t_map;
+
+typedef struct s_collector
+{
+	void				*address;
+	struct s_collector	*next;
+}	t_collector;
+
 typedef struct s_img_data
 {
 	void	*img;
@@ -42,14 +72,17 @@ typedef struct s_cube
 {
 	void		*mlx;
 	void		*win;
+	int			win_height;
+	int			win_width;
 	t_img_data	*img_data;
 
-	int			*map;
-	int			map_height;
-	int			map_len;
+	t_map		*map;
 
-	float		px;		//player x pos
-	float		py;		//player y pos
+	t_player	*player;
+
+	t_collector	*collector;
+
+	int			fd;
 }	t_cube;
 
 // KEYCODES
@@ -60,8 +93,11 @@ typedef struct s_cube
 # define KEY_D 100
 
 // PROTOTYPES
-int	keypress(int keycode, t_cube *cube);
-int	fexit(t_cube *cube);
-int	parse_map(int argc, char **argv);
+int		keypress(int keycode, t_cube *cube);
+int		fexit(t_cube *cube);
+int		parse_map(t_cube *cube, int argc, char **argv);
+void	free_gb(t_collector **lst);
+int		add_address(t_collector **lst, void *address);
+int		add_tab_to_gb(t_collector **lst, char **args);
 
 #endif

@@ -1,6 +1,6 @@
 NAME = cube3D
 
-SRCS =	main.c srcs/hooks.c srcs/parsing.c
+SRCS =	main.c srcs/hooks.c srcs/parsing.c srcs/garbage_collector.c
 
 OBJS = $(SRCS:.c=.o)
 
@@ -12,7 +12,8 @@ LFTNAME	= libft.a
 
 CC = gcc
 
-FLAGS = -Wall -Wextra -Werror -g3
+# FLAGS = -Wall -Wextra -Werror -O3 -Wno-deprecated-declarations
+FLAGS = -Wall -Werror -Wextra -Wno-deprecated-declarations -g3		-fsanitize=address 
 
 RM = rm -rf
 
@@ -24,7 +25,7 @@ all : $(NAME)
 $(NAME) : $(OBJS)
 	make -C libft
 	make -C mlx_linux
-	$(CC) $(OBJS) ${LIBFT}${LFTNAME} -Lmlx_linux -lmlx_Linux -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
+	$(CC) ${FLAGS} $(OBJS) ${LIBFT}${LFTNAME} -Lmlx_linux -lmlx_Linux -Imlx_linux -lXext -lX11 -lm -lz -o $(NAME)
 
 clean :
 	$(RM) $(OBJS)
