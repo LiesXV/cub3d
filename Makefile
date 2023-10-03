@@ -2,7 +2,7 @@ NAME = cube3D
 
 SRCS_DIR = srcs/
 
-SRCS =	main.c hooks.c parsing/parsing.c garbage_collector.c
+SRCS =	main.c hooks.c parsing/parsing.c garbage_collector.c parsing/check_args.c parsing/read_colors.c parsing/read_textures.c parsing/parse_map.c
 
 SRCS_FILES = $(addprefix $(SRCS_DIR), $(SRCS))
 

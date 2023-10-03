@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:22:59 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/03 11:08:34 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/10/03 13:37:54 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ typedef struct s_textures
 typedef struct s_map
 {
 	char		*pathname;
-	int			*map;
+	int			**map;
 	int			height;
 	int			len;
 
@@ -94,12 +94,23 @@ typedef struct s_cube
 # define KEY_S 115
 # define KEY_D 100
 
-// PROTOTYPES
-int		keypress(int keycode, t_cube *cube);
-int		fexit(t_cube *cube);
-int		parse_map(t_cube *cube, int argc, char **argv);
+// 					PROTOTYPES
+
+// UTILS
 void	free_gb(t_collector **lst);
 int		add_address(t_collector **lst, void *address);
 int		add_tab_to_gb(t_collector **lst, char **args);
+
+// EXEC
+int		keypress(int keycode, t_cube *cube);
+int		fexit(t_cube *cube);
+
+//	PARSING
+int		init_cube(t_cube *cube, int argc, char **argv);
+int		check_args(int argc, char **argv);
+int		only_spaces(char *str);
+int		parse_textures(t_cube *cube, char	**line);
+int		read_colors(t_cube *cube);
+int		parse_easy_map(t_cube *cube);
 
 #endif

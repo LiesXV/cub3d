@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:16:21 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/03 11:17:00 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/10/03 14:02:59 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,13 +25,13 @@ int	fexit(t_cube *cube)
 
 int	cube_init(t_cube *cube)
 {
-	int map[25] = {1, 1, 1, 1, 1,
-				   1, 0, 0, 0, 1, 
-			       1, 0, 4, 0, 1,
-			       1, 0, 0, 0, 1, 
-			       1, 1, 1, 1, 1};
-	cube->map = malloc(sizeof(t_map) * 1);
-	cube->map->map = map;
+	// int map[5][5] = {{1, 1, 1, 1, 1},
+	// 				{1, 0, 0, 0, 1},
+	// 				{1, 0, 4, 0, 1},
+	// 				{1, 0, 0, 0, 1},
+	// 				{1, 1, 1, 1, 1}};
+	// cube->map = malloc(sizeof(t_map) * 1);
+	// cube->map->map = map;
 	cube->map->height = 5;
 	cube->map->len = 5;
 
@@ -91,11 +91,11 @@ void	render_minmap(t_cube *cube)
 	int	x;
 	int	size = 50;
 	int map[25] = {1, 1, 1, 1, 1,
-				   1, 0, 0, 0, 1, 
+					1, 0, 0, 0, 1,
 			       1, 0, 4, 0, 1,
-			       1, 0, 0, 0, 1, 
+			       1, 0, 0, 0, 1,
 			       1, 1, 1, 1, 1};
-	
+
 
 	y = 0;
 	while (y < cube->map->height)
@@ -129,7 +129,8 @@ int	main(int ac, char **av)
 {
 	t_cube	cube;
 
-	if (1) return(ft_putnbr(parse_map(&cube, ac, av)), free_gb(&cube.collector), 0); //parsing in working..
+	if (init_cube(&cube, ac, av) == 1)
+		return (free_gb(&cube.collector), 1);
 	// printf("image is on screen\n");
 	if (cube_init(&cube))
 		return (1);
@@ -137,5 +138,6 @@ int	main(int ac, char **av)
 	mlx_key_hook(cube.win, keypress, &cube);
 	mlx_hook(cube.win, 17, 0, fexit, &cube);
 	mlx_loop(cube.mlx);
+	free_gb(&cube.collector); //parsing in working..
 	return (0);
 }
