@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:16:21 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/03 14:02:59 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/10/03 14:28:45 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,34 +25,24 @@ int	fexit(t_cube *cube)
 
 int	cube_init(t_cube *cube)
 {
-	// int map[5][5] = {{1, 1, 1, 1, 1},
-	// 				{1, 0, 0, 0, 1},
-	// 				{1, 0, 4, 0, 1},
-	// 				{1, 0, 0, 0, 1},
-	// 				{1, 1, 1, 1, 1}};
-	// cube->map = malloc(sizeof(t_map) * 1);
-	// cube->map->map = map;
-	cube->map->height = 5;
-	cube->map->len = 5;
-
 	// mlx initialisation
     cube->mlx = mlx_init();
 	if (cube->mlx == NULL)
 		return (1);
-	cube->win = mlx_new_window(cube->mlx, WIN_WIDTH,  WIN_HEIGHT, NAME);
+	cube->win = mlx_new_window(cube->mlx, cube->win_width, cube->win_height, NAME);
 	if (cube->win == NULL)
 		return (free(cube->mlx), 1);
 
 	// image creation
 	t_img_data img;
 	img.img = NULL;
-	img.img = mlx_new_image(cube->mlx, WIN_WIDTH, WIN_HEIGHT);
+	img.img = mlx_new_image(cube->mlx, cube->win_width, cube->win_height);
 	img.addr = mlx_get_data_addr(img.img, &img.bits_per_pixel, &img.line_length, &img.endian);
 
 	cube->img_data = &img;
 	// values
-	cube->player->y = WIN_HEIGHT / 2;
-	cube->player->x = WIN_WIDTH / 2;
+	cube->player->y = cube->win_height / 2;
+	cube->player->x = cube->win_width / 2;
 
 	printf("init done\n");
 	return (0);

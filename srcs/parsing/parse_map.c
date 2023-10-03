@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 12:23:04 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/10/03 14:10:01 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/10/03 14:30:51 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,13 @@ int	add_line_to_map(t_cube *cube, char *line, int i)
 	char	**split;
 
 	split = ft_split(line, ' ');
+	if (!split || add_tab_to_gb(&cube->collector, split) == 1)
+		return (ft_putstr_fd("malloc error\n", 2), 1);
 	j = 0;
 	cube->map->map[i] = malloc(sizeof(int) * 30);
+	if (!cube->map->map[i] \
+		|| add_address(&cube->collector, cube->map->map[i]) == 1)
+		return (ft_putstr_fd("malloc error\n", 2), 1);
 	while (split[j] && cube->map->map[i][j])
 	{
 		cube->map->map[i][j] = ft_atoi(split[j]);
@@ -81,6 +86,6 @@ int	parse_easy_map(t_cube *cube)
 		if (add_address(&cube->collector, line) == 1)
 			return (ft_putstr_fd("get_next_line error\n", 2), 1);
 	}
-	printmap(cube);
+	printmap(cube); //print map
 	return (0);
 }
