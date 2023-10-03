@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:22:59 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/02 19:02:08 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/10/03 11:08:34 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,8 @@ typedef struct s_textures
 	char	*so;
 	char	*we;
 	char	*ea;
+	char	*f;
+	char	*c;
 }	t_textures;
 
 typedef struct s_map

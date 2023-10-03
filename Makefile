@@ -1,8 +1,12 @@
 NAME = cube3D
 
-SRCS =	main.c srcs/hooks.c srcs/parsing.c srcs/garbage_collector.c
+SRCS_DIR = srcs/
 
-OBJS = $(SRCS:.c=.o)
+SRCS =	main.c hooks.c parsing/parsing.c garbage_collector.c
+
+SRCS_FILES = $(addprefix $(SRCS_DIR), $(SRCS))
+
+OBJS = $(SRCS_FILES:.c=.o)
 
 HDRS = cube.h
 

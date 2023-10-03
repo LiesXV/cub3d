@@ -1,11 +1,9 @@
 R 1920 1080
 NO ./textures/wall.jpg
+EA ./textures/wall.jpg
 SO ./textures/wall.jpg
 WE ./textures/wall.jpg
-EA ./textures/wall.jpg
 
-
-S ./path_to_the_sprite_texture
 F 220,100,0
 C 225,30,0
 

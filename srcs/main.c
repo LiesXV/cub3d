@@ -6,11 +6,11 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:16:21 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/02 22:54:35 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/10/03 11:17:00 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cube.h"
+#include "../cube.h"
 
 int	fexit(t_cube *cube)
 {
@@ -125,11 +125,11 @@ int	renderer(t_cube *cube)
 }
 
 
-int	main(void)
-{	
+int	main(int ac, char **av)
+{
 	t_cube	cube;
 
-	// if (1) return(ft_putnbr(parse_map(&cube, ac, av)), free_gb(&cube.collector), 0); //parsing in working..
+	if (1) return(ft_putnbr(parse_map(&cube, ac, av)), free_gb(&cube.collector), 0); //parsing in working..
 	// printf("image is on screen\n");
 	if (cube_init(&cube))
 		return (1);

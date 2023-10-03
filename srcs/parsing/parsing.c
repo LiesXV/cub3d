@@ -6,11 +6,11 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 14:34:06 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/10/02 14:34:06 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/10/03 11:17:09 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "../cube.h"
+#include "../../cube.h"
 
 int	finish_by_cub(char *path)
 {
@@ -18,12 +18,12 @@ int	finish_by_cub(char *path)
 	int		i;
 	char	*cub;
 
-	cub = "0buc.";
+	cub = "buc.";
 	pathlen = ft_strlen(path);
-	i = 1;
-	while (i < 5)
+	i = 0;
+	while (i < 4)
 	{
-		if (cub[i] != path[pathlen - i])
+		if (cub[i] != path[pathlen - 1 - i])
 			return (ft_putstr_fd("format allowed : \".cub\" \n", 2), 1);
 		i++;
 	}
@@ -61,7 +61,6 @@ int	fill_resolution(t_cube *cube, char **line)
 		return (ft_putstr_fd("too much resolution values\n", 2), 1);
 	if (cube->win_width != -1 || cube->win_height != -1)
 		return (ft_putstr_fd("you cannot put two times R values\n", 2), 1);
-	// printf("l\n");
 	while (line[1][i])
 	{
 		if (ft_isdigit(line[1][i]) == 0 || i == 4)
@@ -152,24 +151,53 @@ int	put_texture(t_cube *cube, char *pathname, int face)
 	return (0);
 }
 
+int	put_color(t_cube *cube, char *color, int face)
+{
+	if (face == 1)
+	{
+		if (cube->map->textures->f != NULL)
+			return (ft_putstr_fd("you cannot put two F color values\n", 2), 1);
+		cube->map->textures->f = ft_strdup(color);
+		if (!cube->map->textures->f \
+			|| add_address(&cube->collector, cube->map->textures->f) == 1)
+			return (ft_putstr_fd("malloc error\n", 2), 1);
+	}
+	else if (face == 2)
+	{
+		if (cube->map->textures->c != NULL)
+			return (ft_putstr_fd("you cannot put two C color values\n", 2), 1);
+		cube->map->textures->c = ft_strdup(color);
+		if (!cube->map->textures->c \
+			|| add_address(&cube->collector, cube->map->textures->c) == 1)
+			return (ft_putstr_fd("malloc error\n", 2), 1);
+	}
+	return (0);
+}
+
 int	fill_textures(t_cube *cube, char **line, int face)
 {
 	if (!line[1])
 		return (ft_putstr_fd("path is missing\n", 2), 1);
 	if (line[2])
 		return (ft_putstr_fd("too much textures values\n", 2), 1);
-	printf("%s\n", line[1]);
-	// if (access(line[1], F_OK) != 0)
-	// 	return (ft_putstr_fd("path non-valid\n", 2), 1);
 	if (put_texture(cube, line[1], face) == 1)
 		return (ft_putstr_fd("textures cannot be parsed\n", 2), 1);
 	return (0);
 }
 
+int	fill_colors(t_cube *cube, char **line, int face)
+{
+	if (!line[1])
+		return (ft_putstr_fd("color is missing\n", 2), 1);
+	if (line[2])
+		return (ft_putstr_fd("too much colors values\n", 2), 1);
+	if (put_color(cube, line[1], face) == 1)
+		return (ft_putstr_fd("colors cannot be parsed\n", 2), 1);
+	return (0);
+}
+
 int	parse_textures(t_cube *cube, char	**line)
 {
-	if (!ft_strncmp(line[0], "S", 2) != 0 && ft_strlen(line[0]) != 2)
-		return (ft_putstr_fd("map content should be at last\n", 2), 1);
 	if (!ft_strncmp(line[0], "F", 2) != 0 && ft_strlen(line[0]) != 2)
 		return (ft_putstr_fd("map content should be at last\n", 2), 1);
 	if (!ft_strncmp(line[0], "C", 2) != 0 && ft_strlen(line[0]) != 2)
@@ -187,6 +215,50 @@ int	parse_textures(t_cube *cube, char	**line)
 	return (ft_putstr_fd("unrecognized line while parsing\n", 2), 1);
 }
 
+int	parse_colors(t_cube *cube, char	**line)
+{
+	if (!ft_strncmp(line[0], "F", 2) != 0 && ft_strlen(line[0]) != 2)
+		return (fill_colors(cube, line, 1));
+	if (!ft_strncmp(line[0], "C", 2) != 0 && ft_strlen(line[0]) != 2)
+		return (fill_colors(cube, line, 2));
+	if (!ft_strncmp(line[0], "R", 2) != 0 && ft_strlen(line[0]) != 2)
+		return (ft_putstr_fd("resolution (R) values already gifted\n", 2), 1);
+	if (!ft_strncmp(line[0], "NO", 3) != 0 && ft_strlen(line[0]) != 3)
+		return (ft_putstr_fd("north (NO) values already gifted\n", 2), 1);
+	if (!ft_strncmp(line[0], "SO", 3) != 0 && ft_strlen(line[0]) != 3)
+		return (ft_putstr_fd("south (SO) values already gifted\n", 2), 1);
+	if (!ft_strncmp(line[0], "WE", 3) != 0 && ft_strlen(line[0]) != 3)
+		return (ft_putstr_fd("west (WE) values already gifted\n", 2), 1);
+	if (!ft_strncmp(line[0], "EA", 3) != 0 && ft_strlen(line[0]) != 3)
+		return (ft_putstr_fd("east (EA) values already gifted\n", 2), 1);
+	return (ft_putstr_fd("unrecognized line while parsing\n", 2), 1);
+}
+
+int	read_colors(t_cube *cube)
+{
+	int		i;
+	char	*line;
+	char	**split;
+
+	i = 0;
+	while (i < 2)
+	{
+		line = get_next_line(cube->fd);
+		if (!line || add_address(&cube->collector, line) == 1)
+			return (ft_putstr_fd("get_next_line error\n", 2), 1);
+		if (only_spaces(line) == 0)
+		{
+			split = ft_split(line, ' ');
+			if (!split || add_tab_to_gb(&cube->collector, split) == 1)
+				return (ft_putstr_fd("split error\n", 2), 1);
+			if (parse_colors(cube, split) == 1)
+				return (1);
+			i++;
+		}
+	}
+	return (0);
+}
+
 int	read_textures(t_cube *cube)
 {
 	char	*line;
@@ -199,7 +271,7 @@ int	read_textures(t_cube *cube)
 		line = get_next_line(cube->fd);
 		if (!line || add_address(&cube->collector, line) == 1)
 			return (ft_putstr_fd("get_next_line error\n", 2), 1);
-		printf("line :%s\n", line);
+		// printf("line :%s\n", line);
 		if (only_spaces(line) == 0)
 		{
 			split = ft_split(line, ' ');
@@ -210,7 +282,10 @@ int	read_textures(t_cube *cube)
 			i++;
 		}
 	}
+	if (read_colors(cube) == 1)
+		return (1);
 	printf("NORTH :%s\tSOUTH :%s\tWEST :%s\tEAST :%s\n", cube->map->textures->no ,cube->map->textures->so ,cube->map->textures->we, cube->map->textures->ea);
+	printf("CEILING :%s\tFLOOR :%s\n", cube->map->textures->c ,cube->map->textures->f);
 	return (0);
 }
 
@@ -229,6 +304,8 @@ int	init_data(t_cube *cube, char *pathname)
 	cube->map->textures->so = NULL;
 	cube->map->textures->we = NULL;
 	cube->map->textures->ea = NULL;
+	cube->map->textures->f = NULL;
+	cube->map->textures->c = NULL;
 	cube->fd = open(pathname, O_RDONLY);
 	if (cube->fd < 0)
 		return (1);
