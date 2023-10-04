@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:16:21 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/04 14:53:23 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/10/04 19:34:52 by lmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,13 +36,13 @@ void	find_player(t_cube *cube)
 	int	y;
 	int	x;
 
-	y = 0;
 	cube->player->pos = malloc(sizeof(t_position) * 1);
 	if (!cube->player->pos || add_address(&cube->collector, cube->player->pos) == 1)
 		return ;
 	cube->player->dpos = malloc(sizeof(t_position) * 1);
 	if (!cube->player->dpos || add_address(&cube->collector, cube->player->dpos) == 1)
 		return ;
+	y = 0;
 	while (y < cube->map->height)
 	{
 		x = 0;
@@ -52,6 +52,16 @@ void	find_player(t_cube *cube)
 			{
 				cube->player->pos->x = x * cube->bloc_size + cube->bloc_size / 3;
 				cube->player->pos->y = y * cube->bloc_size + cube->bloc_size / 3;
+				/*
+				if (cube->map->map[y][x] == 'N') // define numbers for NSEW in map parsing
+					cube->player->a = 3 * PI / 2;
+				if (cube->map->map[y][x] == 'S')
+					cube->player->a = PI / 2;
+				if (cube->map->map[y][x] == 'E')
+					cube->player->a = 0;
+				if (cube->map->map[y][x] == 'W')
+					cube->player->a = PI;
+				*/
 				return ;
 			}
 			x++;
@@ -90,9 +100,10 @@ int	cube_init(t_cube *cube)
 
 int	renderer(t_cube *cube)
 {
+	img_square_put(cube, ENGINE_ORIGIN_X, ENGINE_ORIGIN_Y, cube->win_width - ENGINE_ORIGIN_X, 0x000000);
 	render_minmap(cube);
+	draw_rays(cube);
 	mlx_put_image_to_window(cube->mlx, cube->win, cube->img_data.img, 0, 0);
-	printf("image is on screen\n");
 	return (0);
 }
 

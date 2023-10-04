@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:22:59 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/04 15:13:34 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/10/04 19:31:01 by lmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,13 @@
 
 // PARAMS
 # define NAME "Cube3D"
-# define WIN_WIDTH 800
-# define WIN_HEIGHT 800
+
+	// UI PARAMS
 # define MINMAP_MAX_SIZE 800
+# define ENGINE_ORIGIN_X 1000
+# define ENGINE_ORIGIN_Y 0
+
+# define VISION 50
 # define PI 3.14159265359
 # define P2 PI/2
 # define P3 3*PI/2
@@ -145,6 +149,7 @@ int		fexit(t_cube *cube);
 // DRAW
 void	img_draw_line(t_cube *cube, t_position start, t_position end, int color);
 void	img_square_put(t_cube *cube, int x, int y, int size, int color);
+void	draw_rays(t_cube *cube);
 void	render_minmap(t_cube *cube);
 int		renderer(t_cube *cube);
 
