@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:22:59 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/04 02:42:43 by lmorel           ###   ########.fr       */
+/*   Updated: 2023/10/04 15:13:34 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,9 @@
 # define WIN_HEIGHT 800
 # define MINMAP_MAX_SIZE 800
 # define PI 3.14159265359
+# define P2 PI/2
+# define P3 3*PI/2
+# define DR 0.0174533
 
 // STRUCTS
 
@@ -40,8 +43,8 @@ typedef struct s_position
 
 typedef struct s_player
 {
-	t_position	pos;
-	t_position	dpos;
+	t_position	*pos;
+	t_position	*dpos;
 	float		a;		//	angle
 	int			size;
 }	t_player;
@@ -81,6 +84,24 @@ typedef struct s_img_data
 	int		endian;
 }	t_img_data;
 
+typedef	struct	s_wall
+{
+	float	dis;
+	float	x;
+	float	y;
+}	t_wall;
+
+typedef struct s_ray
+{
+	float	x;
+	float	y;
+	float	a;
+	float	xo;
+	float	yo;
+	t_wall	*h;	//horizontal
+	t_wall	*v; //vertical
+}	t_ray;
+
 typedef struct s_cube
 {
 	void		*mlx;
@@ -89,6 +110,8 @@ typedef struct s_cube
 	int			win_width;
 	int			bloc_size;
 	t_img_data	img_data;
+
+	t_ray		*r;
 
 	t_map		*map;
 

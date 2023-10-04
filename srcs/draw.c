@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 23:14:40 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/03 23:41:40 by lmorel           ###   ########.fr       */
+/*   Updated: 2023/10/04 10:52:34 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,16 +17,16 @@ void	img_pixel_put(t_cube *cube, int	x, int y, int color)
 	char	*dst;
 
 	dst = cube->img_data.addr + (y * cube->img_data.line_length + x * (cube->img_data.bits_per_pixel / 8));
-	if (x >= 0 && x < WIN_WIDTH && y >= 0 && y < WIN_HEIGHT)
-		*(unsigned int*)dst = color;
+	if (x >= 0 && x < cube->win_width && y >= 0 && y < cube->win_height)
+		*(unsigned int *)dst = color;
 }
 
 void	img_draw_line(t_cube *cube, t_position start, t_position end, int color)
 {
 	float	dx;
 	float	dy;
-	int	nb;
-	
+	int		nb;
+
 	dx = end.x - start.x;
 	dy = end.y - start.y;
 	nb = sqrt((dx * dx) + (dy * dy));
