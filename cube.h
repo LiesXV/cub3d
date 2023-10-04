@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:22:59 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/03 13:37:54 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/10/04 02:42:43 by lmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,14 +25,25 @@
 
 // PARAMS
 # define NAME "Cube3D"
-# define WIN_HEIGHT 1000
-# define WIN_WIDTH 1000
+# define WIN_WIDTH 800
+# define WIN_HEIGHT 800
+# define MINMAP_MAX_SIZE 800
+# define PI 3.14159265359
 
 // STRUCTS
+
+typedef struct s_position
+{
+	float	x;
+	float	y;
+}	t_position;
+
 typedef struct s_player
 {
-	float		x;		//player x pos
-	float		y;		//player y pos
+	t_position	pos;
+	t_position	dpos;
+	float		a;		//	angle
+	int			size;
 }	t_player;
 
 typedef struct s_textures
@@ -76,7 +87,8 @@ typedef struct s_cube
 	void		*win;
 	int			win_height;
 	int			win_width;
-	t_img_data	*img_data;
+	int			bloc_size;
+	t_img_data	img_data;
 
 	t_map		*map;
 
@@ -89,6 +101,10 @@ typedef struct s_cube
 
 // KEYCODES
 # define KEY_ESCAPE 65307
+# define KEY_UP 65362
+# define KEY_DOWN 65364
+# define KEY_LEFT 65361
+# define KEY_RIGHT 65363
 # define KEY_W 119
 # define KEY_A 97
 # define KEY_S 115
@@ -100,10 +116,14 @@ typedef struct s_cube
 void	free_gb(t_collector **lst);
 int		add_address(t_collector **lst, void *address);
 int		add_tab_to_gb(t_collector **lst, char **args);
-
-// EXEC
 int		keypress(int keycode, t_cube *cube);
 int		fexit(t_cube *cube);
+
+// DRAW
+void	img_draw_line(t_cube *cube, t_position start, t_position end, int color);
+void	img_square_put(t_cube *cube, int x, int y, int size, int color);
+void	render_minmap(t_cube *cube);
+int		renderer(t_cube *cube);
 
 //	PARSING
 int		init_cube(t_cube *cube, int argc, char **argv);
