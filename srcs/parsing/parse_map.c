@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 12:23:04 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/10/03 14:30:51 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/10/09 19:53:26 by lmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,16 @@ int	add_line_to_map(t_cube *cube, char *line, int i)
 	while (split[j] && cube->map->map[i][j])
 	{
 		cube->map->map[i][j] = ft_atoi(split[j]);
+		if (cube->map->map[i][j] == 0 && !ft_strcmp(split[j], "N"))
+			cube->map->map[i][j] = 'N' * -1;
+		else if (cube->map->map[i][j] == 0 && !ft_strcmp(split[j], "S"))
+			cube->map->map[i][j] = 'S' * -1;
+		else if (cube->map->map[i][j] == 0 && !ft_strcmp(split[j], "E"))
+			cube->map->map[i][j] = 'E' * -1;
+		else if (cube->map->map[i][j] == 0 && !ft_strcmp(split[j], "W"))
+			cube->map->map[i][j] = 'W' * -1;
+		else if (cube->map->map[i][j] < 0) // si nombre negatif on considere c'est 0; possiblement erreur ? idk
+			cube->map->map[i][j] = 0;
 		j++;
 	}
 	return (0);
@@ -60,7 +70,16 @@ void	printmap(t_cube *cube)
 		i = 0;
 		while (i < cube->map->len)
 		{
-			printf("%d ", cube->map->map[j][i]);
+			if (cube->map->map[j][i] == 'N' * -1)
+				printf("N ");
+			else if (cube->map->map[j][i] == 'S' * -1)
+				printf("S ");
+			else if (cube->map->map[j][i] == 'W' * -1)
+				printf("W ");
+			else if (cube->map->map[j][i] == 'E' * -1)
+				printf("E ");
+			else
+				printf("%d ", cube->map->map[j][i]);
 			i++;
 		}
 		printf("\n");

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:22:59 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/09 14:30:21 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/10/09 19:31:36 by lmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <stdlib.h>	//func : malloc, free, exit
 # include <math.h>
 
-// PARAMS
+// DEFINES
 # define NAME "Cube3D"
 
 	// UI PARAMS
@@ -31,7 +31,10 @@
 # define ENGINE_ORIGIN_X 1000
 # define ENGINE_ORIGIN_Y 0
 
+	// PLAYER OPTIONS
 # define VISION 50
+
+	//MATHS
 # define PI 3.14159265359
 # define P2 PI/2
 # define P3 3*PI/2
@@ -166,15 +169,24 @@ int		fexit(t_cube *cube);
 int		commands(t_cube *cube);
 int		keyrelease(int keycode, t_cube *cube);
 
+// INIT
+int		cube_init(t_cube *cube);
+
 // DRAW
+void	img_pixel_put(t_cube *cube, int	x, int y, int color);
 void	img_draw_line(t_cube *cube, t_position start, t_position end, int color);
 void	img_square_put(t_cube *cube, int x, int y, int size, int color);
+void	img_rect_put(t_cube *cube, t_position start, t_position end, int color);
+
+// RENDER
+void	render_floor_and_celling(t_cube *cube);
 void	draw_rays(t_cube *cube);
+void	draw_3d_walls(t_cube *cube, int r, float tdis);
 void	render_minmap(t_cube *cube);
 int		renderer(t_cube *cube);
 
 //	PARSING
-int		init_cube(t_cube *cube, int argc, char **argv);
+int		parse_init(t_cube *cube, int argc, char **argv);
 int		check_args(int argc, char **argv);
 int		only_spaces(char *str);
 int		parse_textures(t_cube *cube, char	**line);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minmap.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 21:04:38 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/09 13:16:24 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/10/09 19:16:25 by lmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,34 +44,6 @@ int	init_ray(t_cube *cube)
 	return (0);
 }
 
-void	draw_3d_walls(t_cube *cube, int r, float tdis)
-{
-	float	ca;
-	float	hline;
-	float	oline;
-	
-	ca = cube->player->a - cube->r->a;
-	if (ca < 0)
-		ca += 2 * PI;
-	if (ca > 2 * PI)
-		ca -= 2 * PI;
-	tdis = tdis * cos(ca);
-	hline = (cube->bloc_size * 320) / tdis;
-	oline = 160 - hline / 2;
-	if (hline > 320)
-		hline = 320;
-		
-	t_position test;
-	test.x = r * 8 + ENGINE_ORIGIN_X;
-	test.y = oline + ENGINE_ORIGIN_Y;
-
-	t_position test2;
-	test2.x = r * 8 + ENGINE_ORIGIN_X;
-	test2.y = oline + hline + ENGINE_ORIGIN_Y;
-	
-	img_draw_line(cube, test, test2, 0x0000ff);
-}
-
 void	draw_rays(t_cube *cube)
 {
 	int		r, mx, my, dof;
@@ -79,7 +51,7 @@ void	draw_rays(t_cube *cube)
 
 	init_ray(cube);
 	r = 0;
-	while (r < VISION)
+	while (r < VISION * 2)
 	{
 		// horizontal
 		dof = 0;
@@ -191,7 +163,7 @@ void	draw_rays(t_cube *cube)
 			tdis = cube->r->v->dis;
 			color_ray = 0xff0000;
 		}
-		if (cube->r->h->dis < cube->r->v->dis) // if horizontal shortest
+		if (cube->r->h->dis <= cube->r->v->dis) // if horizontal shortest
 		{
 			hit.x = cube->r->h->x;
 			if (cube->r->a < 2 * PI && cube->r->a > PI)
@@ -212,7 +184,7 @@ void	draw_rays(t_cube *cube)
 		//			draw 3D walls
 		draw_3d_walls(cube, r, tdis);
 		
-		cube->r->a += DR; //	DR == 1 degree
+		cube->r->a += DR/2; //	DR == 1 degree
 		if (cube->r->a < 0)
 			cube->r->a += 2 * PI;
 		if (cube->r->a > 2 * PI)

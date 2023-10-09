@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 14:34:06 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/10/03 14:10:06 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/10/09 19:22:15 by lmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	init_data(t_cube *cube, char *pathname)
 	return (0);
 }
 
-int	init_cube(t_cube *cube, int argc, char **argv)
+int	parse_init(t_cube *cube, int argc, char **argv)
 {
 	cube->collector = NULL;
 	cube->map = malloc(sizeof(t_map) * 1);

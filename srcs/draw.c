@@ -58,3 +58,21 @@ void	img_square_put(t_cube *cube, int x, int y, int size, int color)
 	}
 	//printf("square done\n");
 }
+
+void	img_rect_put(t_cube *cube, t_position start, t_position end, int color)
+{
+	int x;
+	int y;
+
+	y = start.y;
+	while (y <= end.y)
+	{
+		x = start.x;
+		while (x <= end.x)
+		{
+			img_pixel_put(cube, x, y, color);
+			x++;
+		}
+		y++;
+	}
+}
