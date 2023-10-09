@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:16:21 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/04 19:34:52 by lmorel           ###   ########.fr       */
+/*   Updated: 2023/10/09 13:18:21 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -94,6 +94,13 @@ int	cube_init(t_cube *cube)
 	cube->player->a = 3 * PI / 2;
 	cube->player->dpos->x = cos(cube->player->a) * 5;
 	cube->player->dpos->y = sin(cube->player->a) * 5;
+	cube->key = malloc(sizeof(t_key) * 1);
+	if (!cube->key || add_address(&cube->collector, cube->key) == 1)
+		return (1);
+	cube->key->w = 0;
+	cube->key->a = 0;
+	cube->key->s = 0;
+	cube->key->d = 0;
 	printf("init done\n");
 	return (0);
 }
@@ -117,8 +124,9 @@ int	main(int ac, char **av)
 	if (cube_init(&cube))
 		return (1);
 	renderer(&cube);
-	mlx_key_hook(cube.win, keypress, &cube);
-	mlx_hook(cube.win, 17, 0, fexit, &cube);
+	mlx_hook(cube.win, 2, (1L<<0), keypress, &cube);
+	mlx_hook(cube.win, 3, (1L<<1), keyrelease, &cube);
+	mlx_loop_hook(cube.win, renderer, &cube);
 	mlx_loop(cube.mlx);
 	free_gb(&cube.collector);
 	return (0);

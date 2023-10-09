@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minmap.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 21:04:38 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/04 19:30:19 by lmorel           ###   ########.fr       */
+/*   Updated: 2023/10/09 13:16:24 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ void	draw_rays(t_cube *cube)
 	int		r, mx, my, dof;
 	float	tdis;
 
-	init_ray(cube);	
+	init_ray(cube);
 	r = 0;
 	while (r < VISION)
 	{

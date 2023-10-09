@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:22:59 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/04 19:31:01 by lmorel           ###   ########.fr       */
+/*   Updated: 2023/10/09 13:08:55 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,15 @@
 # define DR 0.0174533
 
 // STRUCTS
+
+typedef struct s_key
+{
+	int	w;
+	int	a;
+	int	s;
+	int	d;
+}	t_key;
+
 
 typedef struct s_position
 {
@@ -121,6 +130,8 @@ typedef struct s_cube
 
 	t_player	*player;
 
+	t_key		*key;
+
 	t_collector	*collector;
 
 	int			fd;
@@ -145,6 +156,8 @@ int		add_address(t_collector **lst, void *address);
 int		add_tab_to_gb(t_collector **lst, char **args);
 int		keypress(int keycode, t_cube *cube);
 int		fexit(t_cube *cube);
+int		commands(t_cube *cube);
+int		keyrelease(int keycode, t_cube *cube);
 
 // DRAW
 void	img_draw_line(t_cube *cube, t_position start, t_position end, int color);
