@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:22:59 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/09 13:08:55 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/10/09 14:30:21 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,13 @@ typedef struct s_cube
 	t_key		*key;
 
 	t_collector	*collector;
+
+	int	ipx;
+	int	ipy;
+	int	ipx_add_xo;
+	int	ipy_add_xo;
+	int	ipx_sub_xo;
+	int	ipy_sub_xo;
 
 	int			fd;
 }	t_cube;
