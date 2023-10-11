@@ -6,7 +6,7 @@
 /*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 19:18:28 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/09 20:01:05 by lmorel           ###   ########.fr       */
+/*   Updated: 2023/10/11 19:45:29 by lmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,9 +85,9 @@ int	cube_init(t_cube *cube)
 
 	// values
 	if (cube->map->len >= cube->map->height)
-		cube->bloc_size = MINMAP_MAX_SIZE / cube->map->len;
+		cube->bloc_size = (cube->win_width * 0.3) / cube->map->len;
 	else
-		cube->bloc_size = MINMAP_MAX_SIZE / cube->map->height;
+		cube->bloc_size = (cube->win_height * 0.3) / cube->map->height;
 		//player
 	if (init_player(cube) == 1)
 		return (1);

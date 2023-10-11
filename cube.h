@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:22:59 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/11 17:35:59 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/10/11 20:14:07 by lmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,13 @@
 # define NAME "Cube3D"
 
 	// UI PARAMS
-# define MINMAP_MAX_SIZE 800
-# define ENGINE_ORIGIN_X 1000
+# define MINMAP_ORIGIN_X 10
+# define MINMAP_ORIGIN_Y 10
+# define ENGINE_ORIGIN_X 0
 # define ENGINE_ORIGIN_Y 0
 
 	// PLAYER OPTIONS
-# define VISION 50
+# define VISION 90
 
 	//MATHS
 # define PI 3.14159265359
@@ -127,6 +128,7 @@ typedef struct s_cube
 	int			bloc_size;
 	t_img_data	img_data;
 
+	int			color_tmp; // to remove
 	t_ray		*r;
 
 	t_map		*map;

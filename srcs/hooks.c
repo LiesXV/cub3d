@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 19:49:17 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/11 17:15:51 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/10/11 20:27:40 by lmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,17 +74,17 @@ int	commands(t_cube *cube)
 	if (cube->key->w == 1)
 	{
 		// printf("from map[%d][%d] == %d to map[%d][%d] == %d\n", cube->ipy, cube->ipx_add_xo, cube->map->map[cube->ipy][cube->ipx_add_xo], cube->ipy_add_xo, cube->ipx, cube->map->map[cube->ipy_add_xo][cube->ipx]);
-		if (!(cube->map->map[cube->ipy][cube->ipx_add_xo] == 1))
+		if (!(cube->map->map[cube->ipy][cube->ipx_add_xo] >= 1))
 			cube->player->pos->x += cube->player->dpos->x;
-		if (!(cube->map->map[cube->ipy_add_xo][cube->ipx] == 1))
+		if (!(cube->map->map[cube->ipy_add_xo][cube->ipx] >= 1))
 			cube->player->pos->y += cube->player->dpos->y;
 		renderer(cube);
 	}
 	else if (cube->key->s == 1)
 	{
-		if (!(cube->map->map[cube->ipy][cube->ipx_sub_xo] == 1))
+		if (!(cube->map->map[cube->ipy][cube->ipx_sub_xo] >= 1))
 			cube->player->pos->x -= cube->player->dpos->x;
-		if (!(cube->map->map[cube->ipy_sub_xo][cube->ipx] == 1))
+		if (!(cube->map->map[cube->ipy_sub_xo][cube->ipx] >= 1))
 			cube->player->pos->y -= cube->player->dpos->y;
 		renderer(cube);
 	}

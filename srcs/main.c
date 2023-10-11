@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:16:21 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/11 17:16:35 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/10/11 19:28:14 by lmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,8 @@ int	fexit(t_cube *cube)
 int	renderer(t_cube *cube)
 {
 	render_floor_and_celling(cube);
-	render_minmap(cube);
 	draw_rays(cube);
+	render_minmap(cube);
 	mlx_put_image_to_window(cube->mlx, cube->win, cube->img_data.img, 0, 0);
 	// printf("image is on screen\n");
 	return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rays.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 17:31:27 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/10/11 17:33:17 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/10/11 20:16:09 by lmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,15 +18,17 @@ t_position	get_end_pos(t_cube *cube)
 
 	if (cube->r->v->dis < cube->r->h->dis)
 	{
-		hit.x = cube->r->v->x;
-		hit.y = cube->r->v->y;
+		hit.x = cube->r->v->x + MINMAP_ORIGIN_X;
+		hit.y = cube->r->v->y + MINMAP_ORIGIN_Y;
 		cube->tdis = cube->r->v->dis;
+		cube->color_tmp = 0x47acff;
 	}
-	if (cube->r->h->dis < cube->r->v->dis)
+	if (cube->r->h->dis <= cube->r->v->dis)
 	{
-		hit.x = cube->r->h->x;
-		hit.y = cube->r->h->y;
+		hit.x = cube->r->h->x + MINMAP_ORIGIN_X;
+		hit.y = cube->r->h->y + MINMAP_ORIGIN_Y;
 		cube->tdis = cube->r->h->dis;
+		cube->color_tmp = 0x3f99e5;
 	}
 	return (hit);
 }
@@ -74,9 +76,9 @@ void	draw_rays(t_cube *cube)
 		cube->r->v->x = cube->player->pos->x;
 		cube->r->v->y = cube->player->pos->y;
 		handle_vertical_ray(cube);
-		player_tmp.x = cube->player->pos->x + cube->player->size / 2;
-		player_tmp.y = cube->player->pos->y + cube->player->size / 2;
-		img_draw_line(cube, player_tmp, get_end_pos(cube), 0xff0000);
+		player_tmp.x = cube->player->pos->x + cube->player->size / 2 + MINMAP_ORIGIN_X;
+		player_tmp.y = cube->player->pos->y + cube->player->size / 2 + MINMAP_ORIGIN_Y;
+		img_draw_line(cube, player_tmp, get_end_pos(cube), 0x660000);
 		draw_3d_walls(cube, r);
 		cube->r->a += DR / 2;
 		if (cube->r->a < 0)

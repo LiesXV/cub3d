@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   engine.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 19:14:20 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/11 17:27:11 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/10/11 20:29:59 by lmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,12 @@ void	draw_3d_walls(t_cube *cube, int r)
 
 		// DRAW BY RECTANGLES
 	t_position test;
-	test.x = r * 8 - 5 + ENGINE_ORIGIN_X;
-	test.y = oline + ENGINE_ORIGIN_Y;
+	test.x = r * 8 - 4 + ENGINE_ORIGIN_X;
+	test.y = oline + ENGINE_ORIGIN_Y + 120;
 
 	t_position test2;
-	test2.x = r * 8 + 5 + ENGINE_ORIGIN_X;
-	test2.y = oline + hline + ENGINE_ORIGIN_Y;
+	test2.x = r * 8 + 4 + ENGINE_ORIGIN_X;
+	test2.y = oline + hline + ENGINE_ORIGIN_Y + 120;
 	
-	img_rect_put(cube, test, test2, 0x0000ff);
+	img_rect_put(cube, test, test2, cube->color_tmp);
 }
