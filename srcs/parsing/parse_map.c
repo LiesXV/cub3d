@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_map.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 12:23:04 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/10/09 19:53:26 by lmorel           ###   ########.fr       */
+/*   Updated: 2023/10/11 13:20:13 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -108,3 +108,20 @@ int	parse_easy_map(t_cube *cube)
 	printmap(cube); //print map
 	return (0);
 }
+
+// int	is_map_closed(t_cube *cube, int y, int x)
+// {
+// 	if (y = 0)
+// 	{
+// 		if (cube->map->map[y][x + 1] == 1)
+// 			return (is_map_closed(cube, y, x + 1));
+// 		if (cube->map->map[y + 1][x] == 1)
+// 			return (is_map_closed(cube, y + 1, x));
+// 	}
+// }
+
+// int	parse_map(t_cube *cube)
+// {
+// 	if (is_map_closed(cube, 0, 0) == 1)
+// 		return (1);
+// }
