@@ -1,4 +1,4 @@
-R 1500 400
+R 2000 400
 NO ./textures/wall.jpg
 EA ./textures/wall.jpg
 SO ./textures/wall.jpg

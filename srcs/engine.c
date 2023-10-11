@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   engine.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 19:14:20 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/09 20:15:01 by lmorel           ###   ########.fr       */
+/*   Updated: 2023/10/11 17:27:11 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,23 +32,23 @@ void	render_floor_and_celling(t_cube *cube)
 	img_rect_put(cube, floor_start, floor_end, 0x625973);
 }
 
-void	draw_3d_walls(t_cube *cube, int r, float tdis)
+void	draw_3d_walls(t_cube *cube, int r)
 {
 	float	ca;
 	float	hline;
 	float	oline;
-	
+
 	ca = cube->player->a - cube->r->a;
 	if (ca < 0)
 		ca += 2 * PI;
 	if (ca > 2 * PI)
 		ca -= 2 * PI;
-	tdis = tdis * cos(ca);
-	hline = (cube->bloc_size * 320) / tdis;
+	cube->tdis = cube->tdis * cos(ca);
+	hline = (cube->bloc_size * 320) / cube->tdis;
 	oline = 160 - hline / 2;
 	if (hline > 320)
 		hline = 320;
-		
+
 		// DRAW BY LINES
 	// t_position test;
 	// test.x = r * 8 + ENGINE_ORIGIN_X;

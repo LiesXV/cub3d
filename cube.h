@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:22:59 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/11 15:02:51 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/10/11 17:35:59 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -137,12 +137,13 @@ typedef struct s_cube
 
 	t_collector	*collector;
 
-	int	ipx;
-	int	ipy;
-	int	ipx_add_xo;
-	int	ipy_add_xo;
-	int	ipx_sub_xo;
-	int	ipy_sub_xo;
+	int			ipx;
+	int			ipy;
+	int			ipx_add_xo;
+	int			ipy_add_xo;
+	int			ipx_sub_xo;
+	int			ipy_sub_xo;
+	float		tdis;
 
 	int			fd;
 }	t_cube;
@@ -181,9 +182,13 @@ void	img_rect_put(t_cube *cube, t_position start, t_position end, int color);
 // RENDER
 void	render_floor_and_celling(t_cube *cube);
 void	draw_rays(t_cube *cube);
-void	draw_3d_walls(t_cube *cube, int r, float tdis);
+void	draw_3d_walls(t_cube *cube, int r);
 void	render_minmap(t_cube *cube);
 int		renderer(t_cube *cube);
+float	dist(float ax, float ay, float bx, float by);
+void	handle_vertical_ray(t_cube *cube);
+void	handle_horizontal_ray(t_cube *cube);
+void	draw_rays(t_cube *cube);
 
 //	PARSING
 int		parse_init(t_cube *cube, int argc, char **argv);
