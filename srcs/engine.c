@@ -6,31 +6,11 @@
 /*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 19:14:20 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/11 20:29:59 by lmorel           ###   ########.fr       */
+/*   Updated: 2023/10/13 16:11:44 by lmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube.h"
-
-void	render_floor_and_celling(t_cube *cube)
-{
-	// sky
-	t_position	engine_o;
-
-	engine_o.x = ENGINE_ORIGIN_X;
-	engine_o.y = ENGINE_ORIGIN_Y;
-	img_square_put(cube, engine_o.x, engine_o.y, cube->win_width - engine_o.x, 0x91E8F0);
-
-	// floor
-	t_position	floor_start;
-	t_position	floor_end;
-
-	floor_start.x = ENGINE_ORIGIN_X;
-	floor_start.y = ENGINE_ORIGIN_Y + cube->win_height * 0.4f;
-	floor_end.x = cube->win_width;
-	floor_end.y = ENGINE_ORIGIN_Y + cube->win_height;
-	img_rect_put(cube, floor_start, floor_end, 0x625973);
-}
 
 void	draw_3d_walls(t_cube *cube, int r)
 {
@@ -50,24 +30,29 @@ void	draw_3d_walls(t_cube *cube, int r)
 		hline = 320;
 
 		// DRAW BY LINES
-	// t_position test;
-	// test.x = r * 8 + ENGINE_ORIGIN_X;
-	// test.y = oline + ENGINE_ORIGIN_Y;
+	t_position top_wall;
+	top_wall.x = r + ENGINE_ORIGIN_X;
+	top_wall.y = oline + ENGINE_ORIGIN_Y + 120;
 
-	// t_position test2;
-	// test2.x = r * 8 + ENGINE_ORIGIN_X;
-	// test2.y = oline + hline + ENGINE_ORIGIN_Y;
+	t_position bot_wall;
+	bot_wall.x = r + ENGINE_ORIGIN_X;
+	bot_wall.y = oline + hline + ENGINE_ORIGIN_Y + 120;
+
+	t_position bottom_win;
+	bottom_win.x = r + ENGINE_ORIGIN_X;
+	bottom_win.y = cube->win_height + 1000;
 	
-	// img_draw_line(cube, test, test2, 0x0000ff);
+	img_draw_line(cube, bot_wall, bottom_win, 0x625973);	// ground
+	img_draw_line(cube, top_wall, bot_wall, cube->color_tmp);
 
 		// DRAW BY RECTANGLES
-	t_position test;
-	test.x = r * 8 - 4 + ENGINE_ORIGIN_X;
-	test.y = oline + ENGINE_ORIGIN_Y + 120;
+	// t_position test;
+	// test.x = r * 8 - 4 + ENGINE_ORIGIN_X;
+	// test.y = oline + ENGINE_ORIGIN_Y + 120;
 
-	t_position test2;
-	test2.x = r * 8 + 4 + ENGINE_ORIGIN_X;
-	test2.y = oline + hline + ENGINE_ORIGIN_Y + 120;
+	// t_position test2;
+	// test2.x = r * 8 + 4 + ENGINE_ORIGIN_X;
+	// test2.y = oline + hline + ENGINE_ORIGIN_Y + 120;
 	
-	img_rect_put(cube, test, test2, cube->color_tmp);
+	// img_rect_put(cube, test, test2, cube->color_tmp);
 }

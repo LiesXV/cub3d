@@ -6,7 +6,7 @@
 /*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 17:31:27 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/10/11 20:16:09 by lmorel           ###   ########.fr       */
+/*   Updated: 2023/10/13 16:09:30 by lmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ int	init_ray(t_cube *cube)
 	if (!cube->r->v || add_address(&cube->collector, cube->r->v) == 1)
 		return (ft_putstr_fd("malloc error 3\n", 2), 1);
 	if (VISION >= 2)
-		cube->r->a = cube->player->a - DR * VISION / 2;
+		cube->r->a = cube->player->a - (DR * VISION) / 2;
 	else
 		cube->r->a = cube->player->a;
 	if (cube->r->a < 0)
@@ -66,7 +66,7 @@ void	draw_rays(t_cube *cube)
 
 	r = -1;
 	init_ray(cube);
-	while (++r < VISION * 2)
+	while (++r < cube->win_width)
 	{
 		cube->r->h->dis = 1000000;
 		cube->r->h->x = cube->player->pos->x;
@@ -80,7 +80,7 @@ void	draw_rays(t_cube *cube)
 		player_tmp.y = cube->player->pos->y + cube->player->size / 2 + MINMAP_ORIGIN_Y;
 		img_draw_line(cube, player_tmp, get_end_pos(cube), 0x660000);
 		draw_3d_walls(cube, r);
-		cube->r->a += DR / 2;
+		cube->r->a += (DR * VISION) / cube->win_width;
 		if (cube->r->a < 0)
 			cube->r->a += 2 * PI;
 		if (cube->r->a > 2 * PI)
