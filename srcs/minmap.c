@@ -6,7 +6,7 @@
 /*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 21:04:38 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/11 19:42:16 by lmorel           ###   ########.fr       */
+/*   Updated: 2023/10/13 16:30:18 by lmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,10 @@ void	draw_min_player(t_cube *cube)
 
 	min_pos.x = cube->player->pos->x + MINMAP_ORIGIN_X;
 	min_pos.y = cube->player->pos->y + MINMAP_ORIGIN_Y;;
-	img_square_put(cube, min_pos.x, min_pos.y, cube->player->size, 0xFED141);
+	img_square_put(cube, min_pos.x -cube->player->size / 2, min_pos.y - cube->player->size / 2, cube->player->size, 0xFED141);
 
-	min_pos.x += cube->player->size / 2;
-	min_pos.y += cube->player->size / 2;
-	endline.x = (min_pos.x + cube->player->dpos->x * (cube->player->size * 0.7));
-	endline.y = (min_pos.y + cube->player->dpos->y * (cube->player->size * 0.7));
+	endline.x = (min_pos.x + cube->player->dpos->x * (cube->player->size * 0.6));
+	endline.y = (min_pos.y + cube->player->dpos->y * (cube->player->size * 0.6));
 	img_draw_line(cube, min_pos, endline, 0xFED141);
 }
 

@@ -6,7 +6,7 @@
 /*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 19:18:28 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/11 19:45:29 by lmorel           ###   ########.fr       */
+/*   Updated: 2023/10/13 16:34:18 by lmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,8 +33,8 @@ void	find_player(t_cube *cube)
 		{
 			if (cube->map->map[y][x] < 0)
 			{
-				cube->player->pos->x = x * cube->bloc_size + cube->player->size;
-				cube->player->pos->y = y * cube->bloc_size + cube->player->size;
+				cube->player->pos->x = x * cube->bloc_size + cube->bloc_size / 2;
+				cube->player->pos->y = y * cube->bloc_size + cube->bloc_size / 2;;
 				if (cube->map->map[y][x] == 'N' * -1)
 					cube->player->a = 3 * PI / 2;
 				else if (cube->map->map[y][x] == 'S' * -1)
