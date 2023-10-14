@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:16:21 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/14 15:01:00 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/10/14 15:10:32 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,9 @@ int	fexit(t_cube *cube)
 
 int	renderer(t_cube *cube)
 {
+	commands(cube);
 	img_square_put(cube, ENGINE_ORIGIN_X, ENGINE_ORIGIN_Y, cube->win_width - ENGINE_ORIGIN_X, 0x91E8F0); // sky
+	
 	draw_rays(cube);
 	render_minmap(cube);
 	mlx_put_image_to_window(cube->mlx, cube->win, cube->img_data.img, 0, 0);
