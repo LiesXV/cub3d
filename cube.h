@@ -6,7 +6,7 @@
 /*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:22:59 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/11 20:14:07 by lmorel           ###   ########.fr       */
+/*   Updated: 2023/10/16 21:44:14 by lmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,7 @@ typedef struct s_key
 	int	a;
 	int	s;
 	int	d;
+	int e;
 }	t_key;
 
 
@@ -117,7 +118,23 @@ typedef struct s_ray
 	float	yo;
 	t_wall	*h;	//horizontal
 	t_wall	*v; //vertical
+	float	shade;
 }	t_ray;
+
+typedef struct s_tex
+{
+	int		tex_width;
+	int		tex_height;
+	
+	void	*north;
+	void	*south;
+	void	*east;
+	void	*west;
+	
+	int		tex_x;
+	int		tex_y;
+	int		color;
+}	t_tex;
 
 typedef struct s_cube
 {
@@ -127,11 +144,11 @@ typedef struct s_cube
 	int			win_width;
 	int			bloc_size;
 	t_img_data	img_data;
+	t_tex		tex;
 
-	int			color_tmp; // to remove
-	t_ray		*r;
-
-	t_map		*map;
+	
+	t_ray		*r;			// current ray
+	t_map		*map;		// parsed data
 
 	t_player	*player;
 
@@ -160,6 +177,7 @@ typedef struct s_cube
 # define KEY_A 97
 # define KEY_S 115
 # define KEY_D 100
+# define KEY_E 101
 
 // 					PROTOTYPES
 
@@ -174,6 +192,7 @@ int		keyrelease(int keycode, t_cube *cube);
 
 // INIT
 int		cube_init(t_cube *cube);
+void	init_textures(t_cube *cube);
 
 // DRAW
 void	img_pixel_put(t_cube *cube, int	x, int y, int color);

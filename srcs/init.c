@@ -6,7 +6,7 @@
 /*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 19:18:28 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/13 16:34:18 by lmorel           ###   ########.fr       */
+/*   Updated: 2023/10/16 21:29:00 by lmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,8 @@ int	init_player(t_cube *cube)
 	find_player(cube);
 	if (cube->player->a == -1)
 		return (1);
-	cube->player->dpos->x = cos(cube->player->a) * 5;
-	cube->player->dpos->y = sin(cube->player->a) * 5;
+	cube->player->dpos->x = cos(cube->player->a)* 5 / 4;
+	cube->player->dpos->y = sin(cube->player->a)* 5 / 4;
 	return (0);
 }
 
@@ -82,6 +82,9 @@ int	cube_init(t_cube *cube)
 	// image creation
 	cube->img_data.img = NULL;
 	init_image(cube, &cube->img_data);
+
+	// text init
+	init_textures(cube);
 
 	// values
 	if (cube->map->len >= cube->map->height)

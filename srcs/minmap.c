@@ -6,7 +6,7 @@
 /*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 21:04:38 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/13 16:30:18 by lmorel           ###   ########.fr       */
+/*   Updated: 2023/10/16 21:52:03 by lmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,8 +27,8 @@ void	draw_min_player(t_cube *cube)
 	min_pos.y = cube->player->pos->y + MINMAP_ORIGIN_Y;;
 	img_square_put(cube, min_pos.x -cube->player->size / 2, min_pos.y - cube->player->size / 2, cube->player->size, 0xFED141);
 
-	endline.x = (min_pos.x + cube->player->dpos->x * (cube->player->size * 0.6));
-	endline.y = (min_pos.y + cube->player->dpos->y * (cube->player->size * 0.6));
+	endline.x = (min_pos.x + cube->player->dpos->x * (cube->player->size * 2.5));
+	endline.y = (min_pos.y + cube->player->dpos->y * (cube->player->size * 2.5));
 	img_draw_line(cube, min_pos, endline, 0xFED141);
 }
 
@@ -60,6 +60,8 @@ void	render_minmap(t_cube *cube)
 				img_square_put(cube, x * cube->bloc_size + MINMAP_ORIGIN_X, y * cube->bloc_size + MINMAP_ORIGIN_Y, cube->bloc_size - 2, 0x9999FF);
 			else if (cube->map->map[y][x] == 2)
 				img_square_put(cube, x * cube->bloc_size + MINMAP_ORIGIN_X, y * cube->bloc_size + MINMAP_ORIGIN_Y, cube->bloc_size - 2, 0x660000);
+			else if (cube->map->map[y][x] == -2)
+				img_square_put(cube, x * cube->bloc_size + MINMAP_ORIGIN_X, y * cube->bloc_size + MINMAP_ORIGIN_Y, cube->bloc_size - 2, 0xFF0000);
 			else
 				img_square_put(cube, x * cube->bloc_size + MINMAP_ORIGIN_X, y * cube->bloc_size + MINMAP_ORIGIN_Y, cube->bloc_size - 2, 0x1B2329);
 			x++;

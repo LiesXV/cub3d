@@ -6,7 +6,7 @@
 /*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 17:31:27 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/10/13 16:09:30 by lmorel           ###   ########.fr       */
+/*   Updated: 2023/10/16 19:41:05 by lmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,14 +21,14 @@ t_position	get_end_pos(t_cube *cube)
 		hit.x = cube->r->v->x + MINMAP_ORIGIN_X;
 		hit.y = cube->r->v->y + MINMAP_ORIGIN_Y;
 		cube->tdis = cube->r->v->dis;
-		cube->color_tmp = 0x47acff;
+		cube->r->shade = 1;
 	}
 	if (cube->r->h->dis <= cube->r->v->dis)
 	{
 		hit.x = cube->r->h->x + MINMAP_ORIGIN_X;
 		hit.y = cube->r->h->y + MINMAP_ORIGIN_Y;
 		cube->tdis = cube->r->h->dis;
-		cube->color_tmp = 0x3f99e5;
+		cube->r->shade = 0.8;
 	}
 	return (hit);
 }
