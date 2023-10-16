@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 19:49:17 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/14 15:16:14 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/10/16 14:48:35 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	keypress(int keycode, t_cube *cube)
 int	is_dist_ok(t_cube *cube)
 {
 	int	xo;
-	int yo;
+	int	yo;
 
 	xo = 0;
 	yo = 0;
@@ -40,7 +40,7 @@ int	is_dist_ok(t_cube *cube)
 		xo = -2;
 	else
 		xo = 2;
-	if (cube->player->dpos->y < 0)	
+	if (cube->player->dpos->y < 0)
 		yo = -2;
 	else
 		yo = 2;

@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 14:34:06 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/10/11 13:20:15 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/10/16 16:30:50 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ int	parse_init(t_cube *cube, int argc, char **argv)
 	cube->map = malloc(sizeof(t_map) * 1);
 	if (!cube->map || add_address(&cube->collector, cube->map) == 1)
 		return (ft_putstr_fd("malloc error\n", 2), 1);
-	cube->map->map = malloc(sizeof(int *) * 15);
+	cube->map->map = malloc(sizeof(int *) * 40);
 	if (!cube->map->map || add_address(&cube->collector, cube->map->map) == 1)
 		return (ft_putstr_fd("malloc error\n", 2), 1);
 	if (check_args(argc, argv) == 1)
