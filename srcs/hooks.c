@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 19:49:17 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/16 22:09:37 by lmorel           ###   ########.fr       */
+/*   Updated: 2023/10/17 11:56:48 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,32 +87,32 @@ int	commands(t_cube *cube)
 	{
 		//printf("from map[%d][%d] == %d to map[%d][%d] == %d\n", cube->ipy, cube->ipx_add_xo, cube->map->map[cube->ipy][cube->ipx_add_xo], cube->ipy_add_xo, cube->ipx, cube->map->map[cube->ipy_add_xo][cube->ipx]);
 		if (!(cube->map->map[cube->ipy][cube->ipx_add_xo] >= 1))
-			cube->player->pos->x += cube->player->dpos->x / 4;
+			cube->player->pos->x += cube->player->dpos->x / 3;
 		if (!(cube->map->map[cube->ipy_add_xo][cube->ipx] >= 1))
-			cube->player->pos->y += cube->player->dpos->y / 4;
+			cube->player->pos->y += cube->player->dpos->y / 3;
 	}
 	if (cube->key->s == 1)
 	{
 		if (!(cube->map->map[cube->ipy][cube->ipx_sub_xo] >= 1))
-			cube->player->pos->x -= cube->player->dpos->x / 4;
+			cube->player->pos->x -= cube->player->dpos->x / 3;
 		if (!(cube->map->map[cube->ipy_sub_xo][cube->ipx] >= 1))
-			cube->player->pos->y -= cube->player->dpos->y / 4;
+			cube->player->pos->y -= cube->player->dpos->y / 3;
 	}
 	if (cube->key->a == 1)
 	{
 		cube->player->a -= 0.05;
 		if (cube->player->a < 0)
 			cube->player->a += 2 * PI;
-		cube->player->dpos->x = cos(cube->player->a) * 5 / 4;
-		cube->player->dpos->y = sin(cube->player->a) * 5 / 4;
+		cube->player->dpos->x = cos(cube->player->a) * 5 / 3;
+		cube->player->dpos->y = sin(cube->player->a) * 5 / 3;
 	}
 	if (cube->key->d == 1)
 	{
 		cube->player->a += 0.05;
 		if (cube->player->a > 2 * PI)
 			cube->player->a -= 2 * PI;
-		cube->player->dpos->x = cos(cube->player->a) * 5 / 4;
-		cube->player->dpos->y = sin(cube->player->a) * 5 / 4;
+		cube->player->dpos->x = cos(cube->player->a) * 5 / 3;
+		cube->player->dpos->y = sin(cube->player->a) * 5 / 3;
 	}
 	return (0);
 }

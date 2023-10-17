@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 12:23:04 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/10/16 16:55:00 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/10/17 15:18:38 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,44 +15,76 @@
 char	*skip_empty_lines(t_cube *cube)
 {
 	char	*line;
+	char	*trash;
+	int		fd;
 
+	cube->map->height = 0;
+	fd = open(cube->map->pathname, O_RDONLY);
 	line = get_next_line(cube->fd);
 	if (!line || add_address(&cube->collector, line) == 1)
 		return (ft_putstr_fd("get_next_line error\n", 2), NULL);
+	cube->count++;
 	while (line && only_spaces(line) == 1)
 	{
 		line = get_next_line(cube->fd);
 		if (!line || add_address(&cube->collector, line) == 1)
 			return (ft_putstr_fd("get_next_line error\n", 2), NULL);
+		cube->count++;
 	}
+	while (++cube->map->height < cube->count)
+		free(get_next_line(fd));
+	cube->map->height = 0;
+	while (1)
+	{
+		trash = get_next_line(fd);
+		if (!trash)
+		{
+			free(trash);
+			break ;
+		}
+		free(trash);
+		cube->map->height++;
+	}
+	close(fd);
 	return (line);
+}
+
+int	is_map_closed(t_cube *cube, int y, int x)
+{
+	(void)cube;
+	(void)y;
+	(void)x;
+	return (0);
 }
 
 int	add_line_to_map(t_cube *cube, char *line, int i)
 {
-	int		j;
+	int	j;
 
 	j = 0;
-	cube->map->map[i] = malloc(sizeof(int) * 70);
+	cube->map->len[i] = ft_strlen(line) - 1;
+	if (cube->map->len[i] > cube->map->maxlen)
+		cube->map->maxlen = cube->map->len[i];
+	if (cube->map->len[i] < cube->map->minlen)
+		cube->map->minlen = cube->map->len[i];
+	// printf("j = %d\n", j);
+	cube->map->map[i] = ft_calloc(cube->map->len[i] + 1, sizeof(int));
 	if (!cube->map->map[i] \
 		|| add_address(&cube->collector, cube->map->map[i]) == 1)
 		return (ft_putstr_fd("malloc error\n", 2), 1);
-	printf("%ld\n", ft_strlen(line) - 1);
-	if ((int)ft_strlen(line) - 1 > cube->map->len)
-		cube->map->len = (int)ft_strlen(line) - 1;
-	while (line[j] && cube->map->map[i][j])
+	while (line[j])
 	{
-		cube->map->map[i][j] = (int)line[j] - 48;
-		if (cube->map->map[i][j] == 35)
+		cube->map->map[i][j] = line[j] - 48;
+		if (cube->map->map[i][j] == 'N' - 48)
 			cube->map->map[i][j] = 'N' * -1;
-		else if (cube->map->map[i][j] == 30)
+		else if (cube->map->map[i][j] == 'S' - 48)
 			cube->map->map[i][j] = 'S' * -1;
-		else if (cube->map->map[i][j] == 21)
+		else if (cube->map->map[i][j] == 'E' - 48)
 			cube->map->map[i][j] = 'E' * -1;
-		else if (cube->map->map[i][j] == 39)
+		else if (cube->map->map[i][j] == 'W' - 48)
 			cube->map->map[i][j] = 'W' * -1;
-		else if (cube->map->map[i][j] < 0) // si nombre negatif on considere c'est 0; possiblement erreur ? idk
-			cube->map->map[i][j] = 0;
+		else if (cube->map->map[i][j] == ' ' - 48)
+			cube->map->map[i][j] = ' ';
 		j++;
 	}
 	return (0);
@@ -64,10 +96,11 @@ void	printmap(t_cube *cube)
 	int	j;
 
 	j = 0;
+	printf("height %d, maxlen%d\n", cube->map->height, cube->map->maxlen);
 	while (j < cube->map->height)
 	{
 		i = 0;
-		while (i < cube->map->len)
+		while (i <= cube->map->len[j])
 		{
 			if (cube->map->map[j][i] == 'N' * -1)
 				printf("N ");
@@ -77,6 +110,8 @@ void	printmap(t_cube *cube)
 				printf("W ");
 			else if (cube->map->map[j][i] == 'E' * -1)
 				printf("E ");
+			else if (cube->map->map[j][i] == ' ')
+				printf("  ");
 			else
 				printf("%d ", cube->map->map[j][i]);
 			i++;
@@ -92,9 +127,17 @@ int	parse_easy_map(t_cube *cube)
 	int		i;
 
 	i = 0;
+	cube->map->maxlen = 0;
+	cube->map->minlen = 10000;
 	line = skip_empty_lines(cube);
 	if (!line)
 		return (1);
+	cube->map->map = malloc(sizeof(int *) * cube->map->height);
+	if (!cube->map->map || add_address(&cube->collector, cube->map->map) == 1)
+		return (ft_putstr_fd("malloc error\n", 2), 1);
+	cube->map->len = malloc(sizeof(int) * cube->map->height);
+	if (!cube->map->len || add_address(&cube->collector, cube->map->len) == 1)
+		return (ft_putstr_fd("malloc error\n", 2), 1);
 	while (line && only_spaces(line) == 0)
 	{
 		if (add_line_to_map(cube, line, i) == 1)
@@ -104,21 +147,9 @@ int	parse_easy_map(t_cube *cube)
 		if (add_address(&cube->collector, line) == 1)
 			return (ft_putstr_fd("get_next_line error\n", 2), 1);
 	}
-	cube->map->height = i;
 	printmap(cube); //print map
 	return (0);
 }
-
-// int	is_map_closed(t_cube *cube, int y, int x)
-// {
-// 	if (y = 0)
-// 	{
-// 		if (cube->map->map[y][x + 1] == 1)
-// 			return (is_map_closed(cube, y, x + 1));
-// 		if (cube->map->map[y + 1][x] == 1)
-// 			return (is_map_closed(cube, y + 1, x));
-// 	}
-// }
 
 // int	get_map_size(t_cube *cube)
 // {

@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 14:34:06 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/10/16 16:30:50 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/10/17 12:06:21 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ int	read_textures(t_cube *cube)
 		if (!line || add_address(&cube->collector, line) == 1)
 			return (ft_putstr_fd("get_next_line error\n", 2), 1);
 		// printf("line :%s\n", line);
+		cube->count++;
 		if (only_spaces(line) == 0)
 		{
 			split = ft_split(line, ' ');
@@ -46,6 +47,7 @@ int	init_data(t_cube *cube, char *pathname)
 {
 	cube->win_height = -1;
 	cube->win_width = -1;
+	cube->count = 0;
 	cube->map->textures = malloc(sizeof(t_textures) * 1);
 	if (!cube->map->textures \
 		|| add_address(&cube->collector, cube->map->textures) == 1)
@@ -74,17 +76,12 @@ int	parse_init(t_cube *cube, int argc, char **argv)
 	cube->map = malloc(sizeof(t_map) * 1);
 	if (!cube->map || add_address(&cube->collector, cube->map) == 1)
 		return (ft_putstr_fd("malloc error\n", 2), 1);
-	cube->map->map = malloc(sizeof(int *) * 40);
-	if (!cube->map->map || add_address(&cube->collector, cube->map->map) == 1)
-		return (ft_putstr_fd("malloc error\n", 2), 1);
 	if (check_args(argc, argv) == 1)
 		return (1);
 	cube->map->pathname = ft_strdup(argv[1]);
 	if (!cube->map->pathname \
 		|| add_address(&cube->collector, cube->map->pathname) == 1)
 		return (ft_putstr_fd("malloc error\n", 2), 1);
-	cube->map->height = 14;
-	cube->map->len = 29;
 	if (init_data(cube, argv[1]) == 1)
 		return (1);
 	// if (parse_map(cube) == 1)

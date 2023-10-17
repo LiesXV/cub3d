@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:22:59 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/16 21:44:14 by lmorel           ###   ########.fr       */
+/*   Updated: 2023/10/17 15:17:38 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ typedef struct s_key
 	int	a;
 	int	s;
 	int	d;
-	int e;
+	int	e;
 }	t_key;
 
 
@@ -82,7 +82,9 @@ typedef struct s_map
 	char		*pathname;
 	int			**map;
 	int			height;
-	int			len;
+	int			*len;
+	int			maxlen;
+	int			minlen;
 
 	t_textures	*textures;
 }	t_map;
@@ -102,7 +104,7 @@ typedef struct s_img_data
 	int		endian;
 }	t_img_data;
 
-typedef	struct	s_wall
+typedef	struct s_wall
 {
 	float	dis;
 	float	x;
@@ -125,12 +127,12 @@ typedef struct s_tex
 {
 	int		tex_width;
 	int		tex_height;
-	
+
 	void	*north;
 	void	*south;
 	void	*east;
 	void	*west;
-	
+
 	int		tex_x;
 	int		tex_y;
 	int		color;
@@ -146,7 +148,6 @@ typedef struct s_cube
 	t_img_data	img_data;
 	t_tex		tex;
 
-	
 	t_ray		*r;			// current ray
 	t_map		*map;		// parsed data
 
@@ -164,6 +165,7 @@ typedef struct s_cube
 	int			ipy_sub_xo;
 	float		tdis;
 
+	int			count;
 	int			fd;
 }	t_cube;
 
@@ -195,7 +197,7 @@ int		cube_init(t_cube *cube);
 void	init_textures(t_cube *cube);
 
 // DRAW
-void	img_pixel_put(t_cube *cube, int	x, int y, int color);
+void	img_pixel_put(t_cube *cube, int x, int y, int color);
 void	img_draw_line(t_cube *cube, t_position start, t_position end, int color);
 void	img_square_put(t_cube *cube, int x, int y, int size, int color);
 void	img_rect_put(t_cube *cube, t_position start, t_position end, int color);

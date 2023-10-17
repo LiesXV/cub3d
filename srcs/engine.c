@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   engine.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 19:14:20 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/16 21:08:49 by lmorel           ###   ########.fr       */
+/*   Updated: 2023/10/17 11:50:31 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,10 +46,10 @@ void	draw_3d_walls(t_cube *cube, int r)
 	if (ca > 2 * PI)
 		ca -= 2 * PI;
 	cube->tdis = cube->tdis * cos(ca);
-	hline = (cube->bloc_size * 320) / cube->tdis;
+	hline = (cube->bloc_size * cube->win_height) / cube->tdis;
 	oline = 160 - hline / 2;
-	if (hline > 320)
-		hline = 320;
+	// if (hline > cube->win_height)
+	// 	hline = cube->win_height;		
 
 		// DRAW BY LINES
 	t_position top_wall;

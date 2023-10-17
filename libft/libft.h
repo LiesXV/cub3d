@@ -6,14 +6,14 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:02:38 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/10/02 19:36:20 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/10/17 12:15:57 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef LIBFT_H
 # define LIBFT_H
 # ifndef BUFFER_SIZE
-#  define BUFFER_SIZE	5
+#  define BUFFER_SIZE	1
 # endif
 
 # include <stdint.h>

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   horizontal_rays.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 17:33:49 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/10/11 20:19:06 by lmorel           ###   ########.fr       */
+/*   Updated: 2023/10/17 15:19:18 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,14 +47,16 @@ int	touch_a_wall_horizontal(t_cube *cube, int *dof)
 
 	mx = cube->r->x / cube->bloc_size;
 	my = cube->r->y / cube->bloc_size;
-	if (mx >= 0 && my >= 0 && my < cube->map->height && mx < cube->map->len \
+	// printf("mx %d\n", mx);
+	// printf("my %d\n", my);
+	if (mx >= 0 && my >= 0 && my < cube->map->height && mx < cube->map->len[(int)my] \
 		&& cube->map->map[(int)my][(int)mx] >= 1)
 	{
 		cube->r->h->x = cube->r->x;
 		cube->r->h->y = cube->r->y;
 		cube->r->h->dis = dist(cube->player->pos->x, \
 			cube->player->pos->y, cube->r->h->x, cube->r->h->y);
-		*dof = cube->map->height * cube->map->len;
+		*dof = cube->map->height * cube->map->len[(int)my];
 		return (0);
 	}
 	return (1);
@@ -71,9 +73,11 @@ void	handle_horizontal_ray(t_cube *cube)
 	{
 		cube->r->x = cube->player->pos->x;
 		cube->r->y = cube->player->pos->y;
-		dof = cube->map->height * cube->map->len;
+		dof = cube->map->height * cube->map->minlen;
 	}
-	while (dof < cube->map->height * cube->map->len)
+	// int	test = cube->map->len[(int)cube->player->pos->y / cube->bloc_size];
+	// printf("%d\n", test);
+	while (dof < cube->map->height * cube->map->minlen)
 	{
 		if (touch_a_wall_horizontal(cube, &dof) == 1)
 		{

@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 11:29:35 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/10/02 19:39:29 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/10/17 13:18:01 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static char	*get_line(char *stash)
 		i++;
 	}
 	if (stash[i] == '\n')
-		line[i] = '\n';
+		line[i] = '\0';
 	return (line);
 }
 

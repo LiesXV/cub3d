@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 19:18:28 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/16 21:29:00 by lmorel           ###   ########.fr       */
+/*   Updated: 2023/10/17 15:07:00 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	find_player(t_cube *cube)
 	while (y < cube->map->height)
 	{
 		x = 0;
-		while (x < cube->map->len)
+		while (x <= cube->map->len[y])
 		{
 			if (cube->map->map[y][x] < 0)
 			{
@@ -87,8 +87,8 @@ int	cube_init(t_cube *cube)
 	init_textures(cube);
 
 	// values
-	if (cube->map->len >= cube->map->height)
-		cube->bloc_size = (cube->win_width * 0.3) / cube->map->len;
+	if (cube->map->maxlen >= cube->map->height)
+		cube->bloc_size = (cube->win_width * 0.3) / cube->map->maxlen;
 	else
 		cube->bloc_size = (cube->win_height * 0.3) / cube->map->height;
 		//player

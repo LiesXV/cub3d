@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vertical_rays.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 17:34:44 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/10/11 20:19:25 by lmorel           ###   ########.fr       */
+/*   Updated: 2023/10/17 15:19:12 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,13 @@ int	touch_a_wall_vertical(t_cube *cube, int *dof)
 	mx = cube->r->x / cube->bloc_size;
 	my = cube->r->y / cube->bloc_size;
 	if (mx >= 0 && my >= 0 && my < cube->map->height \
-		&& mx < cube->map->len && cube->map->map[(int)my][(int)mx] >= 1)
+		&& mx <= cube->map->len[(int)my] && cube->map->map[(int)my][(int)mx] >= 1)
 	{
 		cube->r->v->x = cube->r->x;
 		cube->r->v->y = cube->r->y;
 		cube->r->v->dis = dist(cube->player->pos->x, \
 			cube->player->pos->y, cube->r->v->x, cube->r->v->y);
-		*dof = cube->map->height * cube->map->len;
+		*dof = cube->map->height * cube->map->len[(int)my] + 1;
 		return (0);
 	}
 	return (1);
@@ -69,10 +69,11 @@ void	handle_vertical_ray(t_cube *cube)
 	{
 		cube->r->x = cube->player->pos->x;
 		cube->r->y = cube->player->pos->y;
-		dof = cube->map->height * cube->map->len;
+		dof = cube->map->height * cube->map->minlen;
 	}
-	while (dof < cube->map->height * cube->map->len)
+	while (dof < cube->map->height * cube->map->minlen)
 	{
+
 		if (touch_a_wall_vertical(cube, &dof) == 1)
 		{
 			cube->r->x += cube->r->xo;

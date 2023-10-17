@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 11:49:10 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/10/03 11:52:06 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/10/17 11:19:33 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,6 +77,7 @@ int	read_colors(t_cube *cube)
 		line = get_next_line(cube->fd);
 		if (!line || add_address(&cube->collector, line) == 1)
 			return (ft_putstr_fd("get_next_line error\n", 2), 1);
+		cube->count++;
 		if (only_spaces(line) == 0)
 		{
 			split = ft_split(line, ' ');
