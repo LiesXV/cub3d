@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 11:49:10 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/10/17 11:19:33 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/10/18 14:51:41 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,10 @@ int	parse_colors(t_cube *cube, char	**line)
 		return (fill_colors(cube, line, 1));
 	if (!ft_strncmp(line[0], "C", 2) != 0 && ft_strlen(line[0]) != 2)
 		return (fill_colors(cube, line, 2));
-	if (!ft_strncmp(line[0], "R", 2) != 0 && ft_strlen(line[0]) != 2)
-		return (ft_putstr_fd("resolution (R) values already gifted\n", 2), 1);
 	if (!ft_strncmp(line[0], "NO", 3) != 0 && ft_strlen(line[0]) != 3)
 		return (ft_putstr_fd("north (NO) values already gifted\n", 2), 1);
+	if (!ft_strncmp(line[0], "D", 2) != 0 && ft_strlen(line[0]) != 2)
+		return (ft_putstr_fd("door (D) values already gifted\n", 2), 1);
 	if (!ft_strncmp(line[0], "SO", 3) != 0 && ft_strlen(line[0]) != 3)
 		return (ft_putstr_fd("south (SO) values already gifted\n", 2), 1);
 	if (!ft_strncmp(line[0], "WE", 3) != 0 && ft_strlen(line[0]) != 3)

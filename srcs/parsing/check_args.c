@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 11:47:42 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/10/03 12:49:17 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/10/18 12:20:55 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	only_spaces(char *str)
 	int	i;
 
 	i = 0;
-	while (contains(str[i], " \t\n\r\v\f"))
+	while (contains(str[i], " \t\n\r\v\f\0"))
 		i++;
 	if (i == (int)ft_strlen(str))
 		return (1);

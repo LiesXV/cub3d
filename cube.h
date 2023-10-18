@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:22:59 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/17 15:17:38 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/10/18 15:57:57 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@
 # define MINMAP_ORIGIN_Y 10
 # define ENGINE_ORIGIN_X 0
 # define ENGINE_ORIGIN_Y 0
+# define WIN_WIDTH 1200
+# define WIN_HEIGHT 720
 
 	// PLAYER OPTIONS
 # define VISION 90
@@ -50,6 +52,9 @@ typedef struct s_key
 	int	s;
 	int	d;
 	int	e;
+	int	m;
+	int	shift;
+	int	ctrl;
 }	t_key;
 
 
@@ -73,6 +78,7 @@ typedef struct s_textures
 	char	*so;
 	char	*we;
 	char	*ea;
+	char	*d;
 	char	*f;
 	char	*c;
 }	t_textures;
@@ -85,6 +91,7 @@ typedef struct s_map
 	int			*len;
 	int			maxlen;
 	int			minlen;
+	int			player;
 
 	t_textures	*textures;
 }	t_map;
@@ -144,7 +151,7 @@ typedef struct s_cube
 	void		*win;
 	int			win_height;
 	int			win_width;
-	int			bloc_size;
+	int			bloc_size;	int			on;
 	t_img_data	img_data;
 	t_tex		tex;
 
@@ -180,7 +187,9 @@ typedef struct s_cube
 # define KEY_S 115
 # define KEY_D 100
 # define KEY_E 101
-
+# define KEY_M 109
+# define KEY_CTRL 65507
+# define KEY_SHIFT 65505
 // 					PROTOTYPES
 
 // UTILS
@@ -206,7 +215,7 @@ void	img_rect_put(t_cube *cube, t_position start, t_position end, int color);
 void	render_floor_and_celling(t_cube *cube);
 void	draw_rays(t_cube *cube);
 void	draw_3d_walls(t_cube *cube, int r);
-void	render_minmap(t_cube *cube);
+void	render_map(t_cube *cube);
 int		renderer(t_cube *cube);
 float	dist(float ax, float ay, float bx, float by);
 void	handle_vertical_ray(t_cube *cube);

@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 21:04:38 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/17 15:16:30 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/10/18 15:57:26 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@ void	reset_map(t_cube *cube)
 
 	base.x = MINMAP_ORIGIN_X - 2;
 	base.y = MINMAP_ORIGIN_Y - 2;
-	end.x = MINMAP_ORIGIN_X - 1 + (cube->map->maxlen + 1) * cube->bloc_size;
+	end.x = MINMAP_ORIGIN_X - 1 + (cube->map->maxlen) * cube->bloc_size;
 	end.y = MINMAP_ORIGIN_Y - 1 + cube->map->height * cube->bloc_size;
 	img_rect_put(cube, base, end, 0);
 }
 
-void	render_minmap(t_cube *cube)
+void	render_map(t_cube *cube)
 {
 	int	y;
 	int	x;
@@ -54,7 +54,7 @@ void	render_minmap(t_cube *cube)
 	while (y < cube->map->height)
 	{
 		x = 0;
-		while (x <= cube->map->len[y])
+		while (x < cube->map->len[y])
 		{
 			if (cube->map->map[y][x] == 1)
 				img_square_put(cube, x * cube->bloc_size + MINMAP_ORIGIN_X, y * cube->bloc_size + MINMAP_ORIGIN_Y, cube->bloc_size - 2, 0x9999FF);
@@ -70,3 +70,4 @@ void	render_minmap(t_cube *cube)
 	}
 	draw_min_player(cube);
 }
+

@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/07 14:02:38 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/10/17 12:15:57 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/10/18 13:35:24 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,9 +60,8 @@ char			*ft_strfjoin(char *s1, char const *s2);
 void			*ft_memchr(const void *s, int c, size_t n);
 int				ft_memcmp(const void *s1, const void *s2, size_t n);
 char			*ft_strdup(const char *str);
-char			*ft_strtrim(const char *s1, const char *set);
+char			*ft_strtrim(char *s1, const char *set);
 char			*ft_strncat(char *dst, const char *src, size_t size);
-char			*ft_strtrim(const char *s1, const char *set);
 char			*ft_strmapi(char const *s, char (*f)(unsigned int, char));
 void			ft_striteri(char *s, void (*f)(unsigned int, char *));
 int				ft_putchar_fd(char c, int fd);

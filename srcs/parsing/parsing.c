@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 14:34:06 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/10/17 12:06:21 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/10/18 14:52:56 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,15 @@ int	read_textures(t_cube *cube)
 	}
 	if (read_colors(cube) == 1)
 		return (1);
-	printf("NORTH :%s\tSOUTH :%s\tWEST :%s\tEAST :%s\n", cube->map->textures->no ,cube->map->textures->so ,cube->map->textures->we, cube->map->textures->ea);
+	printf("NORTH :%s\tSOUTH :%s\tWEST :%s\tEAST :%s\nDOOR :%s\n", cube->map->textures->no ,cube->map->textures->so ,cube->map->textures->we, cube->map->textures->ea, cube->map->textures->d);
 	printf("CEILING :%s\tFLOOR :%s\n", cube->map->textures->c ,cube->map->textures->f);
 	return (0);
 }
 
 int	init_data(t_cube *cube, char *pathname)
 {
-	cube->win_height = -1;
-	cube->win_width = -1;
+	cube->win_height = WIN_HEIGHT;
+	cube->win_width = WIN_WIDTH;
 	cube->count = 0;
 	cube->map->textures = malloc(sizeof(t_textures) * 1);
 	if (!cube->map->textures \
@@ -60,6 +60,7 @@ int	init_data(t_cube *cube, char *pathname)
 	cube->map->textures->so = NULL;
 	cube->map->textures->we = NULL;
 	cube->map->textures->ea = NULL;
+	cube->map->textures->d = NULL;
 	cube->map->textures->f = NULL;
 	cube->map->textures->c = NULL;
 	cube->fd = open(pathname, O_RDONLY);

@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 19:18:28 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/17 15:07:00 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/10/18 14:07:57 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void	find_player(t_cube *cube)
 	while (y < cube->map->height)
 	{
 		x = 0;
-		while (x <= cube->map->len[y])
+		while (x < cube->map->len[y])
 		{
 			if (cube->map->map[y][x] < 0)
 			{
@@ -102,6 +102,9 @@ int	cube_init(t_cube *cube)
 	cube->key->a = 0;
 	cube->key->s = 0;
 	cube->key->d = 0;
+	cube->key->m = 0;
+	cube->key->shift = 0;
+	cube->key->ctrl = 0;
 	printf("init done\n");
 	return (0);
 }
