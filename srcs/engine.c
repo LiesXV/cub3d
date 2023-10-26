@@ -3,38 +3,62 @@
 /*                                                        :::      ::::::::   */
 /*   engine.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 19:14:20 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/17 11:50:31 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/10/27 00:17:32 by lmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube.h"
 
-void	init_textures(t_cube *cube)
+void	init_tex(t_cube *cube, char *path, t_img_data **img)
 {
-	// int bpp = cube->img_data.bits_per_pixel;
-	// int ll = cube->img_data.line_length;
-	// int end = cube->img_data.endian;
-	cube->tex.tex_width = 1200;
-	cube->tex.tex_height = 1200;
-
-	// a securiser
-	cube->tex.north = mlx_xpm_file_to_image(cube->mlx, "./textures/wall.xpm", &cube->tex.tex_width, &cube->tex.tex_height);
-	//cube->tex.south = mlx_xpm_file_to_image(cube->mlx, cube->map->textures->so, &cube->tex.tex_width, &cube->tex.tex_height);
-	//cube->tex.east = mlx_xpm_file_to_image(cube->mlx, cube->map->textures->ea, &cube->tex.tex_width, &cube->tex.tex_height);
-	//cube->tex.west = mlx_xpm_file_to_image(cube->mlx, cube->map->textures->we, &cube->tex.tex_width, &cube->tex.tex_height);
-
-	//cube->tex.north = mlx_get_data_addr(cube->tex.north, &bpp, &ll, &end);
-	// cube->tex.south = mlx_get_data_addr(cube->tex.south, &bpp, &ll, &end);
-	// cube->tex.east = mlx_get_data_addr(cube->tex.east, &bpp, &ll, &end);
-	// cube->tex.west = mlx_get_data_addr(cube->tex.west, &bpp, &ll, &end);
-	
-	mlx_destroy_image(cube->mlx, cube->tex.north);
+	ft_printf(CYAN"  -> %s");
+	*img = malloc(sizeof(t_img_data));
+	if (*img)
+	{
+		(*img)->img = mlx_xpm_file_to_image(cube->mlx, path, &(*img)->width, &(*img)->height);
+		// if (error)
+			// exit_func 
+		(*img)->addr = mlx_get_data_addr((*img)->img, &(*img)->bits_per_pixel, &(*img)->line_length, &(*img)->endian);
+		(*img)->max_addr = (*img)->line_length * (*img)->height;
+		(*img)->offset = (*img)->bits_per_pixel / 8;
+		(*img)->ratio = (*img)->width / cube->bloc_size;
+		ft_printf(GREEN"\t: OK\n"RESET);
+	}
+	// else
+		// exit_func
 }
 
-void	draw_3d_walls(t_cube *cube, int r)
+int	get_tex_color(t_img_data *img, int x, int y)
+{
+	int	*color;
+	int	addr_index;
+	
+	addr_index = (y * img->line_length + x * img->offset);
+	if (addr_index >= 0 && addr_index < img->max_addr)
+	{
+		color  = (int*)(img->addr + addr_index);
+		return (*color);
+	}
+	return (-1);
+}
+
+t_img_data **get_tex_side(t_cube *cube, int side)
+{
+	if (side == 'n')
+		return (&cube->tex.north);
+	if (side == 's')
+		return (&cube->tex.south);
+	if (side == 'e')
+		return (&cube->tex.east);
+	if (side == 'w')
+		return (&cube->tex.west);
+	return (NULL);
+}
+
+void	draw_3d_walls(t_cube *cube, int r, t_hit hit)
 {
 	float	ca;
 	float	hline;
@@ -64,17 +88,29 @@ void	draw_3d_walls(t_cube *cube, int r)
 	bottom_win.x = r + ENGINE_ORIGIN_X;
 	bottom_win.y = cube->win_height + 1000;
 	
-	img_draw_line(cube, bot_wall, bottom_win, 0x625973);	// ground
+	img_draw_line(cube, bot_wall, bottom_win, cube->tex.f);	// ground
 	
-	int i;
 
+	// TEXTURES HANDELING
+	
+	int 			i;
+	int 			tex_px;
+	int				tex_col;
+	t_img_data		**texture;
+	t_position		ratio;
+
+	if (hit.side == 'n' || hit.side == 's')
+		tex_col = (int)hit.x % cube->bloc_size;
+	else
+		tex_col = (int)hit.y % cube->bloc_size;
+	texture = get_tex_side(cube, hit.side);
+	ratio.y = (*texture)->height / hline;
+	ratio.x = (tex_col) * ((*texture)->ratio);
 	i = 0;
 	while (i < hline)
 	{
-		//get_tex_pos();
-		//get_tex_color();
-		img_pixel_put(cube, top_wall.x, top_wall.y + i, cube->r->shade * 0xF58C8C);
+		tex_px = get_tex_color(*texture, ratio.x, i * ratio.y);
+		img_pixel_put(cube, top_wall.x, top_wall.y + i, tex_px);
 		i++;
 	}
-	//img_draw_line(cube, top_wall, bot_wall, cube->color_tmp);
 }

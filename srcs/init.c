@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 19:18:28 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/18 14:07:57 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/10/27 00:18:00 by lmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,40 @@ int	init_player(t_cube *cube)
 	return (0);
 }
 
+int	rgb_to_hex(int r, int g, int b)
+{
+	return (r << 16 | g << 8 | b);
+}
+
+int	transform_colors(t_cube *cube, char *ceiling, char *floor)
+{
+	char	**strs;
+
+	strs = ft_split(ceiling, ',');
+	if (!strs || add_tab_to_gb(&cube->collector, strs) == 1)
+		return (ft_putstr_fd(RED"split error\n"RESET, 2), 1);
+	cube->tex.c = rgb_to_hex(ft_atoi(strs[0]), ft_atoi(strs[1]), ft_atoi(strs[2]));
+	
+	strs = ft_split(floor, ',');
+	if (!strs || add_tab_to_gb(&cube->collector, strs) == 1)
+		return (ft_putstr_fd(RED"split error\n"RESET, 2), 1);
+	cube->tex.f = rgb_to_hex(ft_atoi(strs[0]), ft_atoi(strs[1]), ft_atoi(strs[2]));
+	return (0);
+}
+
 int	cube_init(t_cube *cube)
 {
+	printf(YELLOW"==========\tINITIALISING\t==========\n"RESET);
+	// values
+	if (cube->map->maxlen >= cube->map->height)
+		cube->bloc_size = (cube->win_width * 0.4) / cube->map->maxlen;
+	else
+		cube->bloc_size = (cube->win_height * 0.4) / cube->map->height;
+	if (transform_colors(cube, cube->map->textures->c, cube->map->textures->f) != 0)
+		return (1);
+	printf(CYAN"  -> bloc size     : %d\n", cube->bloc_size);
+	printf(CYAN"  -> ceiling color : #%x\n", cube->tex.c);
+	printf(CYAN"  -> floor color   : #%x\n", cube->tex.f);
 	// mlx initialisation
 	cube->mlx = mlx_init();
 	if (cube->mlx == NULL)
@@ -84,13 +116,11 @@ int	cube_init(t_cube *cube)
 	init_image(cube, &cube->img_data);
 
 	// text init
-	init_textures(cube);
+	init_tex(cube, cube->map->textures->no, &cube->tex.north);
+	init_tex(cube, cube->map->textures->so, &cube->tex.south);
+	init_tex(cube, cube->map->textures->ea, &cube->tex.east);
+	init_tex(cube, cube->map->textures->we, &cube->tex.west);
 
-	// values
-	if (cube->map->maxlen >= cube->map->height)
-		cube->bloc_size = (cube->win_width * 0.3) / cube->map->maxlen;
-	else
-		cube->bloc_size = (cube->win_height * 0.3) / cube->map->height;
 		//player
 	if (init_player(cube) == 1)
 		return (1);
@@ -105,6 +135,6 @@ int	cube_init(t_cube *cube)
 	cube->key->m = 0;
 	cube->key->shift = 0;
 	cube->key->ctrl = 0;
-	printf("init done\n");
+	printf(GREEN"==========\tINIT DONE\t==========\n"RESET);
 	return (0);
 }

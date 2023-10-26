@@ -1,11 +1,11 @@
-NO ./textures/wall.xpm
-EA ./textures/wall.xpm
-SO ./textures/wall.xpm
-WE ./textures/wall.xpm
+NO ./textures/copper.xpm
+EA ./textures/chiseled_sb.xpm
+SO ./textures/stone.xpm
+WE ./textures/purpur.xpm
 D  ./textures/door.xpm 
 
-C 225,30,0
-F 220,100,0
+C 66,135,245
+F 109,135,112
 
         1111111111111111111111111
         1000000000110000000000001

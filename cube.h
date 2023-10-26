@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:22:59 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/18 15:57:57 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/10/27 00:02:29 by lmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@
 # define MINMAP_ORIGIN_Y 10
 # define ENGINE_ORIGIN_X 0
 # define ENGINE_ORIGIN_Y 0
-# define WIN_WIDTH 1200
+# define WIN_WIDTH 1280
 # define WIN_HEIGHT 720
 
 	// PLAYER OPTIONS
@@ -63,6 +63,14 @@ typedef struct s_position
 	float	x;
 	float	y;
 }	t_position;
+
+typedef struct s_hit
+{
+	float	x;
+	float	y;
+	int		side;
+	float	shade;
+}	t_hit;
 
 typedef struct s_player
 {
@@ -109,6 +117,12 @@ typedef struct s_img_data
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+	
+	int		width;
+	int		height;
+	int		offset;
+	int		max_addr;
+	double	ratio;
 }	t_img_data;
 
 typedef	struct s_wall
@@ -127,22 +141,18 @@ typedef struct s_ray
 	float	yo;
 	t_wall	*h;	//horizontal
 	t_wall	*v; //vertical
-	float	shade;
 }	t_ray;
 
 typedef struct s_tex
 {
-	int		tex_width;
-	int		tex_height;
+	t_img_data	*north;
+	t_img_data	*south;
+	t_img_data	*east;
+	t_img_data	*west;
+	t_img_data	*door;
 
-	void	*north;
-	void	*south;
-	void	*east;
-	void	*west;
-
-	int		tex_x;
-	int		tex_y;
-	int		color;
+	int			c;
+	int			f;
 }	t_tex;
 
 typedef struct s_cube
@@ -203,7 +213,7 @@ int		keyrelease(int keycode, t_cube *cube);
 
 // INIT
 int		cube_init(t_cube *cube);
-void	init_textures(t_cube *cube);
+void	init_tex(t_cube *cube, char *path, t_img_data **img);
 
 // DRAW
 void	img_pixel_put(t_cube *cube, int x, int y, int color);
@@ -212,9 +222,8 @@ void	img_square_put(t_cube *cube, int x, int y, int size, int color);
 void	img_rect_put(t_cube *cube, t_position start, t_position end, int color);
 
 // RENDER
-void	render_floor_and_celling(t_cube *cube);
 void	draw_rays(t_cube *cube);
-void	draw_3d_walls(t_cube *cube, int r);
+void	draw_3d_walls(t_cube *cube, int r, t_hit hit);
 void	render_map(t_cube *cube);
 int		renderer(t_cube *cube);
 float	dist(float ax, float ay, float bx, float by);
@@ -229,5 +238,28 @@ int		only_spaces(char *str);
 int		parse_textures(t_cube *cube, char	**line);
 int		read_colors(t_cube *cube);
 int		parse_easy_map(t_cube *cube);
+
+// COLORS
+# define RESET		"\033[00m"
+# define BOLD		"\033[1m"
+# define UNDERLINE 	"\033[4m"
+# define GRAY		"\033[30m"
+# define GREY		"\033[30m"
+# define RED		"\033[31m"
+# define GREEN		"\033[32m"
+# define YELLOW		"\033[33m"
+# define BLUE		"\033[34m"
+# define MAGENTA	"\033[35m"
+# define CYAN		"\033[36m"
+# define WHITE		"\033[37m"
+# define BG_GRAY	"\033[40m"
+# define BG_GREY	"\033[40m"
+# define BG_RED		"\033[41m"
+# define BG_GREEN	"\033[42m"
+# define BG_YELLOW	"\033[43m"
+# define BG_BLUE	"\033[44m"
+# define BG_MAGENTA	"\033[45m"
+# define BG_CYAN	"\033[46m"
+# define BG_WHITE	"\033[47m"
 
 #endif

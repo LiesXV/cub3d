@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:16:21 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/18 15:58:04 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/10/27 00:14:41 by lmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,14 +14,15 @@
 
 int	fexit(t_cube *cube)
 {
-	printf("Freeing ...\n");
+	printf(YELLOW"==========\tCLOSING\t\t==========\n"RESET);
+	printf(CYAN"  -> Freeing ...\n");
 	if (cube->img_data.img)
 	{
 		mlx_destroy_image(cube->mlx, cube->img_data.img);
-		printf("Image freed !\n");
+		printf("  -> Image freed !\n");
 	}
 	mlx_destroy_window(cube->mlx, cube->win);
-	printf("Exited successfully\n");
+	printf(GREEN"==========\tEXIT SUCCESS\t==========\n"RESET);
 	exit(0);
 	return (0);
 }
@@ -29,7 +30,7 @@ int	fexit(t_cube *cube)
 int	renderer(t_cube *cube)
 {
 	commands(cube);
-	img_square_put(cube, ENGINE_ORIGIN_X, ENGINE_ORIGIN_Y, cube->win_width - ENGINE_ORIGIN_X, 0x91E8F0); // sky
+	img_square_put(cube, ENGINE_ORIGIN_X, ENGINE_ORIGIN_Y, cube->win_width - ENGINE_ORIGIN_X, cube->tex.c); // sky
 	draw_rays(cube);
 	if (cube->key->m == 1)
 		render_map(cube);
