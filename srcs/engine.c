@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   engine.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 19:14:20 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/31 13:22:07 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/10/31 19:35:21 by lmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,20 @@ void	init_tex(t_cube *cube, char *path, t_img_data **img)
 	if (*img)
 	{
 		(*img)->img = mlx_xpm_file_to_image(cube->mlx, path, &(*img)->width, &(*img)->height);
-		// if (error)
-			// exit_func 
+		if (!(*img)->img)
+		{
+			ft_printf(RED"\t: KO\n"RESET);
+			error_exit(cube, "invalid path.");
+		}
 		(*img)->addr = mlx_get_data_addr((*img)->img, &(*img)->bits_per_pixel, &(*img)->line_length, &(*img)->endian);
 		(*img)->max_addr = (*img)->line_length * (*img)->height;
 		(*img)->offset = (*img)->bits_per_pixel / 8;
 		(*img)->ratio = (*img)->width / cube->bloc_size;
 		ft_printf(GREEN"\t: OK\n"RESET);
 	}
-	// else
-		// exit_func
+	else
+		if (!(*img)->img)
+			error_exit(cube, "malloc error.");
 }
 
 int	get_tex_color(t_img_data *img, int x, int y)
@@ -103,9 +107,12 @@ void	draw_3d_walls(t_cube *cube, int r, t_hit hit)
 		tex_col = (int)hit.x % cube->bloc_size;
 	else
 		tex_col = (int)hit.y % cube->bloc_size;
-	texture = get_tex_side(cube, hit.side);
+	if (hit.type == 'd')
+		texture = &cube->tex.door;
+	else
+		texture = get_tex_side(cube, hit.side);
 	ratio.y = (*texture)->height / hline;
-	ratio.x = (tex_col) * ((*texture)->ratio);
+	ratio.x = (tex_col + 6) * ((*texture)->ratio);
 	i = 0;
 	while (i < hline)
 	{

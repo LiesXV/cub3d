@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   draw.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 23:14:40 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/31 13:21:49 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/10/31 19:08:56 by lmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,6 @@ void	img_square_put(t_cube *cube, int x, int y, int size, int color)
 		}
 		y2++;
 	}
-	//printf("square done\n");
 }
 
 void	img_rect_put(t_cube *cube, t_position start, t_position end, int color)

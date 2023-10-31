@@ -1,4 +1,4 @@
-NAME = cube3D
+NAME = cub3D
 
 SRCS_DIR = srcs/
 

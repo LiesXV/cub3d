@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:22:59 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/31 15:49:56 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/10/31 19:29:21 by lmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,6 +68,7 @@ typedef struct s_hit
 {
 	float	x;
 	float	y;
+	int		type;
 	int		side;
 	float	shade;
 }	t_hit;
@@ -126,6 +127,7 @@ typedef struct s_img_data
 
 typedef	struct s_wall
 {
+	int		type;
 	float	dis;
 	float	x;
 	float	y;
@@ -206,6 +208,7 @@ void	free_gb(t_collector **lst);
 int		add_address(t_collector **lst, void *address);
 int		add_tab_to_gb(t_collector **lst, char **args);
 int		keypress(int keycode, t_cube *cube);
+int		error_exit(t_cube *cube, char *msg);
 int		fexit(t_cube *cube);
 int		commands(t_cube *cube);
 int		keyrelease(int keycode, t_cube *cube);

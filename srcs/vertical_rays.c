@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vertical_rays.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 17:34:44 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/10/17 15:19:12 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/10/31 19:34:06 by lmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,10 @@ int	touch_a_wall_vertical(t_cube *cube, int *dof)
 	if (mx >= 0 && my >= 0 && my < cube->map->height \
 		&& mx <= cube->map->len[(int)my] && cube->map->map[(int)my][(int)mx] >= 1)
 	{
+		if (cube->map->map[(int)my][(int)mx] == 2)
+			cube->r->v->type = 'd';
+		else
+			cube->r->v->type = 'w';
 		cube->r->v->x = cube->r->x;
 		cube->r->v->y = cube->r->y;
 		cube->r->v->dis = dist(cube->player->pos->x, \

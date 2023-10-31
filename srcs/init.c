@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 19:18:28 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/31 15:29:02 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/10/31 19:26:34 by lmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,14 +119,15 @@ int	cube_init(t_cube *cube)
 	init_tex(cube, cube->map->textures->so, &cube->tex.south);
 	init_tex(cube, cube->map->textures->ea, &cube->tex.east);
 	init_tex(cube, cube->map->textures->we, &cube->tex.west);
+	init_tex(cube, cube->map->textures->d, &cube->tex.door);
 
 		//player
 	if (init_player(cube) == 1)
-		return (1);
+		error_exit(cube, "malloc error.");
 		// keys
 	cube->key = malloc(sizeof(t_key) * 1);
 	if (!cube->key || add_address(&cube->collector, cube->key) == 1)
-		return (1);
+		error_exit(cube, "malloc error.");
 	cube->key->w = 0;
 	cube->key->a = 0;
 	cube->key->s = 0;
@@ -135,5 +136,6 @@ int	cube_init(t_cube *cube)
 	cube->key->shift = 0;
 	cube->key->ctrl = 0;
 	printf(GREEN"==========\tINIT DONE\t==========\n"RESET);
+	printf(RED"==========\tPLAYING\t\t==========\n"RESET);
 	return (0);
 }

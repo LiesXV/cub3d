@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   horizontal_rays.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 17:33:49 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/10/31 15:19:15 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/10/31 19:33:58 by lmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,10 @@ int	touch_a_wall_horizontal(t_cube *cube, int *dof)
 	if (mx >= 0 && my >= 0 && my < cube->map->height && \
 		mx < cube->map->len[(int)my] && cube->map->map[(int)my][(int)mx] >= 1)
 	{
+		if (cube->map->map[(int)my][(int)mx] == 2)
+			cube->r->h->type = 'd';
+		else
+			cube->r->h->type = 'w';
 		cube->r->h->x = cube->r->x;
 		cube->r->h->y = cube->r->y;
 		cube->r->h->dis = dist(cube->player->pos->x, \
