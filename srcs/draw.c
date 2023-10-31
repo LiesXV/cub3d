@@ -6,17 +6,18 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 23:14:40 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/04 10:52:34 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/10/31 13:21:49 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube.h"
 
-void	img_pixel_put(t_cube *cube, int	x, int y, int color)
+void	img_pixel_put(t_cube *cube, int x, int y, int color)
 {
 	char	*dst;
 
-	dst = cube->img_data.addr + (y * cube->img_data.line_length + x * (cube->img_data.bits_per_pixel / 8));
+	dst = cube->img_data.addr + \
+	(y * cube->img_data.line_length + x * (cube->img_data.bits_per_pixel / 8));
 	if (x >= 0 && x < cube->win_width && y >= 0 && y < cube->win_height)
 		*(unsigned int *)dst = color;
 }
@@ -61,8 +62,8 @@ void	img_square_put(t_cube *cube, int x, int y, int size, int color)
 
 void	img_rect_put(t_cube *cube, t_position start, t_position end, int color)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	y = start.y;
 	while (y <= end.y)

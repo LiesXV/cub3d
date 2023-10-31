@@ -6,11 +6,22 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 11:49:14 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/10/18 15:28:19 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/10/31 13:20:02 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../cube.h"
+
+int	put_door_texture(t_cube *cube, char *pathname)
+{
+	if (cube->map->textures->d != NULL)
+		return (ft_putstr_fd("you cannot put two DOOR values\n", 2), 1);
+	cube->map->textures->d = ft_strdup(pathname);
+	if (!cube->map->textures->d \
+		|| add_address(&cube->collector, cube->map->textures->d) == 1)
+		return (ft_putstr_fd("malloc error\n", 2), 1);
+	return (0);
+}
 
 int	put_texture_end(t_cube *cube, char *pathname, int face)
 {
@@ -33,14 +44,7 @@ int	put_texture_end(t_cube *cube, char *pathname, int face)
 			return (ft_putstr_fd("malloc error\n", 2), 1);
 	}
 	else if (face == 5)
-	{
-		if (cube->map->textures->d != NULL)
-			return (ft_putstr_fd("you cannot put two DOOR values\n", 2), 1);
-		cube->map->textures->d = ft_strdup(pathname);
-		if (!cube->map->textures->d \
-			|| add_address(&cube->collector, cube->map->textures->d) == 1)
-			return (ft_putstr_fd("malloc error\n", 2), 1);
-	}
+		return (put_door_texture(cube, pathname));
 	return (0);
 }
 

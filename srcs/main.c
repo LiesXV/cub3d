@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:16:21 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/27 00:14:41 by lmorel           ###   ########.fr       */
+/*   Updated: 2023/10/31 12:55:13 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,12 +30,12 @@ int	fexit(t_cube *cube)
 int	renderer(t_cube *cube)
 {
 	commands(cube);
-	img_square_put(cube, ENGINE_ORIGIN_X, ENGINE_ORIGIN_Y, cube->win_width - ENGINE_ORIGIN_X, cube->tex.c); // sky
+	img_square_put(cube, ENGINE_ORIGIN_X, ENGINE_ORIGIN_Y, \
+		cube->win_width - ENGINE_ORIGIN_X, cube->tex.c);
 	draw_rays(cube);
 	if (cube->key->m == 1)
 		render_map(cube);
 	mlx_put_image_to_window(cube->mlx, cube->win, cube->img_data.img, 0, 0);
-	// printf("image is on screen\n");
 	return (0);
 }
 

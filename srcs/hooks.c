@@ -6,35 +6,11 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 19:49:17 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/18 14:47:22 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/10/31 15:20:04 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube.h"
-
-int	is_dist_ok(t_cube *cube)
-{
-	int	xo;
-	int	yo;
-
-	xo = 0;
-	yo = 0;
-	if (cube->player->dpos->x < 0)
-		xo = -4;
-	else
-		xo = 4;
-	if (cube->player->dpos->y < 0)
-		yo = -4;
-	else
-		yo = 4;
-	cube->ipx = cube->player->pos->x / cube->bloc_size;
-	cube->ipx_add_xo = (cube->player->pos->x + xo) / cube->bloc_size;
-	cube->ipx_sub_xo = (cube->player->pos->x - xo) / cube->bloc_size;
-	cube->ipy = cube->player->pos->y / cube->bloc_size;
-	cube->ipy_add_xo = (cube->player->pos->y + yo) / cube->bloc_size;
-	cube->ipy_sub_xo = (cube->player->pos->y - yo) / cube->bloc_size;
-	return (0);
-}
 
 int	keypress(int keycode, t_cube *cube)
 {
@@ -57,19 +33,7 @@ int	keypress(int keycode, t_cube *cube)
 	else if (keycode == KEY_M && cube->key->m == 1)
 		cube->key->m = 0;
 	else if (keycode == KEY_E)
-	{
-		// is_dist_ok(cube);
-		//NORTH && SOUTH
-		if (cube->map->map[cube->ipy_add_xo][cube->ipx] == 2)
-			cube->map->map[cube->ipy_add_xo][cube->ipx] = -2;
-		else if (cube->map->map[cube->ipy_add_xo][cube->ipx] == -2 && cube->map->map[cube->ipy][cube->ipx] != -2)
-			cube->map->map[cube->ipy_add_xo][cube->ipx] = 2;
-		// EAST && WEST
-		if (cube->map->map[cube->ipy][cube->ipx_add_xo] == 2)
-			cube->map->map[cube->ipy][cube->ipx_add_xo] = -2;
-		else if (cube->map->map[cube->ipy][cube->ipx_add_xo] == -2 && cube->map->map[cube->ipy][cube->ipx] != -2)
-			cube->map->map[cube->ipy][cube->ipx_add_xo] = 2;
-	}
+		open_doors(cube);
 	else // to remove
 		printf("%d PRESSED !\n", keycode);
 	return (0);
@@ -92,31 +56,8 @@ int	keyrelease(int keycode, t_cube *cube)
 	return (0);
 }
 
-int	commands(t_cube *cube)
+void	commands_next(t_cube *cube)
 {
-	int	speed;
-
-	speed = 10;
-	is_dist_ok(cube);
-	if (cube->key->ctrl == 1)
-		speed = 30;
-	if (cube->key->shift == 1)
-		speed = 5;
-	if (cube->key->w == 1)
-	{
-		//printf("from map[%d][%d] == %d to map[%d][%d] == %d\n", cube->ipy, cube->ipx_add_xo, cube->map->map[cube->ipy][cube->ipx_add_xo], cube->ipy_add_xo, cube->ipx, cube->map->map[cube->ipy_add_xo][cube->ipx]);
-		if (!(cube->map->map[cube->ipy][cube->ipx_add_xo] >= 1))
-			cube->player->pos->x += cube->player->dpos->x / speed;
-		if (!(cube->map->map[cube->ipy_add_xo][cube->ipx] >= 1))
-			cube->player->pos->y += cube->player->dpos->y / speed;
-	}
-	if (cube->key->s == 1)
-	{
-		if (!(cube->map->map[cube->ipy][cube->ipx_sub_xo] >= 1))
-			cube->player->pos->x -= cube->player->dpos->x / speed;
-		if (!(cube->map->map[cube->ipy_sub_xo][cube->ipx] >= 1))
-			cube->player->pos->y -= cube->player->dpos->y / speed;
-	}
 	if (cube->key->a == 1)
 	{
 		cube->player->a -= 0.05;
@@ -133,5 +74,33 @@ int	commands(t_cube *cube)
 		cube->player->dpos->x = cos(cube->player->a) * 5 / 3;
 		cube->player->dpos->y = sin(cube->player->a) * 5 / 3;
 	}
+}
+
+int	commands(t_cube *cube)
+{
+	int	speed;
+
+	speed = 2;
+	is_dist_ok(cube);
+	if (cube->key->ctrl == 1)
+		speed = 10;
+	if (cube->key->shift == 1)
+		speed = 1;
+	if (cube->key->w == 1)
+	{
+		//printf("from map[%d][%d] == %d to map[%d][%d] == %d\n", cube->ipy, cube->ipx_add_xo, cube->map->map[cube->ipy][cube->ipx_add_xo], cube->ipy_add_xo, cube->ipx, cube->map->map[cube->ipy_add_xo][cube->ipx]);
+		if (!(cube->map->map[cube->ipy][cube->ipx_add_xo] >= 1))
+			cube->player->pos->x += cube->player->dpos->x / speed;
+		if (!(cube->map->map[cube->ipy_add_xo][cube->ipx] >= 1))
+			cube->player->pos->y += cube->player->dpos->y / speed;
+	}
+	if (cube->key->s == 1)
+	{
+		if (!(cube->map->map[cube->ipy][cube->ipx_sub_xo] >= 1))
+			cube->player->pos->x -= cube->player->dpos->x / speed;
+		if (!(cube->map->map[cube->ipy_sub_xo][cube->ipx] >= 1))
+			cube->player->pos->y -= cube->player->dpos->y / speed;
+	}
+	commands_next(cube);
 	return (0);
 }

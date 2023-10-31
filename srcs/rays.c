@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   rays.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 17:31:27 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/10/26 22:22:11 by lmorel           ###   ########.fr       */
+/*   Updated: 2023/10/31 15:20:15 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube.h"
 
-int	get_side_wall(float a, int	closer)
+int	get_side_wall(float a, int closer)
 {
 	if (a >= 0 && a < PI)
 	{
@@ -87,7 +87,6 @@ int	init_ray(t_cube *cube)
 void	draw_rays(t_cube *cube)
 {
 	int			r;
-	// t_position	player_tmp;
 
 	r = -1;
 	init_ray(cube);
@@ -102,10 +101,6 @@ void	draw_rays(t_cube *cube)
 		cube->r->v->y = cube->player->pos->y;
 		handle_vertical_ray(cube);
 		draw_3d_walls(cube, r, get_end_pos(cube));
-		
-		// player_tmp.x = cube->player->pos->x + cube->player->size / 2 + MINMAP_ORIGIN_X;
-		// player_tmp.y = cube->player->pos->y + cube->player->size / 2 + MINMAP_ORIGIN_Y;
-		// img_draw_line(cube, player_tmp, get_end_pos(cube), 0x660000); 					// rays on map
 		cube->r->a += (DR * VISION) / cube->win_width;
 		if (cube->r->a < 0)
 			cube->r->a += 2 * PI;

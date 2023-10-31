@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:22:59 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/27 00:02:29 by lmorel           ###   ########.fr       */
+/*   Updated: 2023/10/31 15:49:56 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,6 @@ typedef struct s_img_data
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
-	
 	int		width;
 	int		height;
 	int		offset;
@@ -230,6 +229,8 @@ float	dist(float ax, float ay, float bx, float by);
 void	handle_vertical_ray(t_cube *cube);
 void	handle_horizontal_ray(t_cube *cube);
 void	draw_rays(t_cube *cube);
+int		is_dist_ok(t_cube *cube);
+void	open_doors(t_cube *cube);
 
 //	PARSING
 int		parse_init(t_cube *cube, int argc, char **argv);
@@ -238,6 +239,9 @@ int		only_spaces(char *str);
 int		parse_textures(t_cube *cube, char	**line);
 int		read_colors(t_cube *cube);
 int		parse_easy_map(t_cube *cube);
+int		is_surrounded(t_cube *cube, int y, int x);
+char	*skip_empty_lines(t_cube *cube);
+int		check_player_pos(t_cube *cube, int i, int j);
 
 // COLORS
 # define RESET		"\033[00m"

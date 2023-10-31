@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 21:04:38 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/18 15:57:26 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/10/31 15:19:39 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,14 @@ void	draw_min_player(t_cube *cube)
 	t_position	min_pos;
 	t_position	endline;
 
-
 	min_pos.x = cube->player->pos->x + MINMAP_ORIGIN_X;
 	min_pos.y = cube->player->pos->y + MINMAP_ORIGIN_Y;
-	img_square_put(cube, min_pos.x -cube->player->size / 2, min_pos.y - cube->player->size / 2, cube->player->size, 0xFED141);
-
-	endline.x = (min_pos.x + cube->player->dpos->x * (cube->player->size * 2.5));
-	endline.y = (min_pos.y + cube->player->dpos->y * (cube->player->size * 2.5));
+	img_square_put(cube, min_pos.x - cube->player->size / 2, \
+		min_pos.y - cube->player->size / 2, cube->player->size, 0xFED141);
+	endline.x = (min_pos.x + cube->player->dpos->x * \
+		(cube->player->size * 2.5));
+	endline.y = (min_pos.y + cube->player->dpos->y * \
+		(cube->player->size * 2.5));
 	img_draw_line(cube, min_pos, endline, 0xFED141);
 }
 
@@ -44,6 +45,22 @@ void	reset_map(t_cube *cube)
 	img_rect_put(cube, base, end, 0);
 }
 
+void	put_cube_map(t_cube *cube, int y, int x)
+{
+	if (cube->map->map[y][x] == 1)
+		img_square_put(cube, x * cube->bloc_size + MINMAP_ORIGIN_X, \
+		y * cube->bloc_size + MINMAP_ORIGIN_Y, cube->bloc_size - 2, 0x9999FF);
+	else if (cube->map->map[y][x] == 2)
+		img_square_put(cube, x * cube->bloc_size + MINMAP_ORIGIN_X, \
+		y * cube->bloc_size + MINMAP_ORIGIN_Y, cube->bloc_size - 2, 0x660000);
+	else if (cube->map->map[y][x] == -2)
+		img_square_put(cube, x * cube->bloc_size + MINMAP_ORIGIN_X, \
+		y * cube->bloc_size + MINMAP_ORIGIN_Y, cube->bloc_size - 2, 0xFF0000);
+	else if (cube->map->map[y][x] != ' ')
+		img_square_put(cube, x * cube->bloc_size + MINMAP_ORIGIN_X, \
+		y * cube->bloc_size + MINMAP_ORIGIN_Y, cube->bloc_size - 2, 0x1B2329);
+}
+
 void	render_map(t_cube *cube)
 {
 	int	y;
@@ -56,18 +73,10 @@ void	render_map(t_cube *cube)
 		x = 0;
 		while (x < cube->map->len[y])
 		{
-			if (cube->map->map[y][x] == 1)
-				img_square_put(cube, x * cube->bloc_size + MINMAP_ORIGIN_X, y * cube->bloc_size + MINMAP_ORIGIN_Y, cube->bloc_size - 2, 0x9999FF);
-			else if (cube->map->map[y][x] == 2)
-				img_square_put(cube, x * cube->bloc_size + MINMAP_ORIGIN_X, y * cube->bloc_size + MINMAP_ORIGIN_Y, cube->bloc_size - 2, 0x660000);
-			else if (cube->map->map[y][x] == -2)
-				img_square_put(cube, x * cube->bloc_size + MINMAP_ORIGIN_X, y * cube->bloc_size + MINMAP_ORIGIN_Y, cube->bloc_size - 2, 0xFF0000);
-			else if (cube->map->map[y][x] != ' ')
-				img_square_put(cube, x * cube->bloc_size + MINMAP_ORIGIN_X, y * cube->bloc_size + MINMAP_ORIGIN_Y, cube->bloc_size - 2, 0x1B2329);
+			put_cube_map(cube, y, x);
 			x++;
 		}
 		y++;
 	}
 	draw_min_player(cube);
 }
-

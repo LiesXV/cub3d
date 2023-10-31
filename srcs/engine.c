@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   engine.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 19:14:20 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/27 00:17:32 by lmorel           ###   ########.fr       */
+/*   Updated: 2023/10/31 13:22:07 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,12 +87,12 @@ void	draw_3d_walls(t_cube *cube, int r, t_hit hit)
 	t_position bottom_win;
 	bottom_win.x = r + ENGINE_ORIGIN_X;
 	bottom_win.y = cube->win_height + 1000;
-	
+
 	img_draw_line(cube, bot_wall, bottom_win, cube->tex.f);	// ground
-	
+
 
 	// TEXTURES HANDELING
-	
+
 	int 			i;
 	int 			tex_px;
 	int				tex_col;

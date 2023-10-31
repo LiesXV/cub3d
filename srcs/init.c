@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 19:18:28 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/27 00:18:00 by lmorel           ###   ########.fr       */
+/*   Updated: 2023/10/31 15:29:02 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ int	transform_colors(t_cube *cube, char *ceiling, char *floor)
 	if (!strs || add_tab_to_gb(&cube->collector, strs) == 1)
 		return (ft_putstr_fd(RED"split error\n"RESET, 2), 1);
 	cube->tex.c = rgb_to_hex(ft_atoi(strs[0]), ft_atoi(strs[1]), ft_atoi(strs[2]));
-	
 	strs = ft_split(floor, ',');
 	if (!strs || add_tab_to_gb(&cube->collector, strs) == 1)
 		return (ft_putstr_fd(RED"split error\n"RESET, 2), 1);
