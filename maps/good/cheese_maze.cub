@@ -1,6 +1,6 @@
 WE srcs/xpm/west.xpm
 SO srcs/xpm/south.xpm
-EA srcs/xpm/east.xpm
+EA textures/east.xpm
 NO srcs/xpm/north.xpm
 D  textures/copper.xpm
 

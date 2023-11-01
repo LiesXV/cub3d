@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   engine.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 19:14:20 by lmorel            #+#    #+#             */
-/*   Updated: 2023/11/01 13:47:58 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/11/01 19:24:03 by lmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,17 +49,31 @@ int	get_tex_color(t_img_data *img, int x, int y)
 	return (-1);
 }
 
-t_img_data **get_tex_side(t_cube *cube, int side)
+t_img_data **get_tex_side(t_cube *cube, t_hit hit)
 {
-	if (side == 'n')
-		return (&cube->tex.north);
-	if (side == 's')
-		return (&cube->tex.south);
-	if (side == 'e')
-		return (&cube->tex.east);
-	if (side == 'w')
-		return (&cube->tex.west);
+	if (hit.type == 'd')
+		return (&cube->tex.door);
+	else if (hit.type == 'w')
+	{
+		if (hit.side == 'n')
+			return (&cube->tex.north);
+		if (hit.side == 's')
+			return (&cube->tex.south);
+		if (hit.side == 'e')
+			return (&cube->tex.east);
+		if (hit.side == 'w')
+			return (&cube->tex.west);
+	}
 	return (NULL);
+}
+
+static float	ft_modf(float nbr, int div)
+{
+	int	i;
+
+	i = nbr / div;
+	nbr -= div * i;
+	return (nbr);
 }
 
 void	draw_3d_walls(t_cube *cube, int r, t_hit hit)
@@ -75,9 +89,7 @@ void	draw_3d_walls(t_cube *cube, int r, t_hit hit)
 		ca -= 2 * PI;
 	cube->tdis = cube->tdis * cos(ca);
 	hline = (cube->bloc_size * cube->win_height) / cube->tdis;
-	oline = 160 - hline / 2;
-	// if (hline > cube->win_height)
-	// 	hline = cube->win_height;		
+	oline = 160 - hline / 2;	
 
 		// DRAW BY LINES
 	t_position top_wall;
@@ -99,20 +111,17 @@ void	draw_3d_walls(t_cube *cube, int r, t_hit hit)
 
 	int 			i;
 	int 			tex_px;
-	int				tex_col;
+	float			tex_col;
 	t_img_data		**texture;
 	t_position		ratio;
 
+	texture = get_tex_side(cube, hit);
 	if (hit.side == 'n' || hit.side == 's')
-		tex_col = (int)hit.x % cube->bloc_size;
+		tex_col = ft_modf(hit.x, cube->bloc_size);
 	else
-		tex_col = (int)hit.y % cube->bloc_size;
-	if (hit.type == 'd')
-		texture = &cube->tex.door;
-	else
-		texture = get_tex_side(cube, hit.side);
+		tex_col = ft_modf(hit.y, cube->bloc_size);
 	ratio.y = (*texture)->height / hline;
-	ratio.x = (tex_col + 6) * ((*texture)->ratio);
+	ratio.x = (tex_col) * ((*texture)->ratio);
 	i = 0;
 	while (i < hline)
 	{

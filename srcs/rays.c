@@ -6,7 +6,7 @@
 /*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 17:31:27 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/10/31 19:36:35 by lmorel           ###   ########.fr       */
+/*   Updated: 2023/11/01 19:32:11 by lmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ t_hit	get_end_pos(t_cube *cube)
 
 	if (cube->r->v->dis < cube->r->h->dis)
 	{
-		hit.x = cube->r->v->x + MINMAP_ORIGIN_X;
-		hit.y = cube->r->v->y + MINMAP_ORIGIN_Y;
+		hit.x = cube->r->v->x;
+		hit.y = cube->r->v->y;
 		hit.type = cube->r->v->type;
 		hit.side = get_side_wall(cube->r->a, 'v');
 		hit.shade = 1;
@@ -50,8 +50,8 @@ t_hit	get_end_pos(t_cube *cube)
 	}
 	else
 	{
-		hit.x = cube->r->h->x + MINMAP_ORIGIN_X;
-		hit.y = cube->r->h->y + MINMAP_ORIGIN_Y;
+		hit.x = cube->r->h->x;
+		hit.y = cube->r->h->y;
 		hit.type = cube->r->h->type;
 		hit.side = get_side_wall(cube->r->a, 'h');
 		hit.shade = 0.8;

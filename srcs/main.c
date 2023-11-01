@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:16:21 by lmorel            #+#    #+#             */
-/*   Updated: 2023/11/01 12:05:19 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/11/01 17:13:19 by lmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ int	fexit(t_cube *cube)
 	printf(GREEN"OK\n");
 	if (cube->img_data.img)
 	{
-		printf("  -> Image : ");
+		printf(CYAN"  -> Freeing image : ");
 		mlx_destroy_image(cube->mlx, cube->img_data.img);
 		printf(GREEN"OK\n"RESET);
 	}
