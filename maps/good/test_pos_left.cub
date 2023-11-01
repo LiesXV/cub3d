@@ -1,0 +1,13 @@
+WE srcs/xpm/west.xpm
+SO srcs/xpm/south.xpm
+EA srcs/xpm/east.xpm
+NO srcs/xpm/north.xpm
+D  textures/copper.xpm
+
+
+C 135,206,235
+F 119,136,153
+
+111111111111111111111
+1W0000000000000000001
+111111111111111111111

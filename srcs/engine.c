@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   engine.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 19:14:20 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/31 19:35:21 by lmorel           ###   ########.fr       */
+/*   Updated: 2023/11/01 13:47:58 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	get_tex_color(t_img_data *img, int x, int y)
 {
 	int	*color;
 	int	addr_index;
-	
+
 	addr_index = (y * img->line_length + x * img->offset);
 	if (addr_index >= 0 && addr_index < img->max_addr)
 	{

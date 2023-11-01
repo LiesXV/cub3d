@@ -1,0 +1,11 @@
+WE srcs/xpm/west.xpm
+SO srcs/xpm/south.xpm
+EA srcs/xpm/east.xpm
+NO srcs/xpm/north.xpm
+D  textures/copper.xpm
+
+F 20,20,20
+C 200,200,200
+
+111
+111

@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/11 10:51:47 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/10/18 13:34:27 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/11/01 11:02:10 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,5 +75,5 @@ char	*ft_strtrim(char *s1, const char *set)
 	if (trim == NULL)
 		return (NULL);
 	ft_isnegative(len, start, trim, s1);
-	return (free(s1), trim);
+	return (trim);
 }

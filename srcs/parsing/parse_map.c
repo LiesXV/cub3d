@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 12:23:04 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/10/31 13:03:10 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/11/01 14:14:55 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,15 +121,13 @@ int	parse_easy_map(t_cube *cube)
 	while (line && only_spaces(line) == 0)
 	{
 		line = ft_strtrim(line, " ");
-		if (add_line_to_map(cube, line, i) == 1 \
-			|| add_address(&cube->collector, line) == 1)
+		if (add_address(&cube->collector, line) == 1 \
+			|| add_line_to_map(cube, line, i) == 1)
 			return (1);
 		i++;
 		line = get_next_line(cube->fd);
 		if (add_address(&cube->collector, line) == 1)
 			return (ft_putstr_fd("get_next_line error\n", 2), 1);
-		if (!line)
-			free(line);
 	}
 	if (cube->map->player < 1)
 		return (ft_putstr_fd("no player in the map\n", 2), 1);

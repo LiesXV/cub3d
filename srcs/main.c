@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:16:21 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/31 19:04:34 by lmorel           ###   ########.fr       */
+/*   Updated: 2023/11/01 12:05:19 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ int	main(int ac, char **av)
 	t_cube	cube;
 
 	if (parse_init(&cube, ac, av) || cube_init(&cube))
-		return (1);
+		return (free_gb(&cube.collector), 1);
 	renderer(&cube);
 	mlx_hook(cube.win, 2, (1L << 0), keypress, &cube);
 	mlx_hook(cube.win, 3, (1L << 1), keyrelease, &cube);
