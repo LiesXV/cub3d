@@ -6,7 +6,7 @@
 /*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:16:21 by lmorel            #+#    #+#             */
-/*   Updated: 2023/11/01 17:13:19 by lmorel           ###   ########.fr       */
+/*   Updated: 2023/11/01 19:42:32 by lmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,7 @@ int	main(int ac, char **av)
 	renderer(&cube);
 	mlx_hook(cube.win, 2, (1L << 0), keypress, &cube);
 	mlx_hook(cube.win, 3, (1L << 1), keyrelease, &cube);
+	mlx_hook(cube.win, 17, 0, fexit, &cube);
 	mlx_loop_hook(cube.mlx, renderer, &cube);
 	mlx_loop(cube.mlx);
 	get_next_line(-1);

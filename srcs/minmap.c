@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minmap.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 21:04:38 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/31 15:19:39 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/11/01 19:45:09 by lmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,10 +52,10 @@ void	put_cube_map(t_cube *cube, int y, int x)
 		y * cube->bloc_size + MINMAP_ORIGIN_Y, cube->bloc_size - 2, 0x9999FF);
 	else if (cube->map->map[y][x] == 2)
 		img_square_put(cube, x * cube->bloc_size + MINMAP_ORIGIN_X, \
-		y * cube->bloc_size + MINMAP_ORIGIN_Y, cube->bloc_size - 2, 0x660000);
+		y * cube->bloc_size + MINMAP_ORIGIN_Y, cube->bloc_size - 2, 0xFF0000);
 	else if (cube->map->map[y][x] == -2)
 		img_square_put(cube, x * cube->bloc_size + MINMAP_ORIGIN_X, \
-		y * cube->bloc_size + MINMAP_ORIGIN_Y, cube->bloc_size - 2, 0xFF0000);
+		y * cube->bloc_size + MINMAP_ORIGIN_Y, cube->bloc_size - 2, 0x660000);
 	else if (cube->map->map[y][x] != ' ')
 		img_square_put(cube, x * cube->bloc_size + MINMAP_ORIGIN_X, \
 		y * cube->bloc_size + MINMAP_ORIGIN_Y, cube->bloc_size - 2, 0x1B2329);
