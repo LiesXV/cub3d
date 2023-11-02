@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:22:59 by lmorel            #+#    #+#             */
-/*   Updated: 2023/11/02 17:12:53 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/11/02 22:16:58 by lmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,15 @@
 # include <math.h>
 
 // DEFINES
-# define NAME "Cube3D"
+# define NAME "cub3D"
 
 	// UI PARAMS
-# define MINMAP_ORIGIN_X 10
-# define MINMAP_ORIGIN_Y 10
+# define MINMAP_ORIGIN_X 25
+# define MINMAP_ORIGIN_Y 25
 # define ENGINE_ORIGIN_X 0
 # define ENGINE_ORIGIN_Y 0
-# define WIN_WIDTH 1920
-# define WIN_HEIGHT 1080
+# define WIN_WIDTH 1280
+# define WIN_HEIGHT 720
 
 	// PLAYER OPTIONS
 # define VISION 90
@@ -168,6 +168,7 @@ typedef struct s_cube
 	int			bloc_size;	int			on;
 	t_img_data	img_data;
 	t_tex		tex;
+	t_hit		hit;
 
 	t_ray		*r;			// current ray
 	t_map		*map;		// parsed data
@@ -221,20 +222,22 @@ int		error_exit(t_cube *cube, char *msg);
 int		fexit(t_cube *cube);
 int		commands(t_cube *cube);
 int		keyrelease(int keycode, t_cube *cube);
+float	ft_modf(float nbr, int div);
 
 // INIT
 int		cube_init(t_cube *cube);
+int		init_image(t_cube *cube, t_img_data *img);
 void	init_tex(t_cube *cube, char *path, t_img_data **img);
 
 // DRAW
 void	img_pixel_put(t_cube *cube, int x, int y, int color);
 void	img_draw_line(t_cube *cube, t_position start, t_position end, int color);
-void	img_square_put(t_cube *cube, int x, int y, int size, int color);
+void	img_square_put(t_cube *cube, t_position p, int size, int color);
 void	img_rect_put(t_cube *cube, t_position start, t_position end, int color);
 
 // RENDER
 void	draw_rays(t_cube *cube);
-void	draw_3d_walls(t_cube *cube, int r, t_hit hit);
+void	draw_3d_walls(t_cube *cube, int r);
 void	render_map(t_cube *cube);
 int		renderer(t_cube *cube);
 float	dist(float ax, float ay, float bx, float by);
@@ -243,6 +246,8 @@ void	handle_horizontal_ray(t_cube *cube);
 void	draw_rays(t_cube *cube);
 int		is_dist_ok(t_cube *cube);
 void	open_doors(t_cube *cube);
+int			get_tex_color(t_img_data *img, int x, int y);
+t_img_data	**get_tex_side(t_cube *cube, t_hit hit);
 
 //	PARSING
 int		parse_init(t_cube *cube, int argc, char **argv);
@@ -254,6 +259,7 @@ int		parse_easy_map(t_cube *cube);
 int		is_surrounded(t_cube *cube, int y, int x);
 char	*skip_empty_lines(t_cube *cube);
 int		check_player_pos(t_cube *cube, int i, int j);
+int		transform_colors(t_cube *cube, char *ceiling, char *floor);
 
 // COLORS
 # define RESET		"\033[00m"

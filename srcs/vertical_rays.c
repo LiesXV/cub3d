@@ -6,7 +6,7 @@
 /*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 17:34:44 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/10/31 19:34:06 by lmorel           ###   ########.fr       */
+/*   Updated: 2023/11/02 21:56:11 by lmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,8 @@ int	touch_a_wall_vertical(t_cube *cube, int *dof)
 	mx = cube->r->x / cube->bloc_size;
 	my = cube->r->y / cube->bloc_size;
 	if (mx >= 0 && my >= 0 && my < cube->map->height \
-		&& mx <= cube->map->len[(int)my] && cube->map->map[(int)my][(int)mx] >= 1)
+		&& mx <= cube->map->len[(int)my]
+		&& cube->map->map[(int)my][(int)mx] >= 1)
 	{
 		if (cube->map->map[(int)my][(int)mx] == 2)
 			cube->r->v->type = 'd';
@@ -77,7 +78,6 @@ void	handle_vertical_ray(t_cube *cube)
 	}
 	while (dof < cube->map->height * cube->map->minlen)
 	{
-
 		if (touch_a_wall_vertical(cube, &dof) == 1)
 		{
 			cube->r->x += cube->r->xo;

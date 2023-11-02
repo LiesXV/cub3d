@@ -6,11 +6,21 @@
 /*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 23:14:40 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/31 19:08:56 by lmorel           ###   ########.fr       */
+/*   Updated: 2023/11/02 22:16:02 by lmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube.h"
+
+int	init_image(t_cube *cube, t_img_data *img)
+{
+	img->img = mlx_new_image(cube->mlx, cube->win_width, cube->win_height);
+	if (!img->img)
+		error_exit(cube, "failure creating image");
+	img->addr = mlx_get_data_addr(img->img, \
+		&img->bits_per_pixel, &img->line_length, &img->endian);
+	return (0);
+}
 
 void	img_pixel_put(t_cube *cube, int x, int y, int color)
 {
@@ -41,16 +51,16 @@ void	img_draw_line(t_cube *cube, t_position start, t_position end, int color)
 	}
 }
 
-void	img_square_put(t_cube *cube, int x, int y, int size, int color)
+void	img_square_put(t_cube *cube, t_position p, int size, int color)
 {
 	int	y2;
 	int	x2;
 
-	y2 = y;
-	while (y2 < y + size)
+	y2 = p.y;
+	while (y2 < p.y + size)
 	{
-		x2 = x;
-		while (x2 < x + size)
+		x2 = p.x;
+		while (x2 < p.x + size)
 		{
 			img_pixel_put(cube, x2, y2, color);
 			x2++;

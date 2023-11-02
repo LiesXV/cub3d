@@ -6,7 +6,7 @@
 /*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 17:31:27 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/11/01 19:32:11 by lmorel           ###   ########.fr       */
+/*   Updated: 2023/11/02 21:43:49 by lmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,29 +35,26 @@ int	get_side_wall(float a, int closer)
 	return ('z');
 }
 
-t_hit	get_end_pos(t_cube *cube)
+void	get_end_pos(t_cube *cube)
 {
-	t_hit	hit;
-
 	if (cube->r->v->dis < cube->r->h->dis)
 	{
-		hit.x = cube->r->v->x;
-		hit.y = cube->r->v->y;
-		hit.type = cube->r->v->type;
-		hit.side = get_side_wall(cube->r->a, 'v');
-		hit.shade = 1;
+		cube->hit.x = cube->r->v->x;
+		cube->hit.y = cube->r->v->y;
+		cube->hit.type = cube->r->v->type;
+		cube->hit.side = get_side_wall(cube->r->a, 'v');
+		cube->hit.shade = 1;
 		cube->tdis = cube->r->v->dis;
 	}
 	else
 	{
-		hit.x = cube->r->h->x;
-		hit.y = cube->r->h->y;
-		hit.type = cube->r->h->type;
-		hit.side = get_side_wall(cube->r->a, 'h');
-		hit.shade = 0.8;
+		cube->hit.x = cube->r->h->x;
+		cube->hit.y = cube->r->h->y;
+		cube->hit.type = cube->r->h->type;
+		cube->hit.side = get_side_wall(cube->r->a, 'h');
+		cube->hit.shade = 0.8;
 		cube->tdis = cube->r->h->dis;
 	}
-	return (hit);
 }
 
 int	init_ray(t_cube *cube)
@@ -102,8 +99,9 @@ void	draw_rays(t_cube *cube)
 		cube->r->v->x = cube->player->pos->x;
 		cube->r->v->y = cube->player->pos->y;
 		handle_vertical_ray(cube);
-		draw_3d_walls(cube, r, get_end_pos(cube));
-		cube->r->a += (DR * VISION) / cube->win_width;
+		get_end_pos(cube);
+		draw_3d_walls(cube, r);
+		cube->r->a += (DR * VISION) / WIN_WIDTH;
 		if (cube->r->a < 0)
 			cube->r->a += 2 * PI;
 		if (cube->r->a > 2 * PI)

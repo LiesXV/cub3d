@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:16:21 by lmorel            #+#    #+#             */
-/*   Updated: 2023/11/02 16:02:52 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/11/02 21:57:27 by lmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,8 @@ int	fexit(t_cube *cube)
 
 void	close_doors(t_cube *cube)
 {
-	int x;
-	int y;
+	int	x;
+	int	y;
 
 	y = 0;
 	while (y < cube->map->height)
@@ -54,7 +54,8 @@ void	close_doors(t_cube *cube)
 		while (x < cube->map->len[y])
 		{
 			x++;
-			if (cube->map->map[y][x] == -2 && ((cube->ipy == y) && (cube->ipx == x)))
+			if (cube->map->map[y][x] == -2
+				&& ((cube->ipy == y) && (cube->ipx == x)))
 			{
 				cube->door_count = 200;
 				return ;
@@ -67,12 +68,9 @@ void	close_doors(t_cube *cube)
 	cube->door_count = -1;
 }
 
-
 int	renderer(t_cube *cube)
 {
 	commands(cube);
-	img_square_put(cube, ENGINE_ORIGIN_X, ENGINE_ORIGIN_Y, \
-		cube->win_width - ENGINE_ORIGIN_X, cube->tex.c);
 	draw_rays(cube);
 	if (cube->door_count > 0)
 		cube->door_count--;
