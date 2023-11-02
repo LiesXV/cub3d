@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:22:59 by lmorel            #+#    #+#             */
-/*   Updated: 2023/11/02 13:35:20 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/11/02 17:12:53 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@
 # define MINMAP_ORIGIN_Y 10
 # define ENGINE_ORIGIN_X 0
 # define ENGINE_ORIGIN_Y 0
-# define WIN_WIDTH 1280
-# define WIN_HEIGHT 720
+# define WIN_WIDTH 1920
+# define WIN_HEIGHT 1080
 
 	// PLAYER OPTIONS
 # define VISION 90
@@ -189,6 +189,8 @@ typedef struct s_cube
 	int			ipy_right_xo;
 	int			ipy_left_xo;
 	float		tdis;
+
+	int			door_count;
 
 	int			count;
 	int			fd;

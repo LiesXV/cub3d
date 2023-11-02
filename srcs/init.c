@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 19:18:28 by lmorel            #+#    #+#             */
-/*   Updated: 2023/11/02 12:54:09 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/11/02 15:55:03 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -166,6 +166,7 @@ int	cube_init(t_cube *cube)
 	cube->key->m = 0;
 	cube->key->shift = 0;
 	cube->key->ctrl = 0;
+	cube->door_count = -1;
 	printf(GREEN"==========\tINIT DONE\t==========\n"RESET);
 	printf(RED"==========\tPLAYING\t\t==========\n"RESET);
 	return (0);

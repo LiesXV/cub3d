@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 13:29:05 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/11/02 14:58:24 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/11/02 15:57:46 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,12 +62,18 @@ int	is_dist_ok(t_cube *cube)
 void	open_doors(t_cube *cube)
 {
 	if (cube->map->map[cube->ipy_add_xo][cube->ipx] == 2)
+	{
 		cube->map->map[cube->ipy_add_xo][cube->ipx] = -2;
+		cube->door_count = 200;
+	}
 	else if (cube->map->map[cube->ipy_add_xo][cube->ipx] == -2 \
 		&& cube->map->map[cube->ipy][cube->ipx] != -2)
 		cube->map->map[cube->ipy_add_xo][cube->ipx] = 2;
 	if (cube->map->map[cube->ipy][cube->ipx_add_xo] == 2)
+	{
 		cube->map->map[cube->ipy][cube->ipx_add_xo] = -2;
+		cube->door_count = 200;
+	}
 	else if (cube->map->map[cube->ipy][cube->ipx_add_xo] == -2 \
 		&& cube->map->map[cube->ipy][cube->ipx] != -2)
 		cube->map->map[cube->ipy][cube->ipx_add_xo] = 2;

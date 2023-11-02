@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:16:21 by lmorel            #+#    #+#             */
-/*   Updated: 2023/11/01 19:42:32 by lmorel           ###   ########.fr       */
+/*   Updated: 2023/11/02 16:02:52 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,12 +42,42 @@ int	fexit(t_cube *cube)
 	return (0);
 }
 
+void	close_doors(t_cube *cube)
+{
+	int x;
+	int y;
+
+	y = 0;
+	while (y < cube->map->height)
+	{
+		x = 0;
+		while (x < cube->map->len[y])
+		{
+			x++;
+			if (cube->map->map[y][x] == -2 && ((cube->ipy == y) && (cube->ipx == x)))
+			{
+				cube->door_count = 200;
+				return ;
+			}
+			else if (cube->map->map[y][x] == -2)
+				cube->map->map[y][x] = 2;
+		}
+		y++;
+	}
+	cube->door_count = -1;
+}
+
+
 int	renderer(t_cube *cube)
 {
 	commands(cube);
 	img_square_put(cube, ENGINE_ORIGIN_X, ENGINE_ORIGIN_Y, \
 		cube->win_width - ENGINE_ORIGIN_X, cube->tex.c);
 	draw_rays(cube);
+	if (cube->door_count > 0)
+		cube->door_count--;
+	if (cube->door_count == 0)
+		close_doors(cube);
 	if (cube->key->m == 1)
 		render_map(cube);
 	mlx_put_image_to_window(cube->mlx, cube->win, cube->img_data.img, 0, 0);
