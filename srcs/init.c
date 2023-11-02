@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 19:18:28 by lmorel            #+#    #+#             */
-/*   Updated: 2023/11/01 16:00:03 by lmorel           ###   ########.fr       */
+/*   Updated: 2023/11/02 12:54:09 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,7 @@ int	init_player(t_cube *cube)
 	cube->player->dpos = malloc(sizeof(t_position) * 1);
 	if (!cube->player->dpos || add_address(&cube->collector, cube->player->dpos) == 1)
 		return (1);
+	cube->player->speed = 1.2;
 	cube->player->size = cube->bloc_size / 3;
 	cube->player->a = -1;
 	find_player(cube);

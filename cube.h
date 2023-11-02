@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:22:59 by lmorel            #+#    #+#             */
-/*   Updated: 2023/10/31 19:29:21 by lmorel           ###   ########.fr       */
+/*   Updated: 2023/11/02 13:35:20 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,8 @@ typedef struct s_key
 	int	s;
 	int	d;
 	int	e;
+	int	left;
+	int	right;
 	int	m;
 	int	shift;
 	int	ctrl;
@@ -77,6 +79,7 @@ typedef struct s_player
 {
 	t_position	*pos;
 	t_position	*dpos;
+	float		speed;
 	float		a;		//	angle
 	int			size;
 }	t_player;
@@ -181,6 +184,10 @@ typedef struct s_cube
 	int			ipy_add_xo;
 	int			ipx_sub_xo;
 	int			ipy_sub_xo;
+	int			ipx_right_xo;
+	int			ipx_left_xo;
+	int			ipy_right_xo;
+	int			ipy_left_xo;
 	float		tdis;
 
 	int			count;
