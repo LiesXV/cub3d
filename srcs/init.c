@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 19:18:28 by lmorel            #+#    #+#             */
-/*   Updated: 2023/11/03 17:24:11 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/11/03 17:43:30 by lmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,8 +109,7 @@ int	cube_init(t_cube *cube)
 	cube->mlx = mlx_init();
 	if (cube->mlx == NULL)
 		return (1);
-	cube->win = mlx_new_window(cube->mlx, cube->win_width,
-			cube->win_height, NAME);
+	cube->win = mlx_new_window(cube->mlx, WIN_WIDTH, WIN_HEIGHT, NAME);
 	if (cube->win == NULL)
 		return (free(cube->mlx), 1);
 	cube->img_data.img = NULL;

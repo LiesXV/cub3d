@@ -3,19 +3,37 @@
 /*                                                        :::      ::::::::   */
 /*   tex.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 19:14:20 by lmorel            #+#    #+#             */
-/*   Updated: 2023/11/03 17:23:36 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/11/03 17:48:57 by lmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cube.h"
 
+void	free_tex(t_cube *cube)
+{
+	if (cube->img_data.img)
+		mlx_destroy_image(cube->mlx, cube->img_data.img);
+	if (cube->tex.north)
+		mlx_destroy_image(cube->mlx, cube->tex.north->img);
+	if (cube->tex.south)
+		mlx_destroy_image(cube->mlx, cube->tex.south->img);
+	if (cube->tex.east)
+		mlx_destroy_image(cube->mlx, cube->tex.east->img);
+	if (cube->tex.west)
+		mlx_destroy_image(cube->mlx, cube->tex.west->img);
+	if (cube->tex.door)
+		mlx_destroy_image(cube->mlx, cube->tex.door->img);
+}
+
 void	init_tex(t_cube *cube, char *path, t_img_data **img)
 {
 	ft_printf(CYAN"  -> %s", path);
 	*img = malloc(sizeof(t_img_data));
+	if (!(*img) || add_address(&cube->collector, *img))
+		error_exit(cube, "malloc error.");
 	if (*img)
 	{
 		(*img)->img = mlx_xpm_file_to_image(cube->mlx, path,

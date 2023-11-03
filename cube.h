@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:22:59 by lmorel            #+#    #+#             */
-/*   Updated: 2023/11/03 17:29:00 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/11/03 17:49:07 by lmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -224,6 +224,7 @@ int		fexit(t_cube *cube);
 int		commands(t_cube *cube);
 int		keyrelease(int keycode, t_cube *cube);
 float	ft_modf(float nbr, int div);
+void	free_tex(t_cube *cube);
 
 // INIT
 int		cube_init(t_cube *cube);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_args.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 11:47:42 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/10/18 12:20:55 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/11/03 17:55:41 by lmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,8 @@ int	finish_by_cub(char *path)
 	while (i < 4)
 	{
 		if (cub[i] != path[pathlen - 1 - i])
-			return (ft_putstr_fd("format allowed : \".cub\" \n", 2), 1);
+			return (ft_putstr_fd(RED"Error : "RESET \
+			"format allowed : \".cub\" \n", 2), 1);
 		i++;
 	}
 	return (0);
@@ -58,17 +59,18 @@ int	is_pathname_valid(char *path)
 	if (finish_by_cub(path) == 1)
 		return (1);
 	if (access(path, R_OK) != 0)
-		return (ft_putstr_fd("file non-existant or read-protected\n", 2), 1);
+		return (ft_putstr_fd(RED"Error : "RESET \
+		"file non-existant or read-protected\n", 2), 1);
 	return (0);
 }
 
 int	check_args(int argc, char **argv)
 {
 	if (argc < 2)
-		return (ft_putstr_fd("no map here\n", 2), 1);
+		return (ft_putstr_fd(RED"Error : "RESET"no map here\n", 2), 1);
 	else if (argc > 2)
-		return (ft_putstr_fd("too much arguments\n", 2), 1);
+		return (ft_putstr_fd(RED"Error : "RESET"too much arguments\n", 2), 1);
 	if (is_pathname_valid(argv[1]) == 1)
-		return (ft_putstr_fd("pathname not valid\n", 2), 1);
-	return (printf("path of the map: %s\n", argv[1]), 0);
+		return (ft_putstr_fd(RED"Error : "RESET"pathname not valid\n", 2), 1);
+	return (printf(CYAN"  -> map path\t: %s\n", argv[1]), 0);
 }
