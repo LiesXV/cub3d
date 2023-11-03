@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 19:49:17 by lmorel            #+#    #+#             */
-/*   Updated: 2023/11/02 15:43:36 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/11/03 12:07:13 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,11 +102,11 @@ int	commands(t_cube *cube)
 {
 	is_dist_ok(cube);
 	if (cube->key->ctrl == 1)
-		cube->player->speed = 0.2;
-	else if (cube->key->shift == 1)
-		cube->player->speed = 1;
-	if (cube->key->ctrl == 0 && cube->key->shift == 0)
 		cube->player->speed = 0.6;
+	else if (cube->key->shift == 1)
+		cube->player->speed = 2;
+	if (cube->key->ctrl == 0 && cube->key->shift == 0)
+		cube->player->speed = 1;
 	if (cube->key->w == 1)
 	{
 		//printf("from map[%d][%d] == %d to map[%d][%d] == %d\n", cube->ipy, cube->ipx_add_xo, cube->map->map[cube->ipy][cube->ipx_add_xo], cube->ipy_add_xo, cube->ipx, cube->map->map[cube->ipy_add_xo][cube->ipx]);
