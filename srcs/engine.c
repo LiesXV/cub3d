@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   engine.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
+/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 19:14:20 by lmorel            #+#    #+#             */
-/*   Updated: 2023/11/03 17:23:36 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/11/03 18:10:59 by lmorel           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	draw_wall_textured(t_cube *cube, int r, float oline, float hline)
 		ratio.x = ft_modf(cube->hit.x, cube->bloc_size) * ((*texture)->ratio);
 	else
 		ratio.x = ft_modf(cube->hit.y, cube->bloc_size) * ((*texture)->ratio);
+	if (cube->hit.side == 'e' || cube->hit.side == 's')
+		ratio.x = (*texture)->width - ratio.x;
 	ratio.y = (*texture)->height / hline;
 	i = 0;
 	while (i < hline)
