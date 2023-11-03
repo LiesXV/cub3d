@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 12:23:04 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/11/01 14:14:55 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/11/03 13:06:29 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,35 +66,6 @@ int	add_line_to_map(t_cube *cube, char *line, int i)
 	return (0);
 }
 
-void	printmap(t_cube *cube)
-{
-	int	i;
-	int	j;
-
-	j = 0;
-	printf("height %d, maxlen%d\n", cube->map->height, cube->map->maxlen);
-	while (j < cube->map->height)
-	{
-		i = 0;
-		while (i < cube->map->len[j])
-		{
-			if (cube->map->map[j][i] == 'N' * -1)
-				printf("N ");
-			else if (cube->map->map[j][i] == 'S' * -1)
-				printf("S ");
-			else if (cube->map->map[j][i] == 'W' * -1)
-				printf("W ");
-			else if (cube->map->map[j][i] == 'E' * -1)
-				printf("E ");
-			else
-				printf("%d ", cube->map->map[j][i]);
-			i++;
-		}
-		printf("\n");
-		j++;
-	}
-}
-
 int	alloc_tab(t_cube *cube)
 {
 	cube->map->maxlen = 0;
@@ -131,7 +102,6 @@ int	parse_easy_map(t_cube *cube)
 	}
 	if (cube->map->player < 1)
 		return (ft_putstr_fd("no player in the map\n", 2), 1);
-	// printmap(cube); //print map
 	if (is_map_closed(cube) == 1)
 		return (ft_putstr_fd("map not closed\n", 2), 1);
 	return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 14:34:06 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/10/26 22:13:38 by lmorel           ###   ########.fr       */
+/*   Updated: 2023/11/03 13:06:51 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ int	read_textures(t_cube *cube)
 		line = get_next_line(cube->fd);
 		if (!line || add_address(&cube->collector, line) == 1)
 			return (ft_putstr_fd("get_next_line error\n", 2), 1);
-		// printf("line :%s\n", line);
 		cube->count++;
 		if (only_spaces(line) == 0)
 		{
@@ -38,8 +37,6 @@ int	read_textures(t_cube *cube)
 	}
 	if (read_colors(cube) == 1)
 		return (1);
-	printf("NORTH :%s\tSOUTH :%s\tWEST :%s\tEAST :%s\nDOOR :%s\n", cube->map->textures->no ,cube->map->textures->so ,cube->map->textures->we, cube->map->textures->ea, cube->map->textures->d);
-	printf("CEILING :%s\tFLOOR :%s\n", cube->map->textures->c ,cube->map->textures->f);
 	return (0);
 }
 
@@ -86,8 +83,6 @@ int	parse_init(t_cube *cube, int argc, char **argv)
 		return (ft_putstr_fd("malloc error\n", 2), 1);
 	if (init_data(cube, argv[1]) == 1)
 		return (1);
-	// if (parse_map(cube) == 1)
-	// 	return (1);
 	if (parse_easy_map(cube) == 1)
 		return (1);
 	printf(GREEN"==========\tPARSING OK\t==========\n"RESET);

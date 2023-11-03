@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 19:49:17 by lmorel            #+#    #+#             */
-/*   Updated: 2023/11/03 12:07:13 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/11/03 13:06:12 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ int	keypress(int keycode, t_cube *cube)
 		cube->key->m = 0;
 	else if (keycode == KEY_E)
 		open_doors(cube);
-	else // to remove
-		printf("%d PRESSED !\n", keycode);
 	return (0);
 }
 
@@ -64,22 +62,8 @@ int	keyrelease(int keycode, t_cube *cube)
 	return (0);
 }
 
-void	commands_next(t_cube *cube)
+void	commands_next_next(t_cube *cube)
 {
-	if (cube->key->a == 1)
-	{
-		if (!(cube->map->map[cube->ipy][cube->ipx_left_xo] >= 1))
-			cube->player->pos->x -= cos(cube->player->a + PI / 2) * cube->player->speed;
-		if (!(cube->map->map[cube->ipy_left_xo][cube->ipx] >= 1))
-			cube->player->pos->y -= sin(cube->player->a + PI / 2) * cube->player->speed;
-	}
-	if (cube->key->d == 1)
-	{
-		if (!(cube->map->map[cube->ipy][cube->ipx_right_xo] >= 1))
-			cube->player->pos->x += cos(cube->player->a + PI / 2) * cube->player->speed;
-		if (!(cube->map->map[cube->ipy_right_xo][cube->ipx] >= 1))
-			cube->player->pos->y += sin(cube->player->a + PI / 2) * cube->player->speed;
-	}
 	if (cube->key->left == 1)
 	{
 		cube->player->a -= 0.05;
@@ -98,6 +82,29 @@ void	commands_next(t_cube *cube)
 	}
 }
 
+void	commands_next(t_cube *cube)
+{
+	if (cube->key->a == 1)
+	{
+		if (!(cube->map->map[cube->ipy][cube->ipx_left_xo] >= 1))
+			cube->player->pos->x -= \
+				cos(cube->player->a + PI / 2) * cube->player->speed;
+		if (!(cube->map->map[cube->ipy_left_xo][cube->ipx] >= 1))
+			cube->player->pos->y -= \
+				sin(cube->player->a + PI / 2) * cube->player->speed;
+	}
+	if (cube->key->d == 1)
+	{
+		if (!(cube->map->map[cube->ipy][cube->ipx_right_xo] >= 1))
+			cube->player->pos->x += \
+				cos(cube->player->a + PI / 2) * cube->player->speed;
+		if (!(cube->map->map[cube->ipy_right_xo][cube->ipx] >= 1))
+			cube->player->pos->y += \
+				sin(cube->player->a + PI / 2) * cube->player->speed;
+	}
+	commands_next_next(cube);
+}
+
 int	commands(t_cube *cube)
 {
 	is_dist_ok(cube);
@@ -109,7 +116,6 @@ int	commands(t_cube *cube)
 		cube->player->speed = 1;
 	if (cube->key->w == 1)
 	{
-		//printf("from map[%d][%d] == %d to map[%d][%d] == %d\n", cube->ipy, cube->ipx_add_xo, cube->map->map[cube->ipy][cube->ipx_add_xo], cube->ipy_add_xo, cube->ipx, cube->map->map[cube->ipy_add_xo][cube->ipx]);
 		if (!(cube->map->map[cube->ipy][cube->ipx_add_xo] >= 1))
 			cube->player->pos->x += cube->player->dpos->x * cube->player->speed;
 		if (!(cube->map->map[cube->ipy_add_xo][cube->ipx] >= 1))
