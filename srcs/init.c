@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 19:18:28 by lmorel            #+#    #+#             */
-/*   Updated: 2023/11/02 22:15:40 by lmorel           ###   ########.fr       */
+/*   Updated: 2023/11/03 17:24:11 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,6 +93,8 @@ int	init_values(t_cube *cube)
 	cube->key->s = 0;
 	cube->key->d = 0;
 	cube->key->m = 0;
+	cube->key->left = 0;
+	cube->key->right = 0;
 	cube->key->shift = 0;
 	cube->key->ctrl = 0;
 	cube->door_count = -1;
@@ -112,12 +114,18 @@ int	cube_init(t_cube *cube)
 	if (cube->win == NULL)
 		return (free(cube->mlx), 1);
 	cube->img_data.img = NULL;
+	cube->tex.door = NULL;
+	cube->tex.north = NULL;
+	cube->tex.south = NULL;
+	cube->tex.east = NULL;
+	cube->tex.west = NULL;
 	init_image(cube, &cube->img_data);
 	init_tex(cube, cube->map->textures->no, &cube->tex.north);
 	init_tex(cube, cube->map->textures->so, &cube->tex.south);
 	init_tex(cube, cube->map->textures->ea, &cube->tex.east);
 	init_tex(cube, cube->map->textures->we, &cube->tex.west);
-	init_tex(cube, cube->map->textures->d, &cube->tex.door);
+	if (cube->map->textures->d)
+		init_tex(cube, cube->map->textures->d, &cube->tex.door);
 	printf(GREEN"==========\tINIT DONE\t==========\n"RESET);
 	printf(RED"==========\tPLAYING\t\t==========\n"RESET);
 	return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:16:21 by lmorel            #+#    #+#             */
-/*   Updated: 2023/11/02 21:57:27 by lmorel           ###   ########.fr       */
+/*   Updated: 2023/11/03 17:32:38 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ int	error_exit(t_cube *cube, char *msg)
 		mlx_destroy_image(cube->mlx, cube->img_data.img);
 	mlx_destroy_window(cube->mlx, cube->win);
 	free_gb(&cube->collector);
+	get_next_line(-1);
 	exit(1);
 	return (1);
 }
@@ -28,15 +29,47 @@ int	fexit(t_cube *cube)
 {
 	printf(YELLOW"==========\tCLOSING\t\t==========\n"RESET);
 	printf(CYAN"  -> Freeing GB : ");
-	free_gb(&cube->collector);
 	printf(GREEN"OK\n");
 	if (cube->img_data.img)
 	{
-		printf(CYAN"  -> Freeing image : ");
+		printf(CYAN"  -> Freeing images : ");
 		mlx_destroy_image(cube->mlx, cube->img_data.img);
-		printf(GREEN"OK\n"RESET);
 	}
+	if (cube->tex.north)
+	{
+		mlx_destroy_image(cube->mlx, cube->tex.north->img);
+		free(cube->tex.north);
+		printf(CYAN"North freed\n");
+	}
+	if (cube->tex.south)
+	{
+		mlx_destroy_image(cube->mlx, cube->tex.south->img);
+		free(cube->tex.south);
+		printf(CYAN"south freed\n");
+	}
+	if (cube->tex.east)
+	{
+		mlx_destroy_image(cube->mlx, cube->tex.east->img);
+		free(cube->tex.east);
+		printf(CYAN"east freed\n");
+	}
+	if (cube->tex.west)
+	{
+		mlx_destroy_image(cube->mlx, cube->tex.west->img);
+		free(cube->tex.west);
+		printf(CYAN"west freed\n");
+	}
+	if (cube->tex.door)
+	{
+		mlx_destroy_image(cube->mlx, cube->tex.door->img);
+		free(cube->tex.door);
+		printf(CYAN"door freed\n");
+	}
+	free_gb(&cube->collector);
+	printf(GREEN"OK\n"RESET);
 	mlx_destroy_window(cube->mlx, cube->win);
+	mlx_destroy_display(cube->mlx);
+	free(cube->mlx);
 	printf(GREEN"==========\tEXIT SUCCESS\t==========\n"RESET);
 	exit(0);
 	return (0);
@@ -87,7 +120,7 @@ int	main(int ac, char **av)
 	t_cube	cube;
 
 	if (parse_init(&cube, ac, av) || cube_init(&cube))
-		return (free_gb(&cube.collector), 1);
+		return (error_exit(&cube, "test"), 1);
 	renderer(&cube);
 	mlx_hook(cube.win, 2, (1L << 0), keypress, &cube);
 	mlx_hook(cube.win, 3, (1L << 1), keyrelease, &cube);

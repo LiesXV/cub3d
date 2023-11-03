@@ -1,11 +1,11 @@
 WE srcs/xpm/west.xpm
-SO srcs/xpm/south.xpm
-EA textures/east.xpm
-NO srcs/xpm/north.xpm
-D  textures/copper.xpm
-
-C 135,206,235
 F 119,136,153
+EA textures/east.xpm
+C 135,206,235
+NO srcs/xpm/north.xpm
+D textures/copper.xpm
+SO srcs/xpm/south.xpm
+
 
 111111111111111111111
 101000001000000000001

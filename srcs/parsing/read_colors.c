@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 11:49:10 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/10/18 14:51:41 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/11/03 13:21:38 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,47 +46,47 @@ int	fill_colors(t_cube *cube, char **line, int face)
 	return (0);
 }
 
-int	parse_colors(t_cube *cube, char	**line)
-{
-	if (!ft_strncmp(line[0], "F", 2) != 0 && ft_strlen(line[0]) != 2)
-		return (fill_colors(cube, line, 1));
-	if (!ft_strncmp(line[0], "C", 2) != 0 && ft_strlen(line[0]) != 2)
-		return (fill_colors(cube, line, 2));
-	if (!ft_strncmp(line[0], "NO", 3) != 0 && ft_strlen(line[0]) != 3)
-		return (ft_putstr_fd("north (NO) values already gifted\n", 2), 1);
-	if (!ft_strncmp(line[0], "D", 2) != 0 && ft_strlen(line[0]) != 2)
-		return (ft_putstr_fd("door (D) values already gifted\n", 2), 1);
-	if (!ft_strncmp(line[0], "SO", 3) != 0 && ft_strlen(line[0]) != 3)
-		return (ft_putstr_fd("south (SO) values already gifted\n", 2), 1);
-	if (!ft_strncmp(line[0], "WE", 3) != 0 && ft_strlen(line[0]) != 3)
-		return (ft_putstr_fd("west (WE) values already gifted\n", 2), 1);
-	if (!ft_strncmp(line[0], "EA", 3) != 0 && ft_strlen(line[0]) != 3)
-		return (ft_putstr_fd("east (EA) values already gifted\n", 2), 1);
-	return (ft_putstr_fd("unrecognized line while parsing\n", 2), 1);
-}
+// int	parse_colors(t_cube *cube, char	**line)
+// {
+// 	if (!ft_strncmp(line[0], "F", 2) != 0 && ft_strlen(line[0]) != 2)
+// 		return (fill_colors(cube, line, 1));
+// 	if (!ft_strncmp(line[0], "C", 2) != 0 && ft_strlen(line[0]) != 2)
+// 		return (fill_colors(cube, line, 2));
+// 	if (!ft_strncmp(line[0], "NO", 3) != 0 && ft_strlen(line[0]) != 3)
+// 		return (ft_putstr_fd("north (NO) values already gifted\n", 2), 1);
+// 	if (!ft_strncmp(line[0], "D", 2) != 0 && ft_strlen(line[0]) != 2)
+// 		return (ft_putstr_fd("door (D) values already gifted\n", 2), 1);
+// 	if (!ft_strncmp(line[0], "SO", 3) != 0 && ft_strlen(line[0]) != 3)
+// 		return (ft_putstr_fd("south (SO) values already gifted\n", 2), 1);
+// 	if (!ft_strncmp(line[0], "WE", 3) != 0 && ft_strlen(line[0]) != 3)
+// 		return (ft_putstr_fd("west (WE) values already gifted\n", 2), 1);
+// 	if (!ft_strncmp(line[0], "EA", 3) != 0 && ft_strlen(line[0]) != 3)
+// 		return (ft_putstr_fd("east (EA) values already gifted\n", 2), 1);
+// 	return (ft_putstr_fd("unrecognized line while parsing\n", 2), 1);
+// }
 
-int	read_colors(t_cube *cube)
-{
-	int		i;
-	char	*line;
-	char	**split;
+// int	read_colors(t_cube *cube)
+// {
+// 	int		i;
+// 	char	*line;
+// 	char	**split;
 
-	i = 0;
-	while (i < 2)
-	{
-		line = get_next_line(cube->fd);
-		if (!line || add_address(&cube->collector, line) == 1)
-			return (ft_putstr_fd("get_next_line error\n", 2), 1);
-		cube->count++;
-		if (only_spaces(line) == 0)
-		{
-			split = ft_split(line, ' ');
-			if (!split || add_tab_to_gb(&cube->collector, split) == 1)
-				return (ft_putstr_fd("split error\n", 2), 1);
-			if (parse_colors(cube, split) == 1)
-				return (1);
-			i++;
-		}
-	}
-	return (0);
-}
+// 	i = 0;
+// 	while (i < 2)
+// 	{
+// 		line = get_next_line(cube->fd);
+// 		if (!line || add_address(&cube->collector, line) == 1)
+// 			return (ft_putstr_fd("get_next_line error\n", 2), 1);
+// 		cube->count++;
+// 		if (only_spaces(line) == 0)
+// 		{
+// 			split = ft_split(line, ' ');
+// 			if (!split || add_tab_to_gb(&cube->collector, split) == 1)
+// 				return (ft_putstr_fd("split error\n", 2), 1);
+// 			if (parse_colors(cube, split) == 1)
+// 				return (1);
+// 			i++;
+// 		}
+// 	}
+// 	return (0);
+// }

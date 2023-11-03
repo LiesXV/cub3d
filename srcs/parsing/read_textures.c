@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 11:49:14 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/10/31 13:20:02 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/11/03 13:21:07 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,9 +87,9 @@ int	fill_textures(t_cube *cube, char **line, int face)
 int	parse_textures(t_cube *cube, char	**line)
 {
 	if (!ft_strncmp(line[0], "F", 2) != 0 && ft_strlen(line[0]) != 2)
-		return (ft_putstr_fd("map content should be at last\n", 2), 1);
+		return (fill_colors(cube, line, 1));
 	if (!ft_strncmp(line[0], "C", 2) != 0 && ft_strlen(line[0]) != 2)
-		return (ft_putstr_fd("map content should be at last\n", 2), 1);
+		return (fill_colors(cube, line, 2));
 	if (!ft_strncmp(line[0], "NO", 3) != 0 && ft_strlen(line[0]) != 3)
 		return (fill_textures(cube, line, 1));
 	if (!ft_strncmp(line[0], "D", 2) != 0 && ft_strlen(line[0]) != 2)

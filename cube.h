@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:22:59 by lmorel            #+#    #+#             */
-/*   Updated: 2023/11/03 11:44:46 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/11/03 17:29:00 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@
 # define MINMAP_ORIGIN_Y 25
 # define ENGINE_ORIGIN_X 0
 # define ENGINE_ORIGIN_Y 0
-# define WIN_WIDTH 1920
-# define WIN_HEIGHT 1080
+# define WIN_WIDTH 1280
+# define WIN_HEIGHT 720
 
 	// PLAYER OPTIONS
 # define VISION 65
@@ -165,7 +165,8 @@ typedef struct s_cube
 	void		*win;
 	int			win_height;
 	int			win_width;
-	int			bloc_size;	int			on;
+	int			bloc_size;
+	int			on;
 	t_img_data	img_data;
 	t_tex		tex;
 	t_hit		hit;
@@ -260,6 +261,7 @@ int		is_surrounded(t_cube *cube, int y, int x);
 char	*skip_empty_lines(t_cube *cube);
 int		check_player_pos(t_cube *cube, int i, int j);
 int		transform_colors(t_cube *cube, char *ceiling, char *floor);
+int		fill_colors(t_cube *cube, char **line, int face);
 
 // COLORS
 # define RESET		"\033[00m"

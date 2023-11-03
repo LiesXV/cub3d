@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 13:00:01 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/10/31 13:06:23 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/11/03 16:36:54 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ int	check_player_pos(t_cube *cube, int i, int j)
 			&& cube->map->map[i][j] != 'S' - 48 \
 			&& cube->map->map[i][j] != 'W' - 48)
 		return (1);
+	if (cube->map->map[i][j] == '2' - 48 && !cube->map->textures->d)
+		return (printf("you can't put doors without textures\n"), 1);
 	if (cube->map->map[i][j] == 'S' - 48)
 		cube->map->map[i][j] = 'S' * -1;
 	else if (cube->map->map[i][j] == 'N' - 48)

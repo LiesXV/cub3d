@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/02 14:34:06 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/11/03 13:06:51 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/11/03 16:37:48 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	read_textures(t_cube *cube)
 	int		i;
 
 	i = 0;
-	while (i < 5)
+	while (i < 6)
 	{
 		line = get_next_line(cube->fd);
 		if (!line || add_address(&cube->collector, line) == 1)
@@ -32,11 +32,11 @@ int	read_textures(t_cube *cube)
 				return (ft_putstr_fd("split error\n", 2), 1);
 			if (parse_textures(cube, split) == 1)
 				return (1);
-			i++;
+			if (!(!ft_strncmp(split[0], "D", 2) \
+				!= 0 && ft_strlen(split[0]) != 2))
+				i++;
 		}
 	}
-	if (read_colors(cube) == 1)
-		return (1);
 	return (0);
 }
 

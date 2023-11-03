@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/12/22 11:29:35 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/10/17 13:18:01 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/11/03 16:38:47 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ char	*get_next_line(int fd)
 
 	line = NULL;
 	if (fd < 0 || read(fd, 0, 0) || BUFFER_SIZE <= 0)
-		return (NULL);
+		return (free(stash), NULL);
 	i = 1;
 	while (i > 0 && ft_strchr(stash, '\n') == 0)
 	{

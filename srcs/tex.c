@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tex.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 19:14:20 by lmorel            #+#    #+#             */
-/*   Updated: 2023/11/02 21:59:16 by lmorel           ###   ########.fr       */
+/*   Updated: 2023/11/03 17:23:36 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	init_tex(t_cube *cube, char *path, t_img_data **img)
 {
-	ft_printf(CYAN"  -> %s");
+	ft_printf(CYAN"  -> %s", path);
 	*img = malloc(sizeof(t_img_data));
 	if (*img)
 	{
