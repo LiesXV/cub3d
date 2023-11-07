@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:16:21 by lmorel            #+#    #+#             */
-/*   Updated: 2023/11/03 17:51:40 by lmorel           ###   ########.fr       */
+/*   Updated: 2023/11/07 10:19:09 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ int	error_exit(t_cube *cube, char *msg)
 	printf("%s\n", msg);
 	free_tex(cube);
 	mlx_destroy_window(cube->mlx, cube->win);
+	mlx_destroy_display(cube->mlx);
+	free(cube->mlx);
 	free_gb(&cube->collector);
 	get_next_line(-1);
 	exit(1);
@@ -36,6 +38,7 @@ int	fexit(t_cube *cube)
 	mlx_destroy_window(cube->mlx, cube->win);
 	mlx_destroy_display(cube->mlx);
 	free(cube->mlx);
+	get_next_line(-1);
 	printf(GREEN"==========\tEXIT SUCCESS\t==========\n"RESET);
 	exit(0);
 	return (0);
@@ -85,15 +88,13 @@ int	main(int ac, char **av)
 {
 	t_cube	cube;
 
-	if (parse_init(&cube, ac, av))
-		return (free_gb(&cube.collector), 1);
-	cube_init(&cube);
+	if (parse_init(&cube, ac, av) || cube_init(&cube) == 1)
+		return (free_gb(&cube.collector), get_next_line(-1), 1);
 	renderer(&cube);
 	mlx_hook(cube.win, 2, (1L << 0), keypress, &cube);
 	mlx_hook(cube.win, 3, (1L << 1), keyrelease, &cube);
 	mlx_hook(cube.win, 17, 0, fexit, &cube);
 	mlx_loop_hook(cube.mlx, renderer, &cube);
 	mlx_loop(cube.mlx);
-	get_next_line(-1);
 	return (0);
 }

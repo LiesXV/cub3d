@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   vertical_rays.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 17:34:44 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/11/02 21:56:11 by lmorel           ###   ########.fr       */
+/*   Updated: 2023/11/07 10:04:38 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int	is_looking_sides(t_cube *cube)
 	float	ntan;
 
 	ntan = -tan(cube->r->a);
-	if (cube->r->a > P2 && cube->r->a < P3)
+	if (cube->r->a > (PI / 2) && cube->r->a < (3 * PI / 2))
 	{
 		cube->r->x = (float)(((int)cube->player->pos->x \
 			/ cube->bloc_size) * cube->bloc_size) - 0.0001;
@@ -26,7 +26,7 @@ int	is_looking_sides(t_cube *cube)
 		cube->r->xo = -cube->bloc_size;
 		cube->r->yo = -cube->r->xo * ntan;
 	}
-	if (cube->r->a < P2 || cube->r->a > P3)
+	if (cube->r->a < (PI / 2) || cube->r->a > (3 * PI / 2))
 	{
 		cube->r->x = (float)(((int)cube->player->pos->x \
 			/ cube->bloc_size) * cube->bloc_size) + cube->bloc_size;

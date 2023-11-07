@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 19:18:28 by lmorel            #+#    #+#             */
-/*   Updated: 2023/11/03 17:43:30 by lmorel           ###   ########.fr       */
+/*   Updated: 2023/11/07 10:23:39 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,9 +80,9 @@ int	init_values(t_cube *cube)
 		cube->bloc_size = (cube->win_height * 0.4) / cube->map->height;
 	if (transform_colors(cube, cube->map->textures->c, cube->map->textures->f))
 		return (1);
-	printf(CYAN"  -> bloc size     : %d\n", cube->bloc_size);
-	printf(CYAN"  -> ceiling color : #%x\n", cube->tex.c);
-	printf(CYAN"  -> floor color   : #%x\n", cube->tex.f);
+	printf(CYAN"  -> bloc size     : %d\n"RESET, cube->bloc_size);
+	printf(CYAN"  -> ceiling color : #%x\n"RESET, cube->tex.c);
+	printf(CYAN"  -> floor color   : #%x\n"RESET, cube->tex.f);
 	if (init_player(cube) == 1)
 		error_exit(cube, "malloc error.");
 	cube->key = malloc(sizeof(t_key) * 1);

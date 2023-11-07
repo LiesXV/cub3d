@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   engine.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 19:14:20 by lmorel            #+#    #+#             */
-/*   Updated: 2023/11/03 18:10:59 by lmorel           ###   ########.fr       */
+/*   Updated: 2023/11/07 09:57:25 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,11 @@ void	draw_wall_textured(t_cube *cube, int r, float oline, float hline)
 
 	texture = get_tex_side(cube, cube->hit);
 	if (cube->hit.side == 'n' || cube->hit.side == 's')
-		ratio.x = ft_modf(cube->hit.x, cube->bloc_size) * (*texture)->width / cube->bloc_size;
+		ratio.x = ft_modf(cube->hit.x, cube->bloc_size) * \
+			(*texture)->width / cube->bloc_size;
 	else
-		ratio.x = ft_modf(cube->hit.y, cube->bloc_size) * (*texture)->width / cube->bloc_size;
+		ratio.x = ft_modf(cube->hit.y, cube->bloc_size) * \
+			(*texture)->width / cube->bloc_size;
 	if (cube->hit.side == 'e' || cube->hit.side == 's')
 		ratio.x = (*texture)->width - ratio.x;
 	ratio.y = (*texture)->height / hline;

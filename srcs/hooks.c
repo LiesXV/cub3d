@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 19:49:17 by lmorel            #+#    #+#             */
-/*   Updated: 2023/11/03 13:06:12 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/11/07 10:55:23 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,7 @@ void	commands_next_next(t_cube *cube)
 {
 	if (cube->key->left == 1)
 	{
-		cube->player->a -= 0.05;
+		cube->player->a -= 0.02;
 		if (cube->player->a < 0)
 			cube->player->a += 2 * PI;
 		cube->player->dpos->x = cos(cube->player->a) * 5 / 3;
@@ -74,7 +74,7 @@ void	commands_next_next(t_cube *cube)
 	}
 	if (cube->key->right == 1)
 	{
-		cube->player->a += 0.05;
+		cube->player->a += 0.02;
 		if (cube->player->a > 2 * PI)
 			cube->player->a -= 2 * PI;
 		cube->player->dpos->x = cos(cube->player->a) * 5 / 3;
@@ -109,11 +109,11 @@ int	commands(t_cube *cube)
 {
 	is_dist_ok(cube);
 	if (cube->key->ctrl == 1)
-		cube->player->speed = 0.6;
+		cube->player->speed = 0.2;
 	else if (cube->key->shift == 1)
-		cube->player->speed = 2;
+		cube->player->speed = 0.6;
 	if (cube->key->ctrl == 0 && cube->key->shift == 0)
-		cube->player->speed = 1;
+		cube->player->speed = 0.4;
 	if (cube->key->w == 1)
 	{
 		if (!(cube->map->map[cube->ipy][cube->ipx_add_xo] >= 1))

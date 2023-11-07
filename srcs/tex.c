@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   tex.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/09 19:14:20 by lmorel            #+#    #+#             */
-/*   Updated: 2023/11/03 17:48:57 by lmorel           ###   ########.fr       */
+/*   Updated: 2023/11/07 09:45:07 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,15 +16,15 @@ void	free_tex(t_cube *cube)
 {
 	if (cube->img_data.img)
 		mlx_destroy_image(cube->mlx, cube->img_data.img);
-	if (cube->tex.north)
+	if (cube->tex.north && cube->tex.north->img)
 		mlx_destroy_image(cube->mlx, cube->tex.north->img);
-	if (cube->tex.south)
+	if (cube->tex.south && cube->tex.south->img)
 		mlx_destroy_image(cube->mlx, cube->tex.south->img);
-	if (cube->tex.east)
+	if (cube->tex.east && cube->tex.east->img)
 		mlx_destroy_image(cube->mlx, cube->tex.east->img);
-	if (cube->tex.west)
+	if (cube->tex.west && cube->tex.west->img)
 		mlx_destroy_image(cube->mlx, cube->tex.west->img);
-	if (cube->tex.door)
+	if (cube->tex.door && cube->tex.door->img)
 		mlx_destroy_image(cube->mlx, cube->tex.door->img);
 }
 

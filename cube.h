@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cube.h                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:22:59 by lmorel            #+#    #+#             */
-/*   Updated: 2023/11/03 17:49:07 by lmorel           ###   ########.fr       */
+/*   Updated: 2023/11/07 10:50:17 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,11 @@
 // INCLUDES
 # include "mlx_linux/mlx.h"
 # include "../libft/libft.h"
-# include <fcntl.h>		//func : open
-# include <unistd.h>	//func : close, read, write
-# include <stdio.h>		//func : printf, perror
-# include <string.h>	//func : strerror
-# include <stdlib.h>	//func : malloc, free, exit
+# include <fcntl.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <string.h>
+# include <stdlib.h>
 # include <math.h>
 
 // DEFINES
@@ -35,12 +35,10 @@
 # define WIN_HEIGHT 720
 
 	// PLAYER OPTIONS
-# define VISION 65
+# define VISION 60
 
 	//MATHS
 # define PI 3.14159265359
-# define P2 PI/2
-# define P3 3*PI/2
 # define DR 0.0174533
 
 // STRUCTS
@@ -58,7 +56,6 @@ typedef struct s_key
 	int	shift;
 	int	ctrl;
 }	t_key;
-
 
 typedef struct s_position
 {
@@ -80,7 +77,7 @@ typedef struct s_player
 	t_position	*pos;
 	t_position	*dpos;
 	float		speed;
-	float		a;		//	angle
+	float		a;
 	int			size;
 }	t_player;
 
@@ -128,7 +125,7 @@ typedef struct s_img_data
 	double	ratio;
 }	t_img_data;
 
-typedef	struct s_wall
+typedef struct s_wall
 {
 	int		type;
 	float	dis;
@@ -143,8 +140,8 @@ typedef struct s_ray
 	float	a;
 	float	xo;
 	float	yo;
-	t_wall	*h;	//horizontal
-	t_wall	*v; //vertical
+	t_wall	*h;
+	t_wall	*v;
 }	t_ray;
 
 typedef struct s_tex
@@ -171,8 +168,8 @@ typedef struct s_cube
 	t_tex		tex;
 	t_hit		hit;
 
-	t_ray		*r;			// current ray
-	t_map		*map;		// parsed data
+	t_ray		*r;
+	t_map		*map;
 
 	t_player	*player;
 
@@ -212,57 +209,61 @@ typedef struct s_cube
 # define KEY_M 109
 # define KEY_CTRL 65507
 # define KEY_SHIFT 65505
-// 					PROTOTYPES
+// PROTOTYPES
 
 // UTILS
-void	free_gb(t_collector **lst);
-int		add_address(t_collector **lst, void *address);
-int		add_tab_to_gb(t_collector **lst, char **args);
-int		keypress(int keycode, t_cube *cube);
-int		error_exit(t_cube *cube, char *msg);
-int		fexit(t_cube *cube);
-int		commands(t_cube *cube);
-int		keyrelease(int keycode, t_cube *cube);
-float	ft_modf(float nbr, int div);
-void	free_tex(t_cube *cube);
+void		free_gb(t_collector **lst);
+int			add_address(t_collector **lst, void *address);
+int			add_tab_to_gb(t_collector **lst, char **args);
+int			keypress(int keycode, t_cube *cube);
+int			error_exit(t_cube *cube, char *msg);
+int			fexit(t_cube *cube);
+int			commands(t_cube *cube);
+int			keyrelease(int keycode, t_cube *cube);
+float		ft_modf(float nbr, int div);
+void		free_tex(t_cube *cube);
 
 // INIT
-int		cube_init(t_cube *cube);
-int		init_image(t_cube *cube, t_img_data *img);
-void	init_tex(t_cube *cube, char *path, t_img_data **img);
+int			cube_init(t_cube *cube);
+int			init_image(t_cube *cube, t_img_data *img);
+void		init_tex(t_cube *cube, char *path, t_img_data **img);
 
 // DRAW
-void	img_pixel_put(t_cube *cube, int x, int y, int color);
-void	img_draw_line(t_cube *cube, t_position start, t_position end, int color);
-void	img_square_put(t_cube *cube, t_position p, int size, int color);
-void	img_rect_put(t_cube *cube, t_position start, t_position end, int color);
+void		img_pixel_put(t_cube *cube, int x, int y, int color);
+void		img_draw_line(t_cube *cube, \
+				t_position start, t_position end, int color);
+void		img_square_put(t_cube *cube, t_position p, int size, int color);
+void		img_rect_put(t_cube *cube, t_position start, \
+				t_position end, int color);
 
 // RENDER
-void	draw_rays(t_cube *cube);
-void	draw_3d_walls(t_cube *cube, int r);
-void	render_map(t_cube *cube);
-int		renderer(t_cube *cube);
-float	dist(float ax, float ay, float bx, float by);
-void	handle_vertical_ray(t_cube *cube);
-void	handle_horizontal_ray(t_cube *cube);
-void	draw_rays(t_cube *cube);
-int		is_dist_ok(t_cube *cube);
-void	open_doors(t_cube *cube);
+void		draw_rays(t_cube *cube);
+void		draw_3d_walls(t_cube *cube, int r);
+void		render_map(t_cube *cube);
+int			renderer(t_cube *cube);
+float		dist(float ax, float ay, float bx, float by);
+void		handle_vertical_ray(t_cube *cube);
+void		handle_horizontal_ray(t_cube *cube);
+void		draw_rays(t_cube *cube);
+int			is_dist_ok(t_cube *cube);
+void		open_doors(t_cube *cube);
 int			get_tex_color(t_img_data *img, int x, int y);
-t_img_data	**get_tex_side(t_cube *cube, t_hit hit);
+
+//
 
 //	PARSING
-int		parse_init(t_cube *cube, int argc, char **argv);
-int		check_args(int argc, char **argv);
-int		only_spaces(char *str);
-int		parse_textures(t_cube *cube, char	**line);
-int		read_colors(t_cube *cube);
-int		parse_easy_map(t_cube *cube);
-int		is_surrounded(t_cube *cube, int y, int x);
-char	*skip_empty_lines(t_cube *cube);
-int		check_player_pos(t_cube *cube, int i, int j);
-int		transform_colors(t_cube *cube, char *ceiling, char *floor);
-int		fill_colors(t_cube *cube, char **line, int face);
+int			parse_init(t_cube *cube, int argc, char **argv);
+int			check_args(int argc, char **argv);
+int			only_spaces(char *str);
+int			parse_textures(t_cube *cube, char	**line);
+int			read_colors(t_cube *cube);
+int			parse_easy_map(t_cube *cube);
+int			is_surrounded(t_cube *cube, int y, int x);
+char		*skip_empty_lines(t_cube *cube);
+int			check_player_pos(t_cube *cube, int i, int j);
+int			transform_colors(t_cube *cube, char *ceiling, char *floor);
+int			fill_colors(t_cube *cube, char **line, int face);
+t_img_data	**get_tex_side(t_cube *cube, t_hit hit);
 
 // COLORS
 # define RESET		"\033[00m"

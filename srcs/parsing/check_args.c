@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_args.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 11:47:42 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/11/03 17:55:41 by lmorel           ###   ########.fr       */
+/*   Updated: 2023/11/07 10:25:33 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,5 @@ int	check_args(int argc, char **argv)
 		return (ft_putstr_fd(RED"Error : "RESET"too much arguments\n", 2), 1);
 	if (is_pathname_valid(argv[1]) == 1)
 		return (ft_putstr_fd(RED"Error : "RESET"pathname not valid\n", 2), 1);
-	return (printf(CYAN"  -> map path\t: %s\n", argv[1]), 0);
+	return (printf(CYAN"  -> map path\t: %s\n"RESET, argv[1]), 0);
 }

@@ -17,9 +17,7 @@ LFTNAME	= libft.a
 
 CC = gcc
 
-#FLAGS = -Wall -Wextra -Werror -O3 -Wno-deprecated-declarations -g3
-FLAGS = -Wall -Werror -Wextra -Wno-deprecated-declarations -g3 
-# -fsanitize=address 
+FLAGS = -Wall -Wextra -Werror -O3 -g3
 
 RM = rm -rf
 

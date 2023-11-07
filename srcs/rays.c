@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   rays.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lmorel <lmorel@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/11 17:31:27 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/11/02 21:43:49 by lmorel           ###   ########.fr       */
+/*   Updated: 2023/11/07 10:04:37 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ int	get_side_wall(float a, int closer)
 	{
 		if (closer == 'h')
 			return ('s');
-		if (a >= 0 && a < P2)
+		if (a >= 0 && a < (PI / 2))
 			return ('w');
 		else
 			return ('e');
@@ -27,7 +27,7 @@ int	get_side_wall(float a, int closer)
 	{
 		if (closer == 'h')
 			return ('n');
-		if (a >= PI && a < P3)
+		if (a >= PI && a < (3 * PI / 2))
 			return ('e');
 		else
 			return ('w');
