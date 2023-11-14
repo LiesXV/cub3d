@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/29 18:16:21 by lmorel            #+#    #+#             */
-/*   Updated: 2023/11/07 10:19:09 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/11/14 15:17:35 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	close_doors(t_cube *cube)
 			if (cube->map->map[y][x] == -2
 				&& ((cube->ipy == y) && (cube->ipx == x)))
 			{
-				cube->door_count = 200;
+				cube->door_count = 50;
 				return ;
 			}
 			else if (cube->map->map[y][x] == -2)

@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 13:00:01 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/11/03 16:36:54 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/11/14 15:36:22 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,11 @@ char	*skip_empty_lines(t_cube *cube)
 		free(get_next_line(fd));
 	skip_lines(cube, fd);
 	close(fd);
+	if (line[0] == 'D')
+	{
+		printf("put door textures\n");
+		return (skip_empty_lines(cube));
+	}
 	return (line);
 }
 

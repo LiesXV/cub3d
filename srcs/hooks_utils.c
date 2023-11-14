@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 13:29:05 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/11/03 12:54:49 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/11/14 15:17:20 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ void	open_doors(t_cube *cube)
 	if (cube->map->map[cube->ipy_add_xo][cube->ipx] == 2)
 	{
 		cube->map->map[cube->ipy_add_xo][cube->ipx] = -2;
-		cube->door_count = 200;
+		cube->door_count = 350;
 	}
 	else if (cube->map->map[cube->ipy_add_xo][cube->ipx] == -2 \
 		&& cube->map->map[cube->ipy][cube->ipx] != -2)
@@ -71,7 +71,7 @@ void	open_doors(t_cube *cube)
 	if (cube->map->map[cube->ipy][cube->ipx_add_xo] == 2)
 	{
 		cube->map->map[cube->ipy][cube->ipx_add_xo] = -2;
-		cube->door_count = 200;
+		cube->door_count = 350;
 	}
 	else if (cube->map->map[cube->ipy][cube->ipx_add_xo] == -2 \
 		&& cube->map->map[cube->ipy][cube->ipx] != -2)

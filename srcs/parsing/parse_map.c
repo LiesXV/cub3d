@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/03 12:23:04 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/11/07 10:16:17 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/11/14 15:16:04 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,6 +80,24 @@ int	alloc_tab(t_cube *cube)
 	return (0);
 }
 
+int	is_map_finished(t_cube *cube)
+{
+	char	*str;
+
+	str = get_next_line(cube->fd);
+	if (!str || add_address(&cube->collector, str) == 1)
+		return (0);
+	while (str)
+	{
+		if (str[0] != '\n' && str[0] != '\0')
+			return (1);
+		str = get_next_line(cube->fd);
+		if (add_address(&cube->collector, str) == 1)
+			return (1);
+	}
+	return (0);
+}
+
 int	parse_easy_map(t_cube *cube)
 {
 	char	*line;
@@ -104,5 +122,7 @@ int	parse_easy_map(t_cube *cube)
 		return (ft_putstr_fd("no player in the map\n", 2), 1);
 	if (is_map_closed(cube) == 1)
 		return (ft_putstr_fd("map not closed\n", 2), 1);
+	if (is_map_finished(cube) == 1)
+		return (ft_putstr_fd("map not valid\n", 2), 1);
 	return (0);
 }
