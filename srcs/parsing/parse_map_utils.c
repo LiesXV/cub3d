@@ -6,7 +6,7 @@
 /*   By: ibenhaim <ibenhaim@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/10/31 13:00:01 by ibenhaim          #+#    #+#             */
-/*   Updated: 2023/11/14 15:36:22 by ibenhaim         ###   ########.fr       */
+/*   Updated: 2023/11/14 15:42:39 by ibenhaim         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,22 @@ void	skip_lines(t_cube *cube, int fd)
 		free(trash);
 		cube->map->height++;
 	}
+}
+
+char	*handle_door_textures(t_cube *cube, char *line)
+{
+	char	**split;
+
+	split = ft_split(line, ' ');
+	if (add_tab_to_gb(&cube->collector, split) == 1)
+		return (NULL);
+	if (cube->map->textures->d != NULL)
+		return (ft_putstr_fd("you cannot put two DOOR values\n", 2), NULL);
+	cube->map->textures->d = ft_strdup(split[1]);
+	if (!cube->map->textures->d \
+		|| add_address(&cube->collector, cube->map->textures->d) == 1)
+		return (ft_putstr_fd("malloc error\n", 2), NULL);
+	return (skip_empty_lines(cube));
 }
 
 char	*skip_empty_lines(t_cube *cube)
@@ -53,10 +69,7 @@ char	*skip_empty_lines(t_cube *cube)
 	skip_lines(cube, fd);
 	close(fd);
 	if (line[0] == 'D')
-	{
-		printf("put door textures\n");
-		return (skip_empty_lines(cube));
-	}
+		return (handle_door_textures(cube, line));
 	return (line);
 }
 
